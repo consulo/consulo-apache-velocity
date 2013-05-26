@@ -1,0 +1,5 @@
+<idea-plugin version="2">
+	<extensions defaultExtensionNs="com.intellij.xml">
+		<breadcrumbsInfoProvider implementation="com.intellij.velocity.VtlBreadcrumbsInfoProvider"/>
+	</extensions>
+</idea-plugin>

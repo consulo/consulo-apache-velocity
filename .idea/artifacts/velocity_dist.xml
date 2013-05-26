@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="velocity-dist">
+    <output-path>$PROJECT_DIR$/out/artifacts/velocity_dist</output-path>
+    <root id="root">
+      <element id="directory" name="velocity">
+        <element id="directory" name="lib">
+          <element id="archive" name="velocity.jar">
+            <element id="module-output" name="consulo-velocity" />
+          </element>
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

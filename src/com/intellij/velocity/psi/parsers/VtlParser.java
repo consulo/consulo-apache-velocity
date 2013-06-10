@@ -4,15 +4,20 @@
  */
 package com.intellij.velocity.psi.parsers;
 
+import static com.intellij.velocity.psi.VtlElementTypes.*;
+import static com.intellij.velocity.psi.parsers.CompositeBodyParser.CompositeEndDetector;
+import static com.intellij.velocity.psi.parsers.CompositeBodyParser.assertToken;
+import static com.intellij.velocity.psi.parsers.CompositeBodyParser.consumeTokenIfPresent;
+import static com.intellij.velocity.psi.parsers.CompositeBodyParser.noForeachStarted;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
-import static com.intellij.velocity.psi.VtlElementTypes.*;
-import static com.intellij.velocity.psi.parsers.CompositeBodyParser.*;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
@@ -34,7 +39,7 @@ public class VtlParser implements PsiParser {
     };
 
     @NotNull
-    public ASTNode parse(IElementType root, PsiBuilder builder) {
+    public ASTNode parse(IElementType root, PsiBuilder builder, LanguageVersion languageVersion) {
         final PsiBuilder.Marker rootMarker = builder.mark();
         parseCompositeElements(builder, EOF_DETECTOR);
         rootMarker.done(root);

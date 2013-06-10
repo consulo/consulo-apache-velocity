@@ -6,10 +6,10 @@ package com.intellij.velocity;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
@@ -29,11 +29,11 @@ import com.intellij.velocity.psi.parsers.VtlParser;
  */
 public class VtlParserDefinition implements ParserDefinition {
     @NotNull
-    public Lexer createLexer(@NotNull final Project project, Module module) {
+    public Lexer createLexer(@NotNull final Project project, LanguageVersion languageVersion) {
         return new VtlLexer();
     }
 
-    public PsiParser createParser(final Project project) {
+    public PsiParser createParser(final Project project, LanguageVersion languageVersion) {
         return new VtlParser();
     }
 

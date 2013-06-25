@@ -1,24 +1,33 @@
 package com.intellij.velocity;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
+import com.intellij.openapi.project.DumbService;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModuleFileIndex;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileFilter;
-import com.intellij.openapi.project.DumbService;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.containers.HashMap;
-import com.intellij.util.indexing.*;
+import com.intellij.util.indexing.DataIndexer;
+import com.intellij.util.indexing.FileBasedIndex;
+import com.intellij.util.indexing.FileContent;
+import com.intellij.util.indexing.ID;
+import com.intellij.util.indexing.ScalarIndexExtension;
 import com.intellij.util.io.BooleanDataDescriptor;
 import com.intellij.util.io.KeyDescriptor;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileType;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.*;
 
 /**
  * @author Alexey Chmutov
@@ -77,7 +86,7 @@ public class VtlFileIndex extends ScalarIndexExtension<Boolean> {
 
     public FileBasedIndex.InputFilter getInputFilter() {
         return new FileBasedIndex.InputFilter() {
-            public boolean acceptInput(final VirtualFile file) {
+            public boolean acceptInput(Project project, final VirtualFile file) {
                 return VtlFileType.INSTANCE == file.getFileType();
             }
         };

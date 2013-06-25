@@ -42,17 +42,17 @@ public class VtlParserDefinition implements ParserDefinition {
     }
 
     @NotNull
-    public TokenSet getWhitespaceTokens() {
+    public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return TokenSet.create(TokenType.WHITE_SPACE);
     }
 
     @NotNull
-    public TokenSet getCommentTokens() {
+    public TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return VtlElementTypes.COMMENTS;
     }
 
     @NotNull
-    public TokenSet getStringLiteralElements() {
+    public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return TokenSet.EMPTY;
     }
 

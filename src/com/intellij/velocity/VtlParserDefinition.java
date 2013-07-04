@@ -29,7 +29,7 @@ import com.intellij.velocity.psi.parsers.VtlParser;
  */
 public class VtlParserDefinition implements ParserDefinition {
     @NotNull
-    public Lexer createLexer(@NotNull final Project project, LanguageVersion languageVersion) {
+    public Lexer createLexer(final Project project, LanguageVersion languageVersion) {
         return new VtlLexer();
     }
 

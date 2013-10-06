@@ -4,16 +4,13 @@
  */
 package com.intellij.velocity.psi;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.TypeConversionUtil;
-import com.intellij.util.Icons;
 import com.intellij.velocity.VelocityBundle;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 /**
  * @author Alexey Chmutov
@@ -25,10 +22,6 @@ public class VtlLoopVariable extends VtlPresentableNamedElement implements VtlVa
 
     public String getTypeName() {
         return VelocityBundle.message("type.name.loop.variable");
-    }
-
-  public Icon getIcon() {
-        return Icons.VARIABLE_ICON;
     }
 
     public PsiType getPsiType() {

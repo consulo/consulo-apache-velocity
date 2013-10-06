@@ -13,7 +13,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
 
@@ -45,7 +45,7 @@ public class VtlCompositeElement extends ASTWrapperPsiElement {
     }
 
     public Icon getIcon(final int flags) {
-        return Icons.SHARP_ICON;
+        return VtlIcons.SHARP_ICON;
     }
 
     public String toString() {

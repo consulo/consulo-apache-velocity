@@ -23,7 +23,7 @@ import com.intellij.patterns.PsiElementPattern;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ProcessingContext;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VtlReferenceContributor;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlCompositeElementTypes;
@@ -96,7 +96,7 @@ public class VtlCompletionContributor extends CompletionContributor {
                 if (!VtlDirective.Validator.isAllowed(directive, name)) {
                     continue;
                 }
-                LookupElement element = LookupElementBuilder.create(name).setIcon(Icons.SHARP_ICON).setBold();
+                LookupElement element = LookupElementBuilder.create(name).setIcon(VtlIcons.SHARP_ICON).setBold();
                 result.addElement(TailTypeDecorator.withTail(element, new VtlTailType(myClosingBraceNeeded) {
                     protected boolean openingParenNeeded() {
                         return VtlDirective.Validator.areParenthesesNeeded(directive, name);

@@ -9,7 +9,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.*;
 import org.jetbrains.annotations.NotNull;
@@ -81,6 +81,6 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
     }
 
     public Icon getIcon() {
-        return Icons.SHARP_ICON;
+        return VtlIcons.SHARP_ICON;
     }
 }

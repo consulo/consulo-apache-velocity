@@ -1,23 +1,30 @@
 package com.intellij.velocity.psi.directives;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.*;
-import com.intellij.psi.impl.RenameableFakePsiElement;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.search.searches.ReferencesSearch;
-import com.intellij.util.Icons;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.velocity.VelocityBundle;
-import com.intellij.velocity.psi.PsiUtil;
 import static com.intellij.velocity.psi.VtlCompositeElementTypes.LOOP_VARIABLE;
-import com.intellij.velocity.psi.VtlVariable;
-import com.intellij.velocity.psi.VtlDirectiveHeader;
+
+import java.util.Collection;
+
+import javax.swing.Icon;
+
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.util.Collection;
+import com.intellij.ide.IconDescriptorUpdaters;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.CommonClassNames;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
+import com.intellij.psi.PsiType;
+import com.intellij.psi.ResolveState;
+import com.intellij.psi.impl.RenameableFakePsiElement;
+import com.intellij.psi.scope.PsiScopeProcessor;
+import com.intellij.psi.search.searches.ReferencesSearch;
+import com.intellij.util.IncorrectOperationException;
+import com.intellij.velocity.VelocityBundle;
+import com.intellij.velocity.psi.PsiUtil;
+import com.intellij.velocity.psi.VtlDirectiveHeader;
+import com.intellij.velocity.psi.VtlVariable;
 
 /**
  * @author : Alexey Chmutov
@@ -89,7 +96,7 @@ public class VtlForeach extends VtlDirectiveImpl {
         }
 
         public Icon getIcon() {
-            return Icons.VARIABLE_ICON;
+            return IconDescriptorUpdaters.getIcon(this, 0);
         }
 
         @NotNull

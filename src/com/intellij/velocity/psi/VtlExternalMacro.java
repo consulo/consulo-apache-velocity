@@ -14,7 +14,7 @@ import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.FakePsiElement;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.files.VtlFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -84,7 +84,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
     @Nullable
     @Override
     public final Icon getIcon(boolean open) {
-        return Icons.SHARP_ICON;
+        return VtlIcons.SHARP_ICON;
     }
 
     public String toString() {

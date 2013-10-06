@@ -1,10 +1,10 @@
 <idea-plugin version="2">
-	<name>Velocity support</name>
 	<id>com.intellij.velocity</id>
+	<name>Velocity support</name>
 	<version>1.0</version>
 	<vendor>JetBrains</vendor>
 	<resource-bundle>messages.VelocityBundle</resource-bundle>
-	<category>Web/JavaEE Technologies</category>
+	<category>Template Languages</category>
 	<description>Provides syntax and error highlighting, smart editing and inspections for the Velocity template language.</description>
 
 	<extensionPoints>
@@ -12,11 +12,10 @@
 		<extensionPoint name="globalMacroProvider" interface="com.intellij.velocity.VtlGlobalMacroProvider"/>
 	</extensionPoints>
 
-	<depends optional="true" config-file="velocity-spring.xml">com.intellij.spring</depends>
+	<!--<depends optional="true" config-file="velocity-spring.xml">com.intellij.spring</depends> -->
 	<depends optional="true" config-file="com.intellij.xml.xml">com.intellij.xml</depends>
 	<depends>com.intellij.properties</depends>
 	<depends>org.consulo.java</depends>
-	<depends>org.consulo.java.platform</depends>
 
 	<extensions defaultExtensionNs="org.consulo.java.platform">
 		<methodReferencesSearch implementation="com.intellij.velocity.psi.reference.VelocityStylePropertySearcher"/>

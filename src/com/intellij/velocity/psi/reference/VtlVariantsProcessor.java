@@ -1,22 +1,25 @@
 package com.intellij.velocity.psi.reference;
 
+import static com.intellij.psi.PsiModifier.PACKAGE_LOCAL;
+import static com.intellij.psi.PsiModifier.PRIVATE;
+import static com.intellij.psi.PsiModifier.PROTECTED;
+import static com.intellij.util.containers.ContainerUtil.addIfNotNull;
+import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isWaitOrNotifyOfObject;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
-import static com.intellij.psi.PsiModifier.*;
 import com.intellij.psi.impl.beanProperties.BeanProperty;
 import com.intellij.psi.resolve.JavaMethodCandidateInfo;
 import com.intellij.psi.resolve.JavaMethodResolveHelper;
 import com.intellij.psi.scope.BaseScopeProcessor;
-import static com.intellij.util.containers.ContainerUtil.addIfNotNull;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlMethodCallExpression;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
-import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isWaitOrNotifyOfObject;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * @author peter
@@ -32,9 +35,11 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
     private final String myReferenceName;
     private final VelocityStylePropertyResolveHelper myPropertyMethods;
     private final JavaMethodResolveHelper myMethods;
+	private final PsiFile myPsiFile;
 
-    protected VtlVariantsProcessor(final PsiElement parent, @Nullable String referenceName, boolean propertiesOnly) {
-        myForCompletion = referenceName == null;
+	protected VtlVariantsProcessor(final PsiElement parent, PsiFile psiFile, @Nullable String referenceName, boolean propertiesOnly) {
+		myPsiFile = psiFile;
+		myForCompletion = referenceName == null;
         myParent = parent;
         myReferenceName = referenceName;
         myMethodCall = myParent instanceof VtlMethodCallExpression;
@@ -47,11 +52,11 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
         if (myMethodCall && !myForCompletion) {
             assert !propertiesOnly;
             final PsiType[] parameterTypes = ((VtlMethodCallExpression) myParent).getArgumentTypes();
-            myMethods = new JavaMethodResolveHelper(parent, parameterTypes);
+            myMethods = new JavaMethodResolveHelper(parent,  myPsiFile, parameterTypes);
             myPropertyMethods = null;
         } else {
             myPropertyMethods = new VelocityStylePropertyResolveHelper(myReferenceName, myParent instanceof VtlAssignment);
-            myMethods = myForCompletion && !propertiesOnly ? new JavaMethodResolveHelper(parent, null) : null;
+            myMethods = myForCompletion && !propertiesOnly ? new JavaMethodResolveHelper(parent, myPsiFile, null) : null;
         }
     }
 

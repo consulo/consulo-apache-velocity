@@ -18,6 +18,7 @@ package com.intellij.velocity.psi;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.meta.PsiMetaData;
@@ -28,32 +29,45 @@ import com.intellij.util.ArrayUtil;
 /**
  * @author Alexey Chmutov
  */
-public abstract class VtlPresentableNamedElement extends VtlNamedElement implements PsiMetaOwner, PsiPresentableMetaData {
-    public VtlPresentableNamedElement(final ASTNode node) {
-        super(node);
-    }
+public abstract class VtlPresentableNamedElement extends VtlNamedElement implements PsiMetaOwner, PsiPresentableMetaData
+{
+	public VtlPresentableNamedElement(final ASTNode node)
+	{
+		super(node);
+	}
 
-    public Icon getIcon(final int flags) {
-        return getIcon();
-    }
+	public Icon getIcon(final int flags)
+	{
+		return getIcon();
+	}
 
-    public PsiMetaData getMetaData() {
-        return this;
-    }
+	public PsiMetaData getMetaData()
+	{
+		return this;
+	}
 
-    public PsiElement getDeclaration() {
-        return this;
-    }
+	public PsiElement getDeclaration()
+	{
+		return this;
+	}
 
-    @NonNls
-    public String getName(final PsiElement context) {
-        return getName();
-    }
+	public Icon getIcon()
+	{
+		return IconDescriptorUpdaters.getIcon(this, 0);
+	}
 
-    public void init(PsiElement element) {
-    }
+	@NonNls
+	public String getName(final PsiElement context)
+	{
+		return getName();
+	}
 
-    public Object[] getDependences() {
-        return ArrayUtil.EMPTY_OBJECT_ARRAY;
-    }
+	public void init(PsiElement element)
+	{
+	}
+
+	public Object[] getDependences()
+	{
+		return ArrayUtil.EMPTY_OBJECT_ARRAY;
+	}
 }

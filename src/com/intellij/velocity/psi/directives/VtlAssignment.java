@@ -9,6 +9,7 @@ import javax.swing.Icon;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.psi.PsiElement;
@@ -18,7 +19,6 @@ import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.util.Icons;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlElementTypes;
@@ -126,7 +126,7 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
         }
 
         public Icon getIcon() {
-            return Icons.VARIABLE_ICON;
+            return IconDescriptorUpdaters.getIcon(this, 0);
         }
 
         public PsiType getPsiType() {

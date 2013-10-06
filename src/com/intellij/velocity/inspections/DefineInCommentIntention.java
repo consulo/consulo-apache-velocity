@@ -34,7 +34,7 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.VtlFileIndex;
 import com.intellij.velocity.psi.PsiUtil;
@@ -171,7 +171,7 @@ public abstract class DefineInCommentIntention implements IntentionAction {
 
             @Override
             public Icon getIconFor(final VtlFile aValue) {
-                return Icons.VTL_ICON;
+                return VtlIcons.VTL_ICON;
             }
         };
         JBPopupFactory.getInstance().createListPopup(step).showInBestPositionFor(editor);

@@ -18,7 +18,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.fileTypes.TemplateLanguageFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.velocity.Icons;
+import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlLanguage;
 
@@ -66,7 +66,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	@Nullable
 	public Icon getIcon()
 	{
-		return Icons.VTL_ICON;
+		return VtlIcons.VTL_ICON;
 	}
 
 	@NotNull

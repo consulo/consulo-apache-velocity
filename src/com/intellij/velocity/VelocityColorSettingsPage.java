@@ -51,7 +51,7 @@ public class VelocityColorSettingsPage implements ColorSettingsPage {
     }
 
     public Icon getIcon() {
-        return Icons.VTL_ICON;
+        return VtlIcons.VTL_ICON;
     }
 
     @NotNull

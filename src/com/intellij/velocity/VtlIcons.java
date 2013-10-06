@@ -9,7 +9,8 @@ import com.intellij.openapi.util.IconLoader;
  * User: Alexey Chmutov
  * Date: 22.05.2008
  */
-public interface Icons {
-    Icon SHARP_ICON = IconLoader.getIcon("/icons/sharp.png");
-   Icon VTL_ICON = IconLoader.getIcon("/icons/velocity.png");
+public interface VtlIcons
+{
+	Icon SHARP_ICON = IconLoader.getIcon("/icons/sharp.png");
+	Icon VTL_ICON = IconLoader.getIcon("/icons/velocity.png");
 }

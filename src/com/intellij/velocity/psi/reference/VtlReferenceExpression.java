@@ -16,10 +16,17 @@
 
 package com.intellij.velocity.psi.reference;
 
+import static com.intellij.openapi.util.text.StringUtil.join;
+import static com.intellij.velocity.VelocityBundle.message;
+import static com.intellij.velocity.psi.PsiUtil.createVtlReferenceExpression;
+import static com.intellij.velocity.psi.PsiUtil.getPresentableText;
+import static com.intellij.velocity.psi.VtlElementTypes.JAVA_DOT;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
 import com.intellij.lang.ASTNode;
-import static com.intellij.openapi.util.text.StringUtil.join;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.CheckUtil;
 import com.intellij.psi.impl.beanProperties.BeanProperty;
@@ -28,17 +35,17 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.util.Function;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
-import static com.intellij.velocity.VelocityBundle.message;
 import com.intellij.velocity.editorActions.VtlTailType;
-import com.intellij.velocity.psi.*;
-import static com.intellij.velocity.psi.PsiUtil.createVtlReferenceExpression;
-import static com.intellij.velocity.psi.PsiUtil.getPresentableText;
-import static com.intellij.velocity.psi.VtlElementTypes.JAVA_DOT;
+import com.intellij.velocity.psi.PsiUtil;
+import com.intellij.velocity.psi.VtlCallable;
+import com.intellij.velocity.psi.VtlElementTypes;
+import com.intellij.velocity.psi.VtlExpression;
+import com.intellij.velocity.psi.VtlMacro;
+import com.intellij.velocity.psi.VtlMethodCallExpression;
+import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.files.VtlFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Alexey Chmutov
@@ -119,7 +126,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
             }
         }
 
-        final VtlVariantsProcessor<ResolveResult> processor = new VtlVariantsProcessor<ResolveResult>(parent, referenceName, false) {
+        final VtlVariantsProcessor<ResolveResult> processor = new VtlVariantsProcessor<ResolveResult>(parent, getContainingFile(), referenceName, false) {
             protected ResolveResult execute(final PsiNamedElement element, final boolean error) {
                 if (element instanceof BeanPropertyElement) {
                     return new PsiElementResolveResult(((BeanPropertyElement) element).getMethod());
@@ -204,7 +211,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
     }
 
     public Object[] getVariants(boolean propertiesOnly) {
-        final VtlVariantsProcessor<PsiNamedElement> processor = new VtlVariantsProcessor<PsiNamedElement>(getParent(), null, propertiesOnly) {
+        final VtlVariantsProcessor<PsiNamedElement> processor = new VtlVariantsProcessor<PsiNamedElement>(getParent(), getContainingFile(), null, propertiesOnly) {
             protected PsiNamedElement execute(final PsiNamedElement element, final boolean error) {
                 return element;
             }
@@ -218,12 +225,12 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
                 if (element instanceof VtlVariable) {
                     PsiType type = ((VtlVariable) element).getPsiType();
                     if (type != null) {
-                        lookupElement = lookupElement.setTypeText(type.getPresentableText());
+                        lookupElement = lookupElement.withTypeText(type.getPresentableText());
                     }
                 } else if (element instanceof BeanPropertyElement) {
                   final PsiType type = ((BeanPropertyElement)element).getPropertyType();
                   if (type != null) {
-                    lookupElement = lookupElement.setTypeText(type.getPresentableText());
+                    lookupElement = lookupElement.withTypeText(type.getPresentableText());
                   }
                 }
                 else if (element instanceof PsiMethod) {
@@ -250,7 +257,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
         if (referenceName == null) {
             return VtlCallable.EMPTY_ARRAY;
         }
-        VtlVariantsProcessor<VtlCallable> processor = new VtlVariantsProcessor<VtlCallable>(getParent(), null, false) {
+        VtlVariantsProcessor<VtlCallable> processor = new VtlVariantsProcessor<VtlCallable>(getParent(), getContainingFile(), null, false) {
             protected VtlCallable execute(final PsiNamedElement element, final boolean error) {
                 if (!referenceName.equals(element.getName())) {
                     return null;

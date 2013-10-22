@@ -17,7 +17,7 @@
 	<depends>com.intellij.properties</depends>
 	<depends>org.consulo.java</depends>
 
-	<extensions defaultExtensionNs="org.consulo.java.platform">
+	<extensions defaultExtensionNs="org.consulo.java">
 		<methodReferencesSearch implementation="com.intellij.velocity.psi.reference.VelocityStylePropertySearcher"/>
 	</extensions>
 

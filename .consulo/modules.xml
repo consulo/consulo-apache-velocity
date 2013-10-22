@@ -15,23 +15,14 @@
         <orderEntry type="module-library">
           <library name="consulo:Java">
             <CLASSES>
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-copyright.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-compiler-artifact-impl.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-debugger-api.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-debugger-impl.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-intellilang.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-platform.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java-rt.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/java.jar!/" />
-            </CLASSES>
-            <DOCUMENTATION />
-            <SOURCES />
-          </library>
-        </orderEntry>
-        <orderEntry type="module-library">
-          <library name="consulo:Java Platform">
-            <CLASSES>
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java-platform/lib/java-compiler-artifact-impl.jar!/" />
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java-platform/lib/java-platform.jar!/" />
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java-platform/lib/java-rt.jar!/" />
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java-platform/lib/jdk-annotations.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/jdk-annotations.jar!/" />
             </CLASSES>
             <DOCUMENTATION />
             <SOURCES />
@@ -47,18 +38,10 @@
           </library>
         </orderEntry>
         <orderEntry type="module-library">
-          <library name="consulo:XML Dom">
-            <CLASSES>
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml-dom/lib/xml-dom.jar!/" />
-            </CLASSES>
-            <DOCUMENTATION />
-            <SOURCES />
-          </library>
-        </orderEntry>
-        <orderEntry type="module-library">
           <library name="consulo:XML">
             <CLASSES>
-              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml-copyright.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml-dom.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml-intellilang.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml.jar!/" />
             </CLASSES>
             <DOCUMENTATION />

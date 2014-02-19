@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CompilerConfiguration" url="file://$PROJECT_DIR$/out" />
   <component name="CompilerPathsManager" url="file://$PROJECT_DIR$/out" />
   <component name="JFlexSettings">
     <option name="JFLEX_HOME" value="F:\github.com\consulo\consulo\tools\lexer\jflex-1.4" />

@@ -5,8 +5,8 @@
       <element id="directory" name="velocity">
         <element id="directory" name="lib">
           <element id="zip-archive" name="velocity.jar">
-            <element id="module-output" name="consulo-velocity" />
-            <element id="module-production-resource-output" name="consulo-velocity" />
+            <element id="module-output" name="consulo-apache-velocity" />
+            <element id="module-production-resource-output" name="consulo-apache-velocity" />
           </element>
         </element>
       </element>

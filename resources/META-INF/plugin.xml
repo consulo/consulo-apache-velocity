@@ -1,7 +1,7 @@
 <idea-plugin version="2">
 	<id>com.intellij.velocity</id>
 	<name>Velocity support</name>
-	<version>1.0</version>
+	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
 	<resource-bundle>messages.VelocityBundle</resource-bundle>
 	<category>Template Languages</category>

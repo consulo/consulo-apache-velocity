@@ -4,17 +4,22 @@
  */
 package com.intellij.velocity;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.velocity.psi.files.VtlFileType;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VelocityApplicationComponent extends FileTypeFactory {
-  public void createFileTypes(final @NotNull FileTypeConsumer consumer) {
-    consumer.consume(VtlFileType.INSTANCE, StringUtil.join(VtlFileType.INSTANCE.getExtensions(), ";"));
-  }
+public class VelocityFileTypeFactory extends FileTypeFactory
+{
+	@Override
+	public void createFileTypes(final @NotNull FileTypeConsumer consumer)
+	{
+		for(String exp : VtlFileType.INSTANCE.getExtensions())
+		{
+			consumer.consume(VtlFileType.INSTANCE, exp);
+		}
+	}
 }

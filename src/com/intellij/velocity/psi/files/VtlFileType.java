@@ -43,6 +43,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 		});
 	}
 
+	@Override
 	@NotNull
 	@NonNls
 	public String getName()
@@ -50,12 +51,14 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 		return "VTL";
 	}
 
+	@Override
 	@NotNull
 	public String getDescription()
 	{
 		return VelocityBundle.message("file.type.description");
 	}
 
+	@Override
 	@NotNull
 	@NonNls
 	public String getDefaultExtension()
@@ -63,6 +66,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 		return "vm";
 	}
 
+	@Override
 	@Nullable
 	public Icon getIcon()
 	{

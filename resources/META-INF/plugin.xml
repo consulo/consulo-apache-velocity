@@ -1,6 +1,6 @@
 <idea-plugin version="2">
 	<id>com.intellij.velocity</id>
-	<name>Velocity support</name>
+	<name>Apache Velocity</name>
 	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
 	<resource-bundle>messages.VelocityBundle</resource-bundle>
@@ -120,6 +120,6 @@
 			<category>Velocity</category>
 		</intentionAction>
 
-		<fileTypeFactory implementation="com.intellij.velocity.VelocityApplicationComponent"/>
+		<fileTypeFactory implementation="com.intellij.velocity.VelocityFileTypeFactory"/>
 	</extensions>
 </idea-plugin>

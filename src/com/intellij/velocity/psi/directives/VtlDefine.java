@@ -16,21 +16,25 @@
 
 package com.intellij.velocity.psi.directives;
 
+import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.CommonClassNames;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiType;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlDefine extends VtlAssignment {
+public class VtlDefine extends VtlAssignment
+{
+	public VtlDefine(final ASTNode node)
+	{
+		super(node, "define", true);
+	}
 
-    public VtlDefine(final ASTNode node) {
-        super(node, "define", true);
-    }
-
-    public PsiType getAssignedVariableElementType() {
-        return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING, getResolveScope());
-    }
+	@Override
+	public PsiType getAssignedVariableElementType()
+	{
+		return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(JavaClassNames.JAVA_LANG_STRING,
+				getResolveScope());
+	}
 }

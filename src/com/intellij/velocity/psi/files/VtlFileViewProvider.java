@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
-import com.intellij.lang.StdLanguages;
+import com.intellij.lang.html.HTMLLanguage;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.fileTypes.LanguageFileType;
@@ -95,17 +95,17 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
         String name = virtualFile.getName();
         int index2 = name.lastIndexOf('.');
         if (index2 < 3) {
-            return StdLanguages.HTML;
+            return HTMLLanguage.INSTANCE;
         }
         int index1 = 1 + name.lastIndexOf('.', index2 - 1);
         if (index1 < 1) {
-            return StdLanguages.HTML;
+            return HTMLLanguage.INSTANCE;
         }
         String dataLanguageFileExtension = name.substring(index1, index2).toUpperCase();
         FileType fileType = FileTypeManager.getInstance().getStdFileType(dataLanguageFileExtension);
         if (fileType instanceof LanguageFileType) {
             return ((LanguageFileType) fileType).getLanguage();
         }
-        return StdLanguages.HTML;
+        return HTMLLanguage.INSTANCE;
     }
 }

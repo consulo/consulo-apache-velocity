@@ -14,8 +14,9 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.ex.util.LayerDescriptor;
 import com.intellij.openapi.editor.ex.util.LayeredLexerEditorHighlighter;
 import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
+import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.tree.IElementType;
@@ -23,34 +24,40 @@ import com.intellij.psi.tree.IElementType;
 /**
  * @author Alexey Chmutov
  */
-public class VtlEditorHighlighter extends LayeredLexerEditorHighlighter {
+public class VtlEditorHighlighter extends LayeredLexerEditorHighlighter
+{
+	public VtlEditorHighlighter(@Nullable final Project project, @Nullable final VirtualFile virtualFile, @NotNull final EditorColorsScheme colors)
+	{
+		super(new VtlSyntaxHighlighter(), colors);
+		final SyntaxHighlighter highlighter = getTemplateDataLanguageHighlighter(project, virtualFile);
+		registerLayer(TEMPLATE_TEXT, new LayerDescriptor(new SyntaxHighlighter()
+		{
+			@Override
+			@NotNull
+			public Lexer getHighlightingLexer()
+			{
+				return highlighter.getHighlightingLexer();
+			}
 
-    public VtlEditorHighlighter(@Nullable final Project project,
-                                @Nullable final VirtualFile virtualFile,
-                                @NotNull final EditorColorsScheme colors) {
-        super(new VtlSyntaxHighlighter(), colors);
-        final SyntaxHighlighter highlighter = getTemplateDataLanguageHighlighter(project, virtualFile);
-        registerLayer(TEMPLATE_TEXT, new LayerDescriptor(new SyntaxHighlighter() {
-            @NotNull
-            public Lexer getHighlightingLexer() {
-                return highlighter.getHighlightingLexer();
-            }
+			@Override
+			@NotNull
+			public TextAttributesKey[] getTokenHighlights(final IElementType tokenType)
+			{
+				return highlighter.getTokenHighlights(tokenType);
+			}
+		}, ""));
+	}
 
-            @NotNull
-            public TextAttributesKey[] getTokenHighlights(final IElementType tokenType) {
-                return highlighter.getTokenHighlights(tokenType);
-            }
-        }, ""));
-    }
-
-    @NotNull
-    private static SyntaxHighlighter getTemplateDataLanguageHighlighter(final Project project, final VirtualFile virtualFile) {
-        final FileType type = project == null || virtualFile == null ? null : VtlFileViewProvider.getTemplateDataLanguage(virtualFile, project).getAssociatedFileType();
-        final FileType fileType = type == null ? StdFileTypes.PLAIN_TEXT : type;
-        final SyntaxHighlighter highlighter = SyntaxHighlighter.PROVIDER.create(fileType, project, virtualFile);
-        assert highlighter != null;
-        return highlighter;
-    }
+	@NotNull
+	private static SyntaxHighlighter getTemplateDataLanguageHighlighter(final Project project, final VirtualFile virtualFile)
+	{
+		final FileType type = project == null || virtualFile == null ? null : VtlFileViewProvider.getTemplateDataLanguage(virtualFile,
+				project).getAssociatedFileType();
+		final FileType fileType = type == null ? PlainTextFileType.INSTANCE : type;
+		final SyntaxHighlighter highlighter = SyntaxHighlighterFactory.getSyntaxHighlighter(fileType, project, virtualFile);
+		assert highlighter != null;
+		return highlighter;
+	}
 
 }
 

@@ -16,7 +16,11 @@
 
 package com.intellij.velocity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredReadAction;
 import com.intellij.codeInsight.navigation.actions.TypeDeclarationProvider;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
@@ -26,13 +30,19 @@ import com.intellij.velocity.psi.VtlImplicitVariable;
 /**
  * @author Alexey Chmutov
  */
-public class VtlTypeDeclarationProvider implements TypeDeclarationProvider {
-  public PsiElement[] getSymbolTypeDeclarations(final PsiElement symbol) {
-    if (symbol instanceof VtlImplicitVariable) {
-      PsiType type = ((VtlImplicitVariable)symbol).getPsiType();
-      PsiClass psiClass = PsiUtil.resolveClassInType(type);
-      return psiClass == null ? null : new PsiElement[]{psiClass};
-    }
-    return null;
-  }
+public class VtlTypeDeclarationProvider extends TypeDeclarationProvider
+{
+	@RequiredReadAction
+	@Nullable
+	@Override
+	public PsiElement[] getSymbolTypeDeclarations(@NotNull PsiElement symbol, @Nullable Editor editor, int offset)
+	{
+		if(symbol instanceof VtlImplicitVariable)
+		{
+			PsiType type = ((VtlImplicitVariable) symbol).getPsiType();
+			PsiClass psiClass = PsiUtil.resolveClassInType(type);
+			return psiClass == null ? null : new PsiElement[]{psiClass};
+		}
+		return null;
+	}
 }

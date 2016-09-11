@@ -25,8 +25,6 @@ import javax.swing.Icon;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.java.util.JavaClassNames;
-import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
@@ -41,6 +39,8 @@ import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlDirectiveHeader;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.ide.IconDescriptorUpdaters;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author : Alexey Chmutov

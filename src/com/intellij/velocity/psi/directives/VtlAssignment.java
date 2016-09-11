@@ -20,7 +20,6 @@ import javax.swing.Icon;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.psi.PsiElement;
@@ -35,6 +34,7 @@ import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.ide.IconDescriptorUpdaters;
 
 /**
  * @author Alexey Chmutov

@@ -24,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionInitializationContext;
 import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -49,6 +48,7 @@ import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlSet;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.codeInsight.completion.CompletionProvider;
 
 /**
  * @author Alexey Chmutov
@@ -107,7 +107,7 @@ public class VtlCompletionContributor extends CompletionContributor
 		extend(CompletionType.BASIC, sharpBracePattern, new DirectiveNameCompletionProvider(true));
 	}
 
-	private static class DirectiveNameCompletionProvider extends CompletionProvider<CompletionParameters>
+	private static class DirectiveNameCompletionProvider implements CompletionProvider
 	{
 		private final boolean myClosingBraceNeeded;
 
@@ -155,10 +155,10 @@ public class VtlCompletionContributor extends CompletionContributor
 
 	private void registerInferredClassNameCompletionProvider()
 	{
-		extend(CompletionType.SMART, VtlReferenceContributor.VTLVARIABLE_COMMENT, new CompletionProvider<CompletionParameters>()
+		extend(CompletionType.SMART, VtlReferenceContributor.VTLVARIABLE_COMMENT, new CompletionProvider()
 		{
 			@Override
-			protected void addCompletions(
+			public void addCompletions(
 					@NotNull final CompletionParameters parameters,
 					final ProcessingContext context,
 					@NotNull final CompletionResultSet _result)
@@ -216,10 +216,10 @@ public class VtlCompletionContributor extends CompletionContributor
 		final PsiElementPattern.Capture<PsiElement> propertyToBeSet = psiElement().withParent(psiElement(VtlCompositeElementTypes
 				.REFERENCE_EXPRESSION).withParent(VtlSet.class));
 
-		extend(CompletionType.SMART, propertyToBeSet, new CompletionProvider<CompletionParameters>()
+		extend(CompletionType.SMART, propertyToBeSet, new CompletionProvider()
 		{
 			@Override
-			protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result)
+			public void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result)
 			{
 				result.stopHere();
 				PsiElement positionParent = parameters.getPosition().getParent();

@@ -18,7 +18,6 @@ package com.intellij.velocity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.RequiredReadAction;
 import com.intellij.codeInsight.navigation.actions.TypeDeclarationProvider;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiClass;
@@ -26,6 +25,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.velocity.psi.VtlImplicitVariable;
+import consulo.annotations.RequiredReadAction;
 
 /**
  * @author Alexey Chmutov

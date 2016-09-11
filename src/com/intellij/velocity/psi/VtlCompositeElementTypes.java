@@ -15,7 +15,6 @@
  */
 package com.intellij.velocity.psi;
 
-import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
@@ -30,6 +29,7 @@ import com.intellij.velocity.psi.directives.VtlMacroImpl;
 import com.intellij.velocity.psi.directives.VtlParse;
 import com.intellij.velocity.psi.directives.VtlSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author Alexey Chmutov

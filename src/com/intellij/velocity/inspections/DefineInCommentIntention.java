@@ -22,7 +22,6 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.roots.ContentFolderScopes;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.template.Template;
@@ -53,6 +52,7 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.roots.ContentFolderScopes;
 
 /**
  * @author Alexey Chmutov

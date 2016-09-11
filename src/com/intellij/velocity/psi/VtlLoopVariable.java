@@ -17,7 +17,6 @@ package com.intellij.velocity.psi;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiArrayType;
@@ -31,6 +30,7 @@ import com.intellij.psi.PsiTypeParameter;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.TypeConversionUtil;
 import com.intellij.velocity.VelocityBundle;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author Alexey Chmutov

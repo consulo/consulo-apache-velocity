@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.intellij.velocity;
+package consulo.velocity;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.IconDescriptor;
-import com.intellij.ide.IconDescriptorUpdater;
 import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.ide.IconDescriptor;
+import consulo.ide.IconDescriptorUpdater;
 
 /**
  * @author VISTALL

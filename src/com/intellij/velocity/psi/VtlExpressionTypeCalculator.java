@@ -20,8 +20,8 @@ import static com.intellij.psi.util.TypeConversionUtil.isNumericType;
 import static com.intellij.psi.util.TypeConversionUtil.unboxAndBalanceTypes;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.psi.PsiType;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * Created by IntelliJ IDEA.

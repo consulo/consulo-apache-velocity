@@ -17,11 +17,9 @@ package com.intellij.velocity;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -34,17 +32,18 @@ import com.intellij.velocity.psi.VtlCompositeElementType;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.parsers.VtlParser;
+import consulo.lang.LanguageVersion;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlParserDefinition implements ParserDefinition {
     @NotNull
-    public Lexer createLexer(final Project project, LanguageVersion languageVersion) {
+    public Lexer createLexer(LanguageVersion languageVersion) {
         return new VtlLexer();
     }
 
-    public PsiParser createParser(final Project project, LanguageVersion languageVersion) {
+    public PsiParser createParser(LanguageVersion languageVersion) {
         return new VtlParser();
     }
 

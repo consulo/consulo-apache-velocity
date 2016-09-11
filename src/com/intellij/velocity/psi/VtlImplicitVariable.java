@@ -21,7 +21,6 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.openapi.util.Factory;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiComment;
@@ -33,6 +32,7 @@ import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.ide.IconDescriptorUpdaters;
 
 /**
  * @author Alexey Chmutov

@@ -32,15 +32,13 @@
 	<!--<depends optional="true" config-file="velocity-spring.xml">com.intellij.spring</depends> -->
 	<depends optional="true" config-file="com.intellij.xml.xml">com.intellij.xml</depends>
 	<depends>com.intellij.properties</depends>
-	<depends>org.consulo.java</depends>
+	<depends>consulo.java</depends>
 
-	<extensions defaultExtensionNs="org.consulo.java">
+	<extensions defaultExtensionNs="consulo.java">
 		<methodReferencesSearch implementation="com.intellij.velocity.psi.reference.VelocityStylePropertySearcher"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
-
 		<colorSettingsPage implementation="com.intellij.velocity.VelocityColorSettingsPage"/>
 
 		<highlightErrorFilter implementation="com.intellij.velocity.inspections.VtlErrorFilter"/>
@@ -84,6 +82,8 @@
 		<annotator language="VTL" implementationClass="com.intellij.velocity.inspections.VtlMacroAnnotator"/>
 
 		<indexPatternBuilder implementation="com.intellij.velocity.VtlIndexPatternBuilder"/>
+
+		<iconDescriptorUpdater implementation="consulo.velocity.VtlIconDescriptorUpdater" />
 
 		<intentionAction>
 			<className>com.intellij.velocity.inspections.DefineImplicitVariableIntention$Local</className>

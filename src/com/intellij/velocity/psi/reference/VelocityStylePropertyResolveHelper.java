@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiElementFactory;
@@ -36,6 +35,7 @@ import com.intellij.psi.PsiSubstitutor;
 import com.intellij.psi.search.searches.SuperMethodsSearch;
 import com.intellij.psi.util.MethodSignature;
 import com.intellij.psi.util.MethodSignatureBackedByPsiMethod;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author Alexey Chmutov

@@ -16,10 +16,10 @@
 
 package com.intellij.velocity.psi.directives;
 
-import org.mustbe.consulo.java.util.JavaClassNames;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiType;
+import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author Alexey Chmutov

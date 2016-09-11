@@ -18,13 +18,13 @@ package com.intellij.velocity.psi;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.meta.PsiMetaData;
 import com.intellij.psi.meta.PsiMetaOwner;
 import com.intellij.psi.meta.PsiPresentableMetaData;
 import com.intellij.util.ArrayUtil;
+import consulo.ide.IconDescriptorUpdaters;
 
 /**
  * @author Alexey Chmutov

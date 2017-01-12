@@ -43,7 +43,7 @@ class EditorUtil {
     }
 
     static void typeInStringAndMoveCaret(Editor editor, int offset, String str) {
-        EditorModificationUtil.typeInStringAtCaretHonorBlockSelection(editor, str, true);
+        EditorModificationUtil.insertStringAtCaret(editor, str, true);
         editor.getCaretModel().moveToOffset(offset);
     }
 

@@ -20,16 +20,16 @@ import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.Language;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
 import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
-import com.intellij.xml.breadcrumbs.BreadcrumbsInfoProvider;
 import consulo.annotations.RequiredReadAction;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlBreadcrumbsInfoProvider extends BreadcrumbsInfoProvider
+public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
 {
 	@NotNull
 	@Override
@@ -59,12 +59,5 @@ public class VtlBreadcrumbsInfoProvider extends BreadcrumbsInfoProvider
 	public String getElementInfo(@NotNull final PsiElement e)
 	{
 		return ((VtlDirective) e).getPresentableName();
-	}
-
-	@Override
-	@RequiredReadAction
-	public String getElementTooltip(@NotNull final PsiElement e)
-	{
-		return null;
 	}
 }

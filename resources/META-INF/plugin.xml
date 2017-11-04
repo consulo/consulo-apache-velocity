@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<idea-plugin version="2">
+<idea-plugin>
 	<id>com.intellij.velocity</id>
 	<name>Apache Velocity</name>
 	<version>SNAPSHOT</version>
@@ -30,7 +30,7 @@
 	</extensionPoints>
 
 	<!--<depends optional="true" config-file="velocity-spring.xml">com.intellij.spring</depends> -->
-	<depends optional="true" config-file="com.intellij.xml.xml">com.intellij.xml</depends>
+	<depends>com.intellij.xml</depends>
 	<depends>com.intellij.properties</depends>
 	<depends>consulo.java</depends>
 
@@ -136,6 +136,8 @@
 			<className>com.intellij.velocity.inspections.DefineVelocityPropertiesRefForFilesIntention$ModuleWide</className>
 			<category>Velocity</category>
 		</intentionAction>
+
+		<breadcrumbsInfoProvider implementation="com.intellij.velocity.VtlBreadcrumbsInfoProvider"/>
 
 		<fileTypeFactory implementation="com.intellij.velocity.VelocityFileTypeFactory"/>
 	</extensions>

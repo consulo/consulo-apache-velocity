@@ -57,7 +57,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	@Override
 	@NotNull
 	@NonNls
-	public String getName()
+	public String getId()
 	{
 		return "VTL";
 	}

@@ -1,7 +1,8 @@
 package com.intellij.velocity.tests;
 
 import com.intellij.lang.Language;
-import com.intellij.lang.StdLanguages;
+import com.intellij.lang.html.HTMLLanguage;
+import com.intellij.lang.java.JavaLanguage;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiFile;
@@ -20,22 +21,22 @@ import com.intellij.velocity.psi.files.VtlFileViewProviderFactory;
 public class VtlTemplateDataLanguageTest extends JavaCodeInsightFixtureTestCase {
     public void testManuallyMappedDataLanguage() throws Throwable {
         VtlFile file = createFile("file1.vm");
-        Util.mapTemplateDataLanguageFor(file, StdLanguages.JAVA);
+        Util.mapTemplateDataLanguageFor(file, JavaLanguage.INSTANCE);
         VirtualFile vFile = file.getViewProvider().getVirtualFile();
         VtlFileViewProvider vtlFileViewProvider = new VtlFileViewProviderFactory().createFileViewProvider(vFile, VtlLanguage.INSTANCE, getPsiManager(), false);
-        assertSame(StdLanguages.JAVA, vtlFileViewProvider.getTemplateDataLanguage());
+        assertSame(JavaLanguage.INSTANCE, vtlFileViewProvider.getTemplateDataLanguage());
     }
 
     public void testDataLanguageFromExtension() throws Throwable {
         VtlFile file = createFile("file1.java.vm");
         Language dataLanguage = getTemplateDataLanguage(file);
-        assertSame(StdLanguages.JAVA, dataLanguage);
+        assertSame(JavaLanguage.INSTANCE, dataLanguage);
     }
 
     public void testDataLanguageDefaultsToHtml() throws Throwable {
         VtlFile file = createFile("file1.vm");
         Language dataLanguage = getTemplateDataLanguage(file);
-        assertSame(StdLanguages.HTML, dataLanguage);
+        assertSame(HTMLLanguage.INSTANCE, dataLanguage);
     }
 
     private Language getTemplateDataLanguage(VtlFile file) {

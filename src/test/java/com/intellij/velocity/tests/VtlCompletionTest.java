@@ -4,6 +4,11 @@
  */
 package com.intellij.velocity.tests;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementPresentation;
@@ -14,11 +19,6 @@ import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.inspections.DefineInCommentIntention;
 import junit.framework.Assert;
-import org.jetbrains.annotations.NonNls;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Alexey Chmutov
@@ -129,7 +129,7 @@ public class VtlCompletionTest extends JavaCodeInsightFixtureTestCase {
     doTest();
     final Function<LookupElement, String> typeNameExtractor = new Function<LookupElement, String>() {
       public String fun(final LookupElement element) {
-        final LookupElementPresentation mockPresentation = new LookupElementPresentation(true);
+        final LookupElementPresentation mockPresentation = new LookupElementPresentation();
         element.renderElement(mockPresentation);
         return mockPresentation.getTypeText();
       }

@@ -21,10 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -110,7 +109,7 @@ public class VelocityPropertiesProvider {
                 }
                 PsiFile libPsiFile = viewProvider.getPsi(VtlLanguage.INSTANCE);
                 if (libPsiFile instanceof VtlFile) {
-                    ContainerUtil.addIfNotNull((VtlFile) libPsiFile, res);
+                    ContainerUtil.addIfNotNull(res, (VtlFile) libPsiFile);
                 }
             }
         }

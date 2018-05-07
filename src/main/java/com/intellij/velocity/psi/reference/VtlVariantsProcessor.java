@@ -138,7 +138,7 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
             int argumentsLength = ((VtlMacroCall) myParent).getArguments().length;
             resolvedWithError = parametersLength != argumentsLength;
         }
-        addIfNotNull(execute(namedElement, resolvedWithError), myResult);
+        addIfNotNull(myResult, execute(namedElement, resolvedWithError));
         return myForCompletion || myResult.size() != 1;
     }
 
@@ -151,13 +151,13 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
                 String propName = myReferenceName != null ? myReferenceName : VelocityNamingUtil.getPropertyNameFromAccessor(method, isFirstCharInLowerCase);
                 final BeanProperty property = VelocityStyleBeanProperty.createVelocityStyleBeanProperty(method, propName);
                 if (property != null) {
-                    addIfNotNull(execute(property.getPsiElement(), false), myResult);
+                    addIfNotNull(myResult, execute(property.getPsiElement(), false));
                 }
             }
         }
         if (myMethods != null) {
             for (final JavaMethodCandidateInfo method : myMethods.getMethods()) {
-                addIfNotNull(execute(method.getMethod(), myMethods.getResolveError() == JavaMethodResolveHelper.ErrorType.RESOLVE), myResult);
+                addIfNotNull(myResult, execute(method.getMethod(), myMethods.getResolveError() == JavaMethodResolveHelper.ErrorType.RESOLVE));
             }
         }
         return myResult.toArray(array);

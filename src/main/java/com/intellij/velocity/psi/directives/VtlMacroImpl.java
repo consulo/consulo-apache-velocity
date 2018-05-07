@@ -15,18 +15,23 @@
  */
 package com.intellij.velocity.psi.directives;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
-import com.intellij.velocity.psi.*;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
+import com.intellij.velocity.VtlIcons;
+import com.intellij.velocity.psi.VtlElementTypes;
+import com.intellij.velocity.psi.VtlMacro;
+import com.intellij.velocity.psi.VtlParameterDeclaration;
+import com.intellij.velocity.psi.VtlPresentableNamedElement;
+import com.intellij.velocity.psi.VtlVariable;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Alexey Chmutov
@@ -92,6 +97,6 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
     }
 
     public Icon getIcon() {
-        return VtlIcons.SHARP_ICON;
+        return TargetAWT.to(VtlIcons.SHARP_ICON);
     }
 }

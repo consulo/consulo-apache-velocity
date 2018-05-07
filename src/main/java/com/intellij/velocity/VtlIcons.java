@@ -16,9 +16,8 @@
 
 package com.intellij.velocity;
 
-import javax.swing.Icon;
-
 import com.intellij.openapi.util.IconLoader;
+import consulo.ui.image.Image;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,6 +26,7 @@ import com.intellij.openapi.util.IconLoader;
  */
 public interface VtlIcons
 {
-	Icon SHARP_ICON = IconLoader.getIcon("/icons/sharp.png");
-	Icon VTL_ICON = IconLoader.getIcon("/icons/velocity.png");
+	Image SHARP_ICON = IconLoader.getIcon("/icons/sharp.png");
+
+	Image VTL_ICON = IconLoader.getIcon("/icons/velocity.png");
 }

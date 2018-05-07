@@ -52,6 +52,7 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.awt.TargetAWT;
 import consulo.roots.ContentFolderScopes;
 
 /**
@@ -225,7 +226,7 @@ public abstract class DefineInCommentIntention implements IntentionAction
 			@Override
 			public Icon getIconFor(final VtlFile aValue)
 			{
-				return VtlIcons.VTL_ICON;
+				return TargetAWT.to(VtlIcons.VTL_ICON);
 			}
 		};
 		JBPopupFactory.getInstance().createListPopup(step).showInBestPositionFor(editor);

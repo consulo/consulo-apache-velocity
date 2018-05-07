@@ -15,6 +15,12 @@
  */
 package com.intellij.velocity.psi;
 
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
 import com.intellij.lang.Language;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Factory;
@@ -27,11 +33,7 @@ import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.files.VtlFile;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.util.Map;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Alexey Chmutov
@@ -95,7 +97,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
     @Nullable
     @Override
     public final Icon getIcon(boolean open) {
-        return VtlIcons.SHARP_ICON;
+        return TargetAWT.to(VtlIcons.SHARP_ICON);
     }
 
     public String toString() {

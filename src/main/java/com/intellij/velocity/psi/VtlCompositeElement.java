@@ -27,6 +27,7 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Alexey Chmutov
@@ -56,7 +57,7 @@ public class VtlCompositeElement extends ASTWrapperPsiElement {
     }
 
     public Icon getIcon(final int flags) {
-        return VtlIcons.SHARP_ICON;
+        return TargetAWT.to(VtlIcons.SHARP_ICON);
     }
 
     public String toString() {

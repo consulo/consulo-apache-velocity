@@ -49,6 +49,7 @@ import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlSet;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.awt.TargetAWT;
 import consulo.codeInsight.completion.CompletionProvider;
 
 /**
@@ -132,7 +133,7 @@ public class VtlCompletionContributor extends CompletionContributor
 				{
 					continue;
 				}
-				LookupElement element = LookupElementBuilder.create(name).withIcon(VtlIcons.SHARP_ICON).withBoldness(true);
+				LookupElement element = LookupElementBuilder.create(name).withIcon(TargetAWT.to(VtlIcons.SHARP_ICON)).withBoldness(true);
 				result.addElement(TailTypeDecorator.withTail(element, new VtlTailType(myClosingBraceNeeded)
 				{
 					@Override

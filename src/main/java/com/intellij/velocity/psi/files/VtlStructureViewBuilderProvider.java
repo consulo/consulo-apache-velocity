@@ -29,13 +29,13 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.psi.PsiFile;
 import com.intellij.velocity.VelocityBundle;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory
 {
-
 	@Override
 	@Nullable
 	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
@@ -54,8 +54,7 @@ public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory
 						return new VtlStructureViewModel((VtlFile) mainFile);
 					}
 				}.createStructureView(fileEditor, mainFile.getProject());
-				return new StructureViewComposite.StructureViewDescriptor(VelocityBundle.message("tab.structureview.vtl.view"), mainView,
-						mainFile.getFileType().getIcon());
+				return new StructureViewComposite.StructureViewDescriptor(VelocityBundle.message("tab.structureview.vtl.view"), mainView, TargetAWT.to(mainFile.getFileType().getIcon()));
 			}
 		};
 	}

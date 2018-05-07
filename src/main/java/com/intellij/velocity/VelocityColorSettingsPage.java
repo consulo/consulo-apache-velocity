@@ -21,7 +21,6 @@ import static com.intellij.velocity.psi.files.VtlSyntaxHighlighter.*;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
@@ -64,10 +63,6 @@ public class VelocityColorSettingsPage implements ColorSettingsPage {
     @Nonnull
     public String getDisplayName() {
         return "Velocity";
-    }
-
-    public Icon getIcon() {
-        return VtlIcons.VTL_ICON;
     }
 
     @Nonnull

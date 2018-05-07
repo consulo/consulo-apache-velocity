@@ -32,6 +32,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlLanguage;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -79,7 +80,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 
 	@Override
 	@Nullable
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return VtlIcons.VTL_ICON;
 	}

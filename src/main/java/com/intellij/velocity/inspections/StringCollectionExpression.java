@@ -23,7 +23,7 @@ import com.intellij.codeInsight.template.ExpressionContext;
 import com.intellij.codeInsight.template.TextResult;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collection;
 
@@ -34,7 +34,7 @@ class StringCollectionExpression extends Expression {
     private final Collection<String> myAllOptions;
     private final Function<String, LookupElement> myMapper;
 
-    public StringCollectionExpression(@NotNull Collection<String> allOptions) {
+    public StringCollectionExpression(@Nonnull Collection<String> allOptions) {
         this.myAllOptions = allOptions;
         this.myMapper = new Function<String, LookupElement>() {
             public LookupElement fun(final String option) {
@@ -43,7 +43,7 @@ class StringCollectionExpression extends Expression {
         };
     }
 
-    public StringCollectionExpression(@NotNull Collection<String> allOptions, @NotNull Function<String, LookupElement> mapper) {
+    public StringCollectionExpression(@Nonnull Collection<String> allOptions, @Nonnull Function<String, LookupElement> mapper) {
         this.myAllOptions = allOptions;
         this.myMapper = mapper;
     }

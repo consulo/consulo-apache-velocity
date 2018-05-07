@@ -20,8 +20,8 @@ import java.util.Collection;
 
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.template.Template;
@@ -63,28 +63,28 @@ public abstract class DefineInCommentIntention implements IntentionAction
 	private final String myFamilyName;
 	public static final String VELOCITY_IMPLICIT_VM = "velocity_implicit.vm";
 
-	public DefineInCommentIntention(@NotNull String text, @NotNull String familyName)
+	public DefineInCommentIntention(@Nonnull String text, @Nonnull String familyName)
 	{
 		myText = text;
 		myFamilyName = familyName;
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getText()
 	{
 		return myText;
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getFamilyName()
 	{
 		return myFamilyName;
 	}
 
 	@Override
-	public final boolean isAvailable(@NotNull final Project project, final Editor editor, final PsiFile file)
+	public final boolean isAvailable(@Nonnull final Project project, final Editor editor, final PsiFile file)
 	{
 		return file.getViewProvider() instanceof VtlFileViewProvider &&
 				getReferenceElement(editor, file) != null &&
@@ -92,13 +92,13 @@ public abstract class DefineInCommentIntention implements IntentionAction
 	}
 
 	@Nullable
-	protected PsiElement getReferenceElement(@NotNull final Editor editor, @NotNull final PsiFile file)
+	protected PsiElement getReferenceElement(@Nonnull final Editor editor, @Nonnull final PsiFile file)
 	{
 		final VtlReferenceExpression ref = Util.findReferenceExpression(editor, file);
 		return ref != null && ref.multiResolve(false).length == 0 && isAvailable(ref) ? ref : null;
 	}
 
-	protected boolean isAvailable(@NotNull VtlReferenceExpression ref)
+	protected boolean isAvailable(@Nonnull VtlReferenceExpression ref)
 	{
 		return true;
 	}
@@ -142,10 +142,10 @@ public abstract class DefineInCommentIntention implements IntentionAction
 	}
 
 	protected abstract void prepareTemplate(
-			@NotNull Template template,
-			@NotNull PsiElement element,
+			@Nonnull Template template,
+			@Nonnull PsiElement element,
 			@Nullable String relativePath,
-			@NotNull PsiFile fileToInsertComment);
+			@Nonnull PsiFile fileToInsertComment);
 
 	protected void chooseTargetFile(final PsiFile file, final Editor editor, final boolean addFileReference)
 	{
@@ -199,7 +199,7 @@ public abstract class DefineInCommentIntention implements IntentionAction
 		final BaseListPopupStep<VtlFile> step = new BaseListPopupStep<VtlFile>(VelocityBundle.message("choose.external.definitions.file"),
 				implicitlyIncludedFiles.toArray(new VtlFile[implicitlyIncludedFiles.size()]))
 		{
-			@NotNull
+			@Nonnull
 			@Override
 			public String getTextFor(final VtlFile value)
 			{

@@ -23,9 +23,9 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 /**
@@ -33,12 +33,12 @@ import javax.swing.*;
  */
 public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirective, VtlMacro {
 
-    public VtlMacroImpl(@NotNull final ASTNode node) {
+    public VtlMacroImpl(@Nonnull final ASTNode node) {
         super(node);
     }
 
-    public boolean processDeclarations(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state, final PsiElement lastParent,
-                                       @NotNull final PsiElement place) {
+    public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, final PsiElement lastParent,
+                                       @Nonnull final PsiElement place) {
         if (!super.processDeclarations(processor, state, lastParent, place)) {
             return false;
         }
@@ -61,12 +61,12 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
         return nameElement == null ? null : nameElement.getTextRange();
     }
 
-    @NotNull
+    @Nonnull
     public String getPresentableName() {
         return "macro '" + getName() + "'";
     }
 
-    @NotNull
+    @Nonnull
     public VtlParameterDeclaration[] getParameters() {
         return findHeaderOfDirective().findChildrenByClass(VtlParameterDeclaration.class);
     }

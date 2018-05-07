@@ -20,8 +20,9 @@ import gnu.trove.THashSet;
 import java.util.Arrays;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lang.html.HTMLLanguage;
@@ -59,12 +60,12 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
         myTemplateDataLanguage = templateDataLanguage;
     }
 
-    @NotNull
+    @Nonnull
     public Language getBaseLanguage() {
         return VtlLanguage.INSTANCE;
     }
 
-    @NotNull
+    @Nonnull
     public Set<Language> getLanguages() {
         return new THashSet<Language>(Arrays.asList(VtlLanguage.INSTANCE, getTemplateDataLanguage()));
     }
@@ -90,18 +91,18 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
         return new VtlFileViewProvider(getManager(), copy, false, myTemplateDataLanguage);
     }
 
-    @NotNull
+    @Nonnull
     public Language getTemplateDataLanguage() {
         return myTemplateDataLanguage;
     }
 
-    @NotNull
-    static Language getTemplateDataLanguage(@NotNull VirtualFile virtualFile, @NotNull Project project) {
+    @Nonnull
+    static Language getTemplateDataLanguage(@Nonnull VirtualFile virtualFile, @Nonnull Project project) {
         final Language language = TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
         return language == null ? getTemplateDataLanguageByExtention(virtualFile) : language;
     }
 
-    @NotNull
+    @Nonnull
     private static Language getTemplateDataLanguageByExtention(VirtualFile virtualFile) {
         String name = virtualFile.getName();
         int index2 = name.lastIndexOf('.');

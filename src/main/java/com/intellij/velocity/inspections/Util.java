@@ -20,8 +20,8 @@ import static com.intellij.velocity.psi.PsiUtil.getRelativePath;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
@@ -53,12 +53,12 @@ import com.intellij.velocity.psi.reference.VtlReferenceExpression;
  */
 public class Util {
   @Nullable
-  static VtlReferenceExpression findReferenceExpression(@NotNull Editor editor, @NotNull PsiFile file) {
+  static VtlReferenceExpression findReferenceExpression(@Nonnull Editor editor, @Nonnull PsiFile file) {
     return findReferenceExpression(editor, file, VtlReferenceExpression.class);
   }
 
   @Nullable
-  static <T extends PsiReference> T findReferenceExpression(@NotNull Editor editor, @NotNull PsiFile file, @NotNull Class<T> refClass) {
+  static <T extends PsiReference> T findReferenceExpression(@Nonnull Editor editor, @Nonnull PsiFile file, @Nonnull Class<T> refClass) {
     int offset = editor.getCaretModel().getOffset();
     final CharSequence charSequence = editor.getDocument().getCharsSequence();
     if (charSequence.length() == offset || charSequence.length() > offset && !Character.isJavaIdentifierPart(charSequence.charAt(offset))) {
@@ -68,8 +68,8 @@ public class Util {
     return refClass.isInstance(reference) ? (T)reference : null;
   }
 
-  @NotNull
-  static <T> List<T> collectFilePaths(@NotNull PsiElement element, @NotNull final Function<PsiFile, T> converter) {
+  @Nonnull
+  static <T> List<T> collectFilePaths(@Nonnull PsiElement element, @Nonnull final Function<PsiFile, T> converter) {
     final List<T> allFiles = new SmartList<T>();
     final PsiManager psiManager = element.getManager();
     ModuleFileIndex fileIndex = ModuleRootManager.getInstance(ModuleUtil.findModuleForPsiElement(element)).getFileIndex();
@@ -95,7 +95,7 @@ public class Util {
   }
 
   @Nullable
-  static VtlFileReferenceSet findVtlFileReferenceSet(@NotNull PsiElement element) {
+  static VtlFileReferenceSet findVtlFileReferenceSet(@Nonnull PsiElement element) {
     for (PsiReference ref : element.getReferences()) {
       if (!(ref instanceof FileReference)) {
         continue;
@@ -108,8 +108,8 @@ public class Util {
     return null;
   }
 
-  @NotNull
-  static PsiFile[] findReferencedFiles(@Nullable final Module module, @NotNull String nameFile) {
+  @Nonnull
+  static PsiFile[] findReferencedFiles(@Nullable final Module module, @Nonnull String nameFile) {
     if (module == null) return PsiFile.EMPTY_ARRAY;
     return FilenameIndex.getFilesByName(module.getProject(), nameFile, new GlobalSearchScope(module.getProject()) {
       private final VirtualFile[] myContentRoots = ModuleRootManager.getInstance(module).getContentRoots();
@@ -127,7 +127,7 @@ public class Util {
         return 0;
       }
 
-      public boolean isSearchInModuleContent(@NotNull Module aModule) {
+      public boolean isSearchInModuleContent(@Nonnull Module aModule) {
         return aModule == module;
       }
 

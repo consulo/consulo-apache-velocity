@@ -16,8 +16,9 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class VtlOperatorTokenType extends VtlTokenType {
     private final VtlExpressionTypeCalculator myTypeCalculator;
 
-    public VtlOperatorTokenType(@NotNull @NonNls final String debugName, @NotNull VtlExpressionTypeCalculator typeCalculator) {
+    public VtlOperatorTokenType(@Nonnull @NonNls final String debugName, @Nonnull VtlExpressionTypeCalculator typeCalculator) {
         super(debugName);
         myTypeCalculator = typeCalculator;
     }

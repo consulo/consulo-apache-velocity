@@ -17,6 +17,9 @@ package com.intellij.velocity.inspections;
 
 import static com.intellij.codeInspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
 import static com.intellij.codeInspection.ProblemHighlightType.LIKE_UNKNOWN_SYMBOL;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -26,7 +29,6 @@ import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
@@ -55,13 +57,13 @@ public class VtlReferencesInspection extends VtlInspectionBase {
   }
 
   @Nls
-  @NotNull
+  @Nonnull
   public String getDisplayName() {
     return VelocityBundle.message("vtl.references.inspection");
   }
 
   @NonNls
-  @NotNull
+  @Nonnull
   public String getShortName() {
     return "VtlReferencesInspection";
   }

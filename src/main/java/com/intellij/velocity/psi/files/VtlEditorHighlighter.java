@@ -17,8 +17,9 @@ package com.intellij.velocity.psi.files;
 
 import static com.intellij.velocity.psi.VtlElementTypes.TEMPLATE_TEXT;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
@@ -37,21 +38,21 @@ import com.intellij.psi.tree.IElementType;
  */
 public class VtlEditorHighlighter extends LayeredLexerEditorHighlighter
 {
-	public VtlEditorHighlighter(@Nullable final Project project, @Nullable final VirtualFile virtualFile, @NotNull final EditorColorsScheme colors)
+	public VtlEditorHighlighter(@Nullable final Project project, @Nullable final VirtualFile virtualFile, @Nonnull final EditorColorsScheme colors)
 	{
 		super(new VtlSyntaxHighlighter(), colors);
 		final SyntaxHighlighter highlighter = getTemplateDataLanguageHighlighter(project, virtualFile);
 		registerLayer(TEMPLATE_TEXT, new LayerDescriptor(new SyntaxHighlighter()
 		{
 			@Override
-			@NotNull
+			@Nonnull
 			public Lexer getHighlightingLexer()
 			{
 				return highlighter.getHighlightingLexer();
 			}
 
 			@Override
-			@NotNull
+			@Nonnull
 			public TextAttributesKey[] getTokenHighlights(final IElementType tokenType)
 			{
 				return highlighter.getTokenHighlights(tokenType);
@@ -59,7 +60,7 @@ public class VtlEditorHighlighter extends LayeredLexerEditorHighlighter
 		}, ""));
 	}
 
-	@NotNull
+	@Nonnull
 	private static SyntaxHighlighter getTemplateDataLanguageHighlighter(final Project project, final VirtualFile virtualFile)
 	{
 		final FileType type = project == null || virtualFile == null ? null : VtlFileViewProvider.getTemplateDataLanguage(virtualFile,

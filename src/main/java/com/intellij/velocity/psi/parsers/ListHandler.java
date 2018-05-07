@@ -30,7 +30,7 @@ import static com.intellij.velocity.psi.VtlElementTypes.START_REF_FORMAL;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.assertToken;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.consumeTokenIfPresent;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.velocity.VelocityBundle;
@@ -45,7 +45,7 @@ import com.intellij.velocity.psi.VtlTokenType;
 class ListHandler {
     private final IElementType myTerminator;
 
-    ListHandler(@NotNull VtlTokenType terminator) {
+    ListHandler(@Nonnull VtlTokenType terminator) {
         myTerminator = terminator;
     }
 

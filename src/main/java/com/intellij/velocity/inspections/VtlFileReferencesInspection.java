@@ -29,7 +29,7 @@ import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.directives.VtlParse;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.text.MessageFormat;
 
@@ -69,13 +69,13 @@ public class VtlFileReferencesInspection extends VtlInspectionBase {
   }
 
   @Nls
-  @NotNull
+  @Nonnull
   public String getDisplayName() {
     return VelocityBundle.message("vtl.file.references.inspection");
   }
 
   @NonNls
-  @NotNull
+  @Nonnull
   public String getShortName() {
     return "VtlFileReferencesInspection";
   }

@@ -16,7 +16,8 @@
 
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.directives.VtlDirectiveImpl;
@@ -31,13 +32,13 @@ public class VtlDirectiveType extends VtlCompositeElementType {
 
     private final boolean myNeedsClosing;
 
-    public VtlDirectiveType(@NotNull final String debugName, @NotNull final String presentableName, boolean needsClosing) {
+    public VtlDirectiveType(@Nonnull final String debugName, @Nonnull final String presentableName, boolean needsClosing) {
         super(debugName);
         myPresentableName = presentableName;
         myNeedsClosing = needsClosing;
     }
 
-    public VtlDirectiveType(@NotNull final String debugName) {
+    public VtlDirectiveType(@Nonnull final String debugName) {
         super(debugName);
         myPresentableName = null;
         myNeedsClosing = false;

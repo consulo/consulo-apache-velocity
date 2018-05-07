@@ -15,16 +15,17 @@
  */
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlTokenType extends IElementType {
 
-  public VtlTokenType(@NotNull @NonNls final String debugName) {
+  public VtlTokenType(@Nonnull @NonNls final String debugName) {
     super(debugName, VtlLanguage.INSTANCE);
   }
 

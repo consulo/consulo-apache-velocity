@@ -19,8 +19,8 @@ package com.intellij.velocity.psi.reference;
 import static com.intellij.openapi.util.text.StringUtil.toLowerCase;
 import static com.intellij.openapi.util.text.StringUtil.toUpperCase;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
@@ -41,7 +41,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings({"HardCodedStringLiteral"})
-	public static boolean isWaitOrNotifyOfObject(@NotNull PsiMethod method)
+	public static boolean isWaitOrNotifyOfObject(@Nonnull PsiMethod method)
 	{
 		PsiClass psiClass = method.getContainingClass();
 		if(psiClass == null || !JavaClassNames.JAVA_LANG_OBJECT.equals(psiClass.getQualifiedName()))
@@ -53,7 +53,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings({"HardCodedStringLiteral"})
-	public static boolean isPropertyGetter(@NotNull PsiMethod method)
+	public static boolean isPropertyGetter(@Nonnull PsiMethod method)
 	{
 		if(method.isConstructor())
 		{
@@ -83,7 +83,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	public static boolean isGetByStringOrByObjectMethod(@NotNull PsiMethod method)
+	public static boolean isGetByStringOrByObjectMethod(@Nonnull PsiMethod method)
 	{
 		String methodName = method.getName();
 		if(!"get".equals(methodName))
@@ -107,7 +107,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	public static boolean isPropertySetter(@NotNull PsiMethod method)
+	public static boolean isPropertySetter(@Nonnull PsiMethod method)
 	{
 		if(method.isConstructor())
 		{
@@ -125,7 +125,7 @@ public class VelocityNamingUtil
 		return isPropertyGetter(method) || isPropertySetter(method);
 	}
 
-	public static String getPropertyNameFromAccessor(@NotNull PsiMethod accessor, boolean firstCharInLowerCase)
+	public static String getPropertyNameFromAccessor(@Nonnull PsiMethod accessor, boolean firstCharInLowerCase)
 	{
 		if(isPropertySetter(accessor))
 		{
@@ -138,7 +138,7 @@ public class VelocityNamingUtil
 		return null;
 	}
 
-	public static String getPropertyNameFromAccessor(@NotNull PsiMethod accessor)
+	public static String getPropertyNameFromAccessor(@Nonnull PsiMethod accessor)
 	{
 		if(isPropertySetter(accessor))
 		{
@@ -151,7 +151,7 @@ public class VelocityNamingUtil
 		return null;
 	}
 
-	public static String adjustFirstCharCase(@NotNull String name, boolean lowerCase)
+	public static String adjustFirstCharCase(@Nonnull String name, boolean lowerCase)
 	{
 		char chars[] = name.toCharArray();
 		chars[0] = lowerCase ? toLowerCase(chars[0]) : toUpperCase(chars[0]);
@@ -182,7 +182,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings({"HardCodedStringLiteral"})
-	private static String getPropertyNameFromGetter(@NotNull PsiMethod getter)
+	private static String getPropertyNameFromGetter(@Nonnull PsiMethod getter)
 	{
 		String methodName = getter.getName();
 		int prefixLength = methodName.startsWith("get") ? "get".length() : "is".length();
@@ -190,7 +190,7 @@ public class VelocityNamingUtil
 	}
 
 	@SuppressWarnings({"HardCodedStringLiteral"})
-	private static String getPropertyNameFromSetter(@NotNull PsiMethod setter)
+	private static String getPropertyNameFromSetter(@Nonnull PsiMethod setter)
 	{
 		return setter.getName().substring("set".length());
 	}
@@ -202,7 +202,7 @@ public class VelocityNamingUtil
 		return findPropertyAccessor(aClass, propertyName, new PropertyNameExtractor()
 		{
 			@Override
-			public String extractPropertyName(@NotNull PsiMethod method)
+			public String extractPropertyName(@Nonnull PsiMethod method)
 			{
 				return isPropertyGetter(method) ? getPropertyNameFromGetter(method) : null;
 			}
@@ -215,7 +215,7 @@ public class VelocityNamingUtil
 		return findPropertyAccessor(aClass, propertyName, new PropertyNameExtractor()
 		{
 			@Override
-			public String extractPropertyName(@NotNull PsiMethod method)
+			public String extractPropertyName(@Nonnull PsiMethod method)
 			{
 				return isPropertySetter(method) ? getPropertyNameFromSetter(method) : null;
 			}
@@ -267,7 +267,7 @@ public class VelocityNamingUtil
 	private interface PropertyNameExtractor
 	{
 		@Nullable
-		String extractPropertyName(@NotNull PsiMethod method);
+		String extractPropertyName(@Nonnull PsiMethod method);
 	}
 
 	@SuppressWarnings({"HardCodedStringLiteral"})

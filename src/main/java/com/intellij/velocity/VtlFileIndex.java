@@ -22,8 +22,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.DumbService;
@@ -57,7 +58,7 @@ public class VtlFileIndex extends ScalarIndexExtension<Boolean> {
         return NAME;
     }
 
-    @NotNull
+    @Nonnull
     public static Collection<VtlFile> getImplicitlyIncludedFiles(final PsiFile targetFile) {
         final Module module = ModuleUtil.findModuleForPsiElement(targetFile);
         if (module == null || DumbService.getInstance(module.getProject()).isDumb()) {
@@ -81,7 +82,7 @@ public class VtlFileIndex extends ScalarIndexExtension<Boolean> {
 
     public DataIndexer<Boolean, Void, FileContent> getIndexer() {
         return new DataIndexer<Boolean, Void, FileContent>() {
-            @NotNull
+            @Nonnull
             public Map<Boolean, Void> map(final FileContent inputData) {
                 final CharSequence text = inputData.getContentAsText();
                 final int markerLength = IMPLICIT_INCLUDE_MARKER.length();

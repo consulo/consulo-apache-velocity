@@ -24,9 +24,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.fileTypes.FileType;
@@ -93,7 +95,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return CachedValuesManager.getManager(getProject()).createCachedValue(provider, false);
   }
 
-  @NotNull
+  @Nonnull
   public FileType getFileType() {
     return VtlFileType.INSTANCE;
   }
@@ -103,12 +105,12 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return getPresentableName();
   }
 
-  @NotNull
+  @Nonnull
   public VtlDirective[] getDirectiveChildren() {
     return findChildrenByClass(VtlDirective.class);
   }
 
-  @NotNull
+  @Nonnull
   public String getPresentableName() {
     return "VtlFile:" + getName();
   }
@@ -119,10 +121,10 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   }
 
   @Override
-  public boolean processDeclarations(@NotNull final PsiScopeProcessor processor,
-                                     @NotNull final ResolveState state,
+  public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor,
+                                     @Nonnull final ResolveState state,
                                      @Nullable final PsiElement lastParent,
-                                     @NotNull final PsiElement place) {
+                                     @Nonnull final PsiElement place) {
     if (!processExportableDeclarations(processor, state, null)) {
       return false;
     }
@@ -192,7 +194,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  private boolean processMacroLibraries(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state, VtlFile placeFile) {
+  private boolean processMacroLibraries(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, VtlFile placeFile) {
     for (VtlFileProxy lib : myMacroLibraries.getValue()) {
       if (!lib.isVisibleIn(placeFile)) {
         continue;
@@ -214,7 +216,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  public boolean processAllMacrosInScope(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state) {
+  public boolean processAllMacrosInScope(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state) {
     return processGlobalMacros(processor, state) &&
            processMacroLibraries(processor, state, null) &&
            processVelocityPropertiesLibraries(processor, state) &&
@@ -227,12 +229,12 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return macroSet == null ? 0 : macroSet.size();
   }
 
-  @NotNull
+  @Nonnull
   public Set<String> getDefinedMacroNames() {
     return myAllMacros.getValue().keySet();
   }
 
-  @NotNull
+  @Nonnull
   public Set<VtlMacro> getDefinedMacros() {
     Map<String, Set<VtlMacro>> macros = myAllMacros.getValue();
     Set<VtlMacro> res = new THashSet<VtlMacro>(macros.size());
@@ -252,7 +254,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   }
 
   @Nullable
-  public static String[] findVariableNameAndTypeAndScopeFilePath(@NotNull String commentText) {
+  public static String[] findVariableNameAndTypeAndScopeFilePath(@Nonnull String commentText) {
     Matcher matcher = IMPLICIT_VAR_DECL_PATTERN.matcher(commentText);
     if (!matcher.matches()) {
       return null;
@@ -261,7 +263,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   }
 
   @Nullable
-  public static String[] findMacroLibraryPathAndScopeFilePath(@NotNull String commentText) {
+  public static String[] findMacroLibraryPathAndScopeFilePath(@Nonnull String commentText) {
     Matcher matcher = EXTERNAL_MACRO_LIBRARY_PATTERN.matcher(commentText);
     if (!matcher.matches()) {
       return null;

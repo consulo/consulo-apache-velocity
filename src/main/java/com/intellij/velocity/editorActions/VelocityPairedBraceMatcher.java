@@ -17,8 +17,9 @@ package com.intellij.velocity.editorActions;
 
 import static com.intellij.velocity.psi.VtlElementTypes.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.psi.PsiFile;
@@ -45,7 +46,7 @@ public class VelocityPairedBraceMatcher implements PairedBraceMatcher {
         return PAIRS;
     }
 
-    public boolean isPairedBracesAllowedBeforeType(@NotNull final IElementType lbraceType, @Nullable final IElementType type) {
+    public boolean isPairedBracesAllowedBeforeType(@Nonnull final IElementType lbraceType, @Nullable final IElementType type) {
         return lbraceType == LEFT_PAREN && type == null;
     }
 

@@ -16,8 +16,9 @@
 
 package com.intellij.velocity.psi.directives;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
  * Date: 29.04.2008
  */
 public interface VtlDirectiveHolder extends PsiElement {
-    @NotNull
+    @Nonnull
     VtlDirective[] getDirectiveChildren();
 
-    @NotNull
+    @Nonnull
     String getPresentableName();
 }

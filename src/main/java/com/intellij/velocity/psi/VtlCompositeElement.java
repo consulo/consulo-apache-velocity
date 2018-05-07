@@ -15,10 +15,10 @@
  */
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -33,16 +33,16 @@ import com.intellij.velocity.psi.files.VtlFile;
  */
 public class VtlCompositeElement extends ASTWrapperPsiElement {
 
-    public VtlCompositeElement(@NotNull final ASTNode node) {
+    public VtlCompositeElement(@Nonnull final ASTNode node) {
         super(node);
     }
 
-    public boolean processDeclarations(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state,@Nullable final PsiElement lastParent,
-                                       @NotNull final PsiElement place) {
+    public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state,@Nullable final PsiElement lastParent,
+                                       @Nonnull final PsiElement place) {
         return PsiUtil.processDeclarations(processor, state, lastParent, null, this);
     }
 
-    @NotNull
+    @Nonnull
     public VtlDirective[] getDirectiveChildren() {
         return findChildrenByClass(VtlDirective.class);
     }

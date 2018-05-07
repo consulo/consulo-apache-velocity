@@ -29,7 +29,7 @@ import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -37,19 +37,19 @@ import java.util.List;
  * @author Alexey Chmutov
  */
 public abstract class DefineMacroLibraryRefIntention extends DefineInCommentIntention {
-    public DefineMacroLibraryRefIntention(@NotNull String text) {
+    public DefineMacroLibraryRefIntention(@Nonnull String text) {
         super(text, VelocityBundle.message("add.macro.library.ref.fix.name"));
     }
 
     @Override
-    protected boolean isAvailable(@NotNull VtlReferenceExpression ref) {
+    protected boolean isAvailable(@Nonnull VtlReferenceExpression ref) {
         return ref.getParent() instanceof VtlMacroCall && Util.canSetVelocityProperties(ref.getContainingFile());
     }
 
-    protected void prepareTemplate(@NotNull Template template, @NotNull final PsiElement element, String relativePath, @NotNull final PsiFile fileToInsertComment) {
+    protected void prepareTemplate(@Nonnull Template template, @Nonnull final PsiElement element, String relativePath, @Nonnull final PsiFile fileToInsertComment) {
         assert element instanceof VtlReferenceExpression;
         final List<String> allFiles = Util.collectFilePaths(element, new Function<PsiFile, String>() {
-            public String fun(@NotNull final PsiFile psiFile) {
+            public String fun(@Nonnull final PsiFile psiFile) {
                 PsiFile file = psiFile.getViewProvider().getPsi(VtlLanguage.INSTANCE);
                 if (file instanceof VtlFile) {
                     VtlFile vtlFile = (VtlFile) file;
@@ -74,7 +74,7 @@ public abstract class DefineMacroLibraryRefIntention extends DefineInCommentInte
             super(VelocityBundle.message("add.macro.library.ref.fix.name.local"));
         }
 
-        public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
             defineInComment(editor, file, file, false);
         }
     }
@@ -84,7 +84,7 @@ public abstract class DefineMacroLibraryRefIntention extends DefineInCommentInte
             super(VelocityBundle.message("add.macro.library.ref.fix.name.external"));
         }
 
-        public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
             chooseTargetFile(file, editor, true);
         }
     }
@@ -94,7 +94,7 @@ public abstract class DefineMacroLibraryRefIntention extends DefineInCommentInte
             super(VelocityBundle.message("add.macro.library.ref.fix.name.module.wide"));
         }
 
-        public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
             chooseTargetFile(file, editor, false);
         }
     }

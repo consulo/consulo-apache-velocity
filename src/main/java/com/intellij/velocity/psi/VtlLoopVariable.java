@@ -15,8 +15,8 @@
  */
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiArrayType;
@@ -127,7 +127,7 @@ public class VtlLoopVariable extends VtlPresentableNamedElement implements VtlVa
 			}
 	};
 
-	public static String[] getVelocityIterables(@NotNull String className)
+	public static String[] getVelocityIterables(@Nonnull String className)
 	{
 		return new String[]{
 				"java.util.Iterator<" + className + ">",

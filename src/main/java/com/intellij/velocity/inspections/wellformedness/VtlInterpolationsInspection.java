@@ -15,9 +15,10 @@
  */
 package com.intellij.velocity.inspections.wellformedness;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -53,19 +54,19 @@ public class VtlInterpolationsInspection extends VtlInspectionBase {
                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
     }
 
-    @NotNull
+    @Nonnull
     public HighlightDisplayLevel getDefaultLevel() {
         return HighlightDisplayLevel.ERROR;
     }
 
     @Nls
-    @NotNull
+    @Nonnull
     public String getDisplayName() {
         return VelocityBundle.message("vtl.welformedness.inspection");
     }
 
     @NonNls
-    @NotNull
+    @Nonnull
     public String getShortName() {
         return "VtlInterpolationsInspection";
     }

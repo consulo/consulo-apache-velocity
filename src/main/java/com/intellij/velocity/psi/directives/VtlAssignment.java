@@ -18,8 +18,8 @@ package com.intellij.velocity.psi.directives;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.psi.PsiElement;
@@ -43,10 +43,10 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
 
     private final NotNullLazyValue<CachedValue<AssignedVariable>> myAssignedVariable;
 
-    protected VtlAssignment(final ASTNode node, @NotNull String presentableName, boolean needsClosing) {
+    protected VtlAssignment(final ASTNode node, @Nonnull String presentableName, boolean needsClosing) {
         super(node, presentableName, needsClosing);
         myAssignedVariable = new NotNullLazyValue<CachedValue<AssignedVariable>>() {
-            @NotNull
+            @Nonnull
             protected CachedValue<AssignedVariable> compute() {
                 return CachedValuesManager.getManager(getProject()).createCachedValue(new CachedValueProvider<AssignedVariable>()
 				{
@@ -89,7 +89,7 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
     @Nullable
     public abstract PsiType getAssignedVariableElementType();
 
-    @NotNull
+    @Nonnull
     public String getPresentableName() {
         String dirName = super.getPresentableName();
         PsiElement nameElement = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
@@ -106,14 +106,14 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
             super(VtlAssignment.this.getContainingFile());
         }
 
-        @NotNull
+        @Nonnull
         public String getName() {
             final VtlReferenceExpression expression = getAssignedVariableElement();
             assert expression != null;
             return expression.getReferenceName();
         }
 
-        public PsiElement setName(@NotNull @NonNls String name) throws IncorrectOperationException {
+        public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException {
             VtlReferenceExpression nameElement = getAssignedVariableElement();
             assert nameElement != null;
             nameElement.handleElementRename(name);

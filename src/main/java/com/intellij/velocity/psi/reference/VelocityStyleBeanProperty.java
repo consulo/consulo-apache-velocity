@@ -16,8 +16,9 @@
 
 package com.intellij.velocity.psi.reference;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.beanProperties.BeanProperty;
@@ -29,12 +30,12 @@ import com.intellij.util.IncorrectOperationException;
 public class VelocityStyleBeanProperty extends BeanProperty {
     private String myName;
 
-    protected VelocityStyleBeanProperty(@NotNull PsiMethod method, @NotNull String name) {
+    protected VelocityStyleBeanProperty(@Nonnull PsiMethod method, @Nonnull String name) {
         super(method);
         myName = name;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
         return myName;
@@ -65,7 +66,7 @@ public class VelocityStyleBeanProperty extends BeanProperty {
     }
 
   @Override
-  @NotNull
+  @Nonnull
   public PsiType getPropertyType() {
     PsiType type = VelocityNamingUtil.getPropertyType(getMethod());
     assert type != null;
@@ -73,7 +74,7 @@ public class VelocityStyleBeanProperty extends BeanProperty {
   }
 
     @Nullable
-    public static BeanProperty createVelocityStyleBeanProperty(@NotNull PsiMethod method, @Nullable String name) {
+    public static BeanProperty createVelocityStyleBeanProperty(@Nonnull PsiMethod method, @Nullable String name) {
         if(name == null) {
             return null;
         }

@@ -16,19 +16,20 @@
 
 package com.intellij.velocity.inspections;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.highlighting.HighlightErrorFilter;
 import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlErrorFilter extends HighlightErrorFilter {
 
-  public boolean shouldHighlightErrorElement(@NotNull final PsiErrorElement element) {
+  public boolean shouldHighlightErrorElement(@Nonnull final PsiErrorElement element) {
     return !value(element);
   }
 

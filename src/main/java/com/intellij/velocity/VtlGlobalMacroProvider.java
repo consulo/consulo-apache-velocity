@@ -19,7 +19,7 @@ package com.intellij.velocity;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.files.VtlFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collection;
 
@@ -29,7 +29,7 @@ import java.util.Collection;
 public abstract class VtlGlobalMacroProvider {
     public static final ExtensionPointName<VtlGlobalMacroProvider> EP_NAME = ExtensionPointName.create("com.intellij.velocity.globalMacroProvider");
 
-    @NotNull
-    public abstract Collection<VtlMacro> getGlobalMacros(@NotNull VtlFile file);
+    @Nonnull
+    public abstract Collection<VtlMacro> getGlobalMacros(@Nonnull VtlFile file);
 
 }

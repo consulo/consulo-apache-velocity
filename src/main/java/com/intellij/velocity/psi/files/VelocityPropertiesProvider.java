@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -43,17 +45,17 @@ public class VelocityPropertiesProvider {
     private final PropertiesFile myPropertiesFile;
     @Nullable private final VirtualFile myRuntimeRoot;
 
-    public VelocityPropertiesProvider(@NotNull PropertiesFile file, @Nullable VirtualFile runtimeRoot) {
+    public VelocityPropertiesProvider(@Nonnull PropertiesFile file, @Nullable VirtualFile runtimeRoot) {
         this.myPropertiesFile = file;
         this.myRuntimeRoot = runtimeRoot;
     }
 
-    public VelocityPropertiesProvider(@NotNull PropertiesFile file) {
+    public VelocityPropertiesProvider(@Nonnull PropertiesFile file) {
         this.myPropertiesFile = file;
         this.myRuntimeRoot = null;
     }
 
-    @NotNull
+    @Nonnull
     public List<VirtualFile> getResourceLoaderPathListBasedOn(@Nullable VirtualFile baseFile) {
         if(myRuntimeRoot != null) {
             baseFile = myRuntimeRoot;
@@ -84,7 +86,7 @@ public class VelocityPropertiesProvider {
         return array;
     }
 
-    @NotNull
+    @Nonnull
     public List<VtlFile> getVelocimacroLibraryListBasedOn(@Nullable VirtualFile baseFile) {
         if(myRuntimeRoot != null) {
           baseFile = myRuntimeRoot;
@@ -115,19 +117,19 @@ public class VelocityPropertiesProvider {
         return res;
     }
 
-    @NotNull
+    @Nonnull
     public PropertiesFile getPropertiesFile() {
         return myPropertiesFile;
     }
 
-    @NotNull
+    @Nonnull
     public String[] getVelocimacroLibraryNames() {
         final String value = getValue(VELOCIMACRO_LIBRARY_PROPERTY);
         return value.length() == 0 ? ArrayUtil.EMPTY_STRING_ARRAY : splitAndTrim(value);
     }
 
-    @NotNull
-    private String getValue(@NotNull @NonNls String key) {
+    @Nonnull
+    private String getValue(@Nonnull @NonNls String key) {
         IProperty resourceLoaderPathProp = myPropertiesFile.findPropertyByKey(key);
         if (resourceLoaderPathProp == null) {
             return "";

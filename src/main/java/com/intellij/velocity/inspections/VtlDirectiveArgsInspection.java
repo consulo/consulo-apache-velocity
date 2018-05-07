@@ -21,10 +21,12 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
 import static com.intellij.velocity.VelocityBundle.message;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.velocity.psi.directives.VtlSet;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 public class VtlDirectiveArgsInspection extends VtlInspectionBase {
   protected void registerProblems(PsiElement element, ProblemsHolder holder) {
@@ -44,13 +46,13 @@ public class VtlDirectiveArgsInspection extends VtlInspectionBase {
   }
 
   @Nls
-  @NotNull
+  @Nonnull
   public String getDisplayName() {
     return message("vtl.directive.args.inspection");
   }
 
   @NonNls
-  @NotNull
+  @Nonnull
   public String getShortName() {
     return "VtlDirectiveArgsInspection";
   }

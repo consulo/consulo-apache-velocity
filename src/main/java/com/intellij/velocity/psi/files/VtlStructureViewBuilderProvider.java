@@ -15,8 +15,9 @@
  */
 package com.intellij.velocity.psi.files;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.ide.structureView.StructureView;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
@@ -47,7 +48,7 @@ public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory
 				StructureView mainView = new TreeBasedStructureViewBuilder()
 				{
 					@Override
-					@NotNull
+					@Nonnull
 					public StructureViewModel createStructureViewModel(Editor editor)
 					{
 						return new VtlStructureViewModel((VtlFile) mainFile);

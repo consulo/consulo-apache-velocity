@@ -33,7 +33,7 @@ import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.files.VelocityPropertiesProvider;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,21 +44,21 @@ import java.util.List;
  * @author Alexey Chmutov
  */
 public abstract class DefineVelocityPropertiesRefIntention extends DefineInCommentIntention {
-  public DefineVelocityPropertiesRefIntention(@NotNull String text) {
+  public DefineVelocityPropertiesRefIntention(@Nonnull String text) {
     super(text, VelocityBundle.message("add.velocity.properties.ref.fix.name"));
   }
 
   @Override
-  protected boolean isAvailable(@NotNull VtlReferenceExpression ref) {
+  protected boolean isAvailable(@Nonnull VtlReferenceExpression ref) {
     return ref.getParent() instanceof VtlMacroCall;
   }
 
-  protected void prepareTemplate(@NotNull Template template,
-                                 @NotNull final PsiElement element,
+  protected void prepareTemplate(@Nonnull Template template,
+                                 @Nonnull final PsiElement element,
                                  String relativePath,
-                                 @NotNull final PsiFile fileToInsertComment) {
+                                 @Nonnull final PsiFile fileToInsertComment) {
     final List<String> allFiles = Util.collectFilePaths(element, new Function<PsiFile, String>() {
-      public String fun(@NotNull final PsiFile psiFile) {
+      public String fun(@Nonnull final PsiFile psiFile) {
         PsiFile file = psiFile.getViewProvider().getPsi(PropertiesLanguage.INSTANCE);
         if (!(file instanceof PropertiesFile)) {
           return null;
@@ -102,7 +102,7 @@ public abstract class DefineVelocityPropertiesRefIntention extends DefineInComme
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.local"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       defineInComment(editor, file, file, false);
     }
   }
@@ -112,7 +112,7 @@ public abstract class DefineVelocityPropertiesRefIntention extends DefineInComme
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.external"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       chooseTargetFile(file, editor, true);
     }
   }
@@ -122,7 +122,7 @@ public abstract class DefineVelocityPropertiesRefIntention extends DefineInComme
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.module.wide"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       chooseTargetFile(file, editor, false);
     }
   }

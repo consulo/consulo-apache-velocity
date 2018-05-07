@@ -1,6 +1,7 @@
 package com.intellij.velocity.tests;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.hint.ShowParameterInfoContext;
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext;
 import com.intellij.lang.parameterInfo.ParameterInfoHandler;
@@ -157,7 +158,7 @@ public class VtlParameterInfoTest extends JavaCodeInsightFixtureTestCase
 		};
 	}
 
-	private static void checkParameterIndex(@NotNull final VtlArgumentList argumentList, final CreateParameterInfoContext createContext, final int paramIndex, VtlParameterInfoHandler handler)
+	private static void checkParameterIndex(@Nonnull final VtlArgumentList argumentList, final CreateParameterInfoContext createContext, final int paramIndex, VtlParameterInfoHandler handler)
 	{
 		throw new UnsupportedOperationException();
 		/*TODO

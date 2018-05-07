@@ -15,8 +15,9 @@
  */
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiType;
 import com.intellij.util.NullableFunction;
@@ -30,7 +31,7 @@ public class VtlMethodCallExpression extends VtlCallExpression implements VtlExp
         super(node);
     }
 
-    @NotNull
+    @Nonnull
     public VtlArgumentList getArgumentList() {
         return findNotNullChildByClass(VtlArgumentList.class);
     }

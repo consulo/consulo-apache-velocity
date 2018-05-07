@@ -15,7 +15,7 @@
  */
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
 
 /**
@@ -26,7 +26,7 @@ public class VtlArgumentList extends VtlCompositeElement {
         super(node);
     }
 
-    @NotNull
+    @Nonnull
     public VtlExpression[] getArguments() {
         return findChildrenByClass(VtlExpression.class);
     }

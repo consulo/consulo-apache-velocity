@@ -19,7 +19,7 @@ package com.intellij.velocity.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class VtlExpressionType extends VtlCompositeElementType {
 
-    public VtlExpressionType(@NotNull @NonNls final String debugName) {
+    public VtlExpressionType(@Nonnull @NonNls final String debugName) {
         super(debugName);
     }
 

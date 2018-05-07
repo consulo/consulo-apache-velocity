@@ -16,7 +16,8 @@
 
 package com.intellij.velocity.psi.reference;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Ref;
@@ -40,7 +41,7 @@ import com.intellij.velocity.psi.files.VtlFileType;
 public class VelocityStylePropertySearcher implements QueryExecutor<PsiReference, MethodReferencesSearch.SearchParameters>
 {
 	@Override
-	public boolean execute(@NotNull final MethodReferencesSearch.SearchParameters parameters, @NotNull final Processor<PsiReference> consumer)
+	public boolean execute(@Nonnull final MethodReferencesSearch.SearchParameters parameters, @Nonnull final Processor<PsiReference> consumer)
 	{
 		final PsiMethod method = parameters.getMethod();
 		final Ref<String> name = Ref.create(null);

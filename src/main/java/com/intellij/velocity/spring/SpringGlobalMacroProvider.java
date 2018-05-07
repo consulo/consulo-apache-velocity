@@ -19,7 +19,8 @@ package com.intellij.velocity.spring;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
@@ -35,8 +36,8 @@ public class SpringGlobalMacroProvider extends VtlGlobalMacroProvider {
     private static final String SPRING_VM_PACKAGE = "org.springframework.web.servlet.view.velocity";
     private static final String SPRING_VM = "spring.vm";
 
-    @NotNull
-    public Collection<VtlMacro> getGlobalMacros(@NotNull final VtlFile file) {
+    @Nonnull
+    public Collection<VtlMacro> getGlobalMacros(@Nonnull final VtlFile file) {
         final PsiJavaPackage aPackage = JavaPsiFacade.getInstance(file.getProject()).findPackage(SPRING_VM_PACKAGE);
         if (aPackage != null) {
             for (final PsiDirectory directory : aPackage.getDirectories()) {

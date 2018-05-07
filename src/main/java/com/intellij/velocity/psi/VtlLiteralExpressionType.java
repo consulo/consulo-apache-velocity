@@ -16,6 +16,8 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.properties.references.PropertyReference;
 import com.intellij.openapi.util.TextRange;
@@ -24,7 +26,6 @@ import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlFileReferenceDirective;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,13 +36,13 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
     private final String myTypeName;
     private final PsiPrimitiveType myPrimitiveType;
 
-    public VtlLiteralExpressionType(@NotNull @NonNls String debugName, @NotNull String typeName) {
+    public VtlLiteralExpressionType(@Nonnull @NonNls String debugName, @Nonnull String typeName) {
         super(debugName);
         myTypeName = typeName;
         myPrimitiveType = null;
     }
 
-    public VtlLiteralExpressionType(@NotNull @NonNls String debugName, @NotNull PsiType primitiveType) {
+    public VtlLiteralExpressionType(@Nonnull @NonNls String debugName, @Nonnull PsiType primitiveType) {
         super(debugName);
         myTypeName = null;
         assert primitiveType instanceof PsiPrimitiveType;
@@ -56,7 +57,7 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
     }
 
     public class VtlLiteralExpression extends VtlCompositeElement implements VtlExpression {
-        public VtlLiteralExpression(@NotNull final ASTNode node) {
+        public VtlLiteralExpression(@Nonnull final ASTNode node) {
             super(node);
         }
 
@@ -70,11 +71,11 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
 
     public class VtlStringLiteral extends VtlLiteralExpression {
 
-        public VtlStringLiteral(@NotNull final ASTNode node) {
+        public VtlStringLiteral(@Nonnull final ASTNode node) {
             super(node);
         }
 
-        @NotNull
+        @Nonnull
         public PsiReference[] getReferences() {
             if (isFileReference()) {
                 return PsiUtil.getFileReferences(getValueText(), this, getFirstChild().getTextLength(), true);

@@ -20,7 +20,8 @@ import static com.intellij.patterns.PlatformPatterns.psiElement;
 
 import java.util.Collection;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionInitializationContext;
 import com.intellij.codeInsight.completion.CompletionParameters;
@@ -65,7 +66,7 @@ public class VtlCompletionContributor extends CompletionContributor
 	}
 
 	@Override
-	public void beforeCompletion(@NotNull CompletionInitializationContext context)
+	public void beforeCompletion(@Nonnull CompletionInitializationContext context)
 	{
 		int offset = context.getStartOffset();
 		if(offset == 0 || !context.getFile().getViewProvider().getLanguages().contains(VtlLanguage.INSTANCE))
@@ -119,9 +120,9 @@ public class VtlCompletionContributor extends CompletionContributor
 
 		@Override
 		public void addCompletions(
-				@NotNull final CompletionParameters parameters,
+				@Nonnull final CompletionParameters parameters,
 				final ProcessingContext context,
-				@NotNull final CompletionResultSet result)
+				@Nonnull final CompletionResultSet result)
 		{
 			result.stopHere();
 			final VtlDirective directive = context.get(DIRECTIVE_KEY);
@@ -159,9 +160,9 @@ public class VtlCompletionContributor extends CompletionContributor
 		{
 			@Override
 			public void addCompletions(
-					@NotNull final CompletionParameters parameters,
+					@Nonnull final CompletionParameters parameters,
 					final ProcessingContext context,
-					@NotNull final CompletionResultSet _result)
+					@Nonnull final CompletionResultSet _result)
 			{
 				final PsiComment element = (PsiComment) parameters.getPosition();
 				final String text = element.getText();
@@ -219,7 +220,7 @@ public class VtlCompletionContributor extends CompletionContributor
 		extend(CompletionType.SMART, propertyToBeSet, new CompletionProvider()
 		{
 			@Override
-			public void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result)
+			public void addCompletions(@Nonnull CompletionParameters parameters, ProcessingContext context, @Nonnull CompletionResultSet result)
 			{
 				result.stopHere();
 				PsiElement positionParent = parameters.getPosition().getParent();

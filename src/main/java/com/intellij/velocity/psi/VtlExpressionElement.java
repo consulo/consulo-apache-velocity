@@ -16,15 +16,16 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiType;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
 */
 class VtlExpressionElement extends VtlCompositeElement implements VtlExpression {
-    public VtlExpressionElement(@NotNull final ASTNode node) {
+    public VtlExpressionElement(@Nonnull final ASTNode node) {
         super(node);
     }
 

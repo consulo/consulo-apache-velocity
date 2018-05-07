@@ -19,8 +19,8 @@ package com.intellij.velocity.psi.reference;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
@@ -36,11 +36,11 @@ import com.intellij.velocity.psi.files.VtlFile;
  */
 public class VtlFileReferenceSet extends SoftFileReferenceSet {
 
-    public VtlFileReferenceSet(@NotNull String text, PsiElement element, int startInElement) {
+    public VtlFileReferenceSet(@Nonnull String text, PsiElement element, int startInElement) {
         super(text, element, startInElement);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Collection<PsiFileSystemItem> getDefaultContexts() {
         VtlFile file = getContainingVtlFile();
@@ -54,8 +54,8 @@ public class VtlFileReferenceSet extends SoftFileReferenceSet {
         return getVtlDefaultContexts(velocityProperties);
     }
 
-    @NotNull
-    private Collection<PsiFileSystemItem> getVtlDefaultContexts(@NotNull VelocityPropertiesProvider velocityProperties) {
+    @Nonnull
+    private Collection<PsiFileSystemItem> getVtlDefaultContexts(@Nonnull VelocityPropertiesProvider velocityProperties) {
         PsiManager manager = getElement().getManager();
         Collection<PsiFileSystemItem> vtlDefaultContexts = new ArrayList<PsiFileSystemItem>();
         for (PsiFileSystemItem defaultContext : super.getDefaultContexts()) {

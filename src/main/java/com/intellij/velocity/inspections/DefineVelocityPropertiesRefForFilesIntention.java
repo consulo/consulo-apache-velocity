@@ -31,8 +31,8 @@ import com.intellij.velocity.psi.reference.VtlFileReferenceSet;
 import com.intellij.velocity.psi.files.VelocityPropertiesProvider;
 import com.intellij.lang.properties.PropertiesLanguage;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,21 +41,21 @@ import java.util.List;
  * @author Alexey Chmutov
  */
 public abstract class DefineVelocityPropertiesRefForFilesIntention extends DefineInCommentIntention {
-  public DefineVelocityPropertiesRefForFilesIntention(@NotNull String text) {
+  public DefineVelocityPropertiesRefForFilesIntention(@Nonnull String text) {
     super(text, VelocityBundle.message("add.velocity.properties.ref.fix.name"));
   }
 
   @Override
   @Nullable
-  protected PsiElement getReferenceElement(@NotNull final Editor editor, @NotNull final PsiFile file) {
+  protected PsiElement getReferenceElement(@Nonnull final Editor editor, @Nonnull final PsiFile file) {
     FileReference ref = findReferenceExpression(editor, file, FileReference.class);
     return ref != null && ref.resolve() == null && canSetVelocityProperties(file) ? ref.getElement() : null;
   }
 
-  protected void prepareTemplate(@NotNull Template template,
-                                 @NotNull final PsiElement element,
+  protected void prepareTemplate(@Nonnull Template template,
+                                 @Nonnull final PsiElement element,
                                  String relativePath,
-                                 @NotNull final PsiFile fileToInsertComment) {
+                                 @Nonnull final PsiFile fileToInsertComment) {
     final List<String> allFiles = computeFilePaths(element, fileToInsertComment);
     template.addTextSegment("#* @velocityproperties path=");
     final Expression pathExpression = new StringCollectionExpression(allFiles);
@@ -78,7 +78,7 @@ public abstract class DefineVelocityPropertiesRefForFilesIntention extends Defin
     }
 
     return collectFilePaths(element, new Function<PsiFile, String>() {
-      public String fun(@NotNull final PsiFile psiFile) {
+      public String fun(@Nonnull final PsiFile psiFile) {
         PsiFile file = psiFile.getViewProvider().getPsi(PropertiesLanguage.INSTANCE);
         if (file instanceof PropertiesFile) {
           PropertiesFile propFile = (PropertiesFile)file;
@@ -99,7 +99,7 @@ public abstract class DefineVelocityPropertiesRefForFilesIntention extends Defin
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.local"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       defineInComment(editor, file, file, false);
     }
   }
@@ -109,7 +109,7 @@ public abstract class DefineVelocityPropertiesRefForFilesIntention extends Defin
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.external"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       chooseTargetFile(file, editor, true);
     }
   }
@@ -119,7 +119,7 @@ public abstract class DefineVelocityPropertiesRefForFilesIntention extends Defin
       super(VelocityBundle.message("add.velocity.properties.ref.fix.name.module.wide"));
     }
 
-    public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+    public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
       chooseTargetFile(file, editor, false);
     }
   }

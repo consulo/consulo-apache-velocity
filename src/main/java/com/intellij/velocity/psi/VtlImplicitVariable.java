@@ -17,10 +17,10 @@ package com.intellij.velocity.psi;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.Factory;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiComment;
@@ -44,19 +44,19 @@ public class VtlImplicitVariable extends RenameableFakePsiElement implements Vtl
     private String myType;
     private final VtlFile myScopeFile;
 
-    private VtlImplicitVariable(@NotNull final PsiFile containingFile, @Nullable final PsiComment comment, @NotNull final String name, @Nullable VtlFile scopeFile) {
+    private VtlImplicitVariable(@Nonnull final PsiFile containingFile, @Nullable final PsiComment comment, @Nonnull final String name, @Nullable VtlFile scopeFile) {
         super(containingFile);
         myComment = comment;
         myName = name;
         myScopeFile = scopeFile;
     }
 
-    @NotNull
+    @Nonnull
     public String getName() {
         return myName;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public PsiElement getNavigationElement() {
         return myComment != null ? myComment : getContainingFile();
@@ -95,7 +95,7 @@ public class VtlImplicitVariable extends RenameableFakePsiElement implements Vtl
         return IconDescriptorUpdaters.getIcon(this, 0);
     }
 
-    public static VtlImplicitVariable getOrCreate(@NotNull final Map<String, VtlImplicitVariable> mapToAddTo, @NotNull final PsiFile containingFile, @Nullable final PsiComment comment, final String name, @Nullable final VtlFile scopeFile) {
+    public static VtlImplicitVariable getOrCreate(@Nonnull final Map<String, VtlImplicitVariable> mapToAddTo, @Nonnull final PsiFile containingFile, @Nullable final PsiComment comment, final String name, @Nullable final VtlFile scopeFile) {
         assert comment == null || comment.getContainingFile() == containingFile;
         return ContainerUtil.getOrCreate(mapToAddTo, name, new Factory<VtlImplicitVariable>() {
             public VtlImplicitVariable create() {

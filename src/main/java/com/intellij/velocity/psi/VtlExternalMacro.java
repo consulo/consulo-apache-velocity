@@ -27,8 +27,8 @@ import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.files.VtlFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Map;
@@ -37,12 +37,12 @@ import java.util.Map;
  * @author Alexey Chmutov
  */
 public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
-    @NotNull
+    @Nonnull
     private final PsiComment myComment;
     private final String myName;
     private VtlVariable[] myParameters;
 
-    private VtlExternalMacro(@NotNull final PsiComment comment, @NotNull final String name) {
+    private VtlExternalMacro(@Nonnull final PsiComment comment, @Nonnull final String name) {
         myComment = comment;
         myName = name;
     }
@@ -51,32 +51,32 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
         return myComment.getContainingFile();
     }
 
-    @NotNull
+    @Nonnull
     public Language getLanguage() {
         return myComment.getLanguage();
     }
 
-    @NotNull
+    @Nonnull
     public Project getProject() {
         return myComment.getProject();
     }
 
-    @NotNull
+    @Nonnull
     public String getName() {
         return myName;
     }
 
-    @NotNull
+    @Nonnull
     public PsiElement getNavigationElement() {
         return myComment;
     }
 
-    @NotNull
+    @Nonnull
     public PsiElement getParent() {
         return myComment;
     }
 
-    @NotNull
+    @Nonnull
     public VtlVariable[] getParameters() {
         return myParameters;
     }
@@ -102,7 +102,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
         return "ExternalMacro " + myName;
     }
 
-    public static VtlExternalMacro getOrCreate(final Map<String, VtlExternalMacro> mapToAddTo, @NotNull final PsiComment comment, final String name) {
+    public static VtlExternalMacro getOrCreate(final Map<String, VtlExternalMacro> mapToAddTo, @Nonnull final PsiComment comment, final String name) {
         return ContainerUtil.getOrCreate(mapToAddTo, name, new Factory<VtlExternalMacro>() {
             public VtlExternalMacro create() {
                 return new VtlExternalMacro(comment, name);
@@ -118,18 +118,18 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
     private class Parameter extends FakePsiElement implements VtlVariable {
         private String myName;
 
-        public Parameter(@NotNull String name) {
+        public Parameter(@Nonnull String name) {
             myName = name;
         }
 
         @Override
-        @NotNull
+        @Nonnull
         public String getName() {
             return myName;
         }
 
         @Override
-        public PsiElement setName(@NotNull String name) throws IncorrectOperationException {
+        public PsiElement setName(@Nonnull String name) throws IncorrectOperationException {
             final PsiElement res = super.setName(name);
             myName = name;
             return res;

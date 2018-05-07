@@ -18,8 +18,8 @@ package com.intellij.velocity.psi.formatter;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.formatting.Alignment;
 import com.intellij.formatting.Indent;
 import com.intellij.formatting.Wrap;
@@ -39,7 +39,7 @@ import com.intellij.velocity.psi.VtlElementTypes;
  */
 public class VtlBlock extends TemplateLanguageBlock
 {
-	public VtlBlock(@NotNull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment, @NotNull TemplateLanguageBlockFactory blockFactory, @NotNull CodeStyleSettings settings, @Nullable List<DataLanguageBlockWrapper> foreignChildren)
+	public VtlBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment, @Nonnull TemplateLanguageBlockFactory blockFactory, @Nonnull CodeStyleSettings settings, @Nullable List<DataLanguageBlockWrapper> foreignChildren)
 	{
 		super(node, wrap, alignment, blockFactory, settings, foreignChildren);
 	}

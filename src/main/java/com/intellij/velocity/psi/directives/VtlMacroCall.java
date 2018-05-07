@@ -21,8 +21,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import static com.intellij.velocity.psi.VtlCompositeElementTypes.REFERENCE_EXPRESSION;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.velocity.psi.VtlExpression;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
@@ -32,7 +34,7 @@ public class VtlMacroCall extends VtlCallExpression implements VtlDirective {
         super(node);
     }
 
-    @NotNull
+    @Nonnull
     public String getPresentableName() {
         PsiElement child = findChildByType(REFERENCE_EXPRESSION);
         return child != null ? child.getText() : "";
@@ -50,7 +52,7 @@ public class VtlMacroCall extends VtlCallExpression implements VtlDirective {
         return false;
     }
 
-    @NotNull
+    @Nonnull
     public VtlExpression[] getArguments() {
         VtlArgumentList argList = findChildByClass(VtlArgumentList.class);
         if (argList == null) {

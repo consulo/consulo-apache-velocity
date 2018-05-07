@@ -16,8 +16,8 @@
 
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 
@@ -28,16 +28,16 @@ import com.intellij.velocity.psi.reference.VtlReferenceExpression;
  */
 public abstract class VtlCallExpression extends VtlCompositeElement {
 
-    public VtlCallExpression(@NotNull final ASTNode node) {
+    public VtlCallExpression(@Nonnull final ASTNode node) {
         super(node);
     }
 
-    @NotNull
+    @Nonnull
     public VtlReferenceExpression getReferenceExpression() {
         return findNotNullChildByClass(VtlReferenceExpression.class);
     }
 
-    @NotNull
+    @Nonnull
     public VtlCallable[] getCallableCandidates() {
         return getReferenceExpression().getCallableCandidates();
     }

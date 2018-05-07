@@ -23,8 +23,8 @@ package com.intellij.velocity.lexer;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static com.intellij.velocity.psi.VtlElementTypes.*;
 
@@ -847,7 +847,7 @@ public class _VtlLexer implements FlexLexer {
   private class StateHolder extends ListElement {
     public final Integer transitionalState;
 
-    public StateHolder(@NotNull Integer state, @Nullable Integer transitionalState, @Nullable StateHolder prevElement) {
+    public StateHolder(@Nonnull Integer state, @Nullable Integer transitionalState, @Nullable StateHolder prevElement) {
       super(state, prevElement);
       this.transitionalState = transitionalState;
     }
@@ -857,7 +857,7 @@ public class _VtlLexer implements FlexLexer {
     public final Integer data;
     public final ListElement prevElement;
 
-    public ListElement(@NotNull Integer data, @Nullable ListElement prevElement) {
+    public ListElement(@Nonnull Integer data, @Nullable ListElement prevElement) {
       this.data = data;
       this.prevElement = prevElement;
     }

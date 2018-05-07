@@ -20,9 +20,9 @@ import static com.intellij.velocity.psi.files.VtlSyntaxHighlighter.*;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -61,7 +61,7 @@ public class VelocityColorSettingsPage implements ColorSettingsPage {
         return new AttributesDescriptor(VelocityBundle.message(displayNameKey), textAttributesKey);
     }
 
-    @NotNull
+    @Nonnull
     public String getDisplayName() {
         return "Velocity";
     }
@@ -70,22 +70,22 @@ public class VelocityColorSettingsPage implements ColorSettingsPage {
         return VtlIcons.VTL_ICON;
     }
 
-    @NotNull
+    @Nonnull
     public AttributesDescriptor[] getAttributeDescriptors() {
         return ATTRS;
     }
 
-    @NotNull
+    @Nonnull
     public ColorDescriptor[] getColorDescriptors() {
         return ColorDescriptor.EMPTY_ARRAY;
     }
 
-    @NotNull
+    @Nonnull
     public SyntaxHighlighter getHighlighter() {
         return new VtlSyntaxHighlighter();
     }
 
-    @NotNull
+    @Nonnull
     public String getDemoText() {
         return "#* comment  \n" +
                 "  comment *#\n" +

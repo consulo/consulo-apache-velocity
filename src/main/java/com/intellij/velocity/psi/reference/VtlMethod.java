@@ -16,7 +16,8 @@
 
 package com.intellij.velocity.psi.reference;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
@@ -57,13 +58,13 @@ class VtlMethod implements VtlCallable {
         private final String myName;
         private final PsiParameter myParent;
 
-        public Parameter(@NotNull PsiParameter parent) {
+        public Parameter(@Nonnull PsiParameter parent) {
             myName = StringUtil.notNullize(parent.getName());
             myParent = parent;
         }
 
         @Override
-        @NotNull
+        @Nonnull
         public String getName() {
             return myName;
         }

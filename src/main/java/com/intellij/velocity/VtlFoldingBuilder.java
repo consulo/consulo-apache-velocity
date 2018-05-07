@@ -19,7 +19,8 @@ package com.intellij.velocity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilder;
 import com.intellij.lang.folding.FoldingDescriptor;
@@ -34,8 +35,8 @@ import com.intellij.velocity.psi.files.VtlFile;
  * @author Alexey Chmutov
  */
 public class VtlFoldingBuilder implements FoldingBuilder, DumbAware {
-    @NotNull
-    public FoldingDescriptor[] buildFoldRegions(@NotNull final ASTNode node, @NotNull final Document document) {
+    @Nonnull
+    public FoldingDescriptor[] buildFoldRegions(@Nonnull final ASTNode node, @Nonnull final Document document) {
         final PsiElement element = node.getPsi();
         if (!(element instanceof VtlFile)) {
             return FoldingDescriptor.EMPTY;
@@ -60,11 +61,11 @@ public class VtlFoldingBuilder implements FoldingBuilder, DumbAware {
         }
     }
 
-    public String getPlaceholderText(@NotNull final ASTNode node) {
+    public String getPlaceholderText(@Nonnull final ASTNode node) {
         return "...";
     }
 
-    public boolean isCollapsedByDefault(@NotNull final ASTNode node) {
+    public boolean isCollapsedByDefault(@Nonnull final ASTNode node) {
         return false;
     }
 }

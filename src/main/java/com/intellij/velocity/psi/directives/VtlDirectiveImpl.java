@@ -19,26 +19,26 @@ package com.intellij.velocity.psi.directives;
 import com.intellij.lang.ASTNode;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCompositeElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlDirectiveImpl extends VtlCompositeElement implements VtlDirective {
 
-    @NotNull
+    @Nonnull
     private final String myPresentableName;
 
     private final boolean myNeedsClosing;
 
-    public VtlDirectiveImpl(@NotNull final ASTNode node, @NotNull String presentableName, boolean needsClosing) {
+    public VtlDirectiveImpl(@Nonnull final ASTNode node, @Nonnull String presentableName, boolean needsClosing) {
         super(node);
         myPresentableName = presentableName;
         myNeedsClosing = needsClosing;
     }
 
-    @NotNull
+    @Nonnull
     public String getPresentableName() {
         return myPresentableName;
     }

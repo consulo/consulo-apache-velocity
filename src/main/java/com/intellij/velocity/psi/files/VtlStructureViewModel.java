@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.TextEditorBasedStructureViewModel;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
@@ -44,7 +44,7 @@ public class VtlStructureViewModel extends TextEditorBasedStructureViewModel {
         return myFile;
     }
 
-    @NotNull
+    @Nonnull
     public StructureViewTreeElement getRoot() {
         return new VtlTreeElementWrapper(myFile);
     }
@@ -55,7 +55,7 @@ public class VtlStructureViewModel extends TextEditorBasedStructureViewModel {
             super(element);
         }
 
-        @NotNull
+        @Nonnull
         public Collection<StructureViewTreeElement> getChildrenBase() {
             final VtlDirectiveHolder element = getElement();
             if (element == null) {

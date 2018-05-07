@@ -15,8 +15,9 @@
  */
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.CompositeElement;
@@ -28,7 +29,7 @@ import com.intellij.psi.tree.IElementType;
  */
 public class VtlCompositeElementType extends IElementType implements ICompositeElementType {
 
-    public VtlCompositeElementType(@NotNull @NonNls final String debugName) {
+    public VtlCompositeElementType(@Nonnull @NonNls final String debugName) {
         super(debugName, VtlLanguage.INSTANCE);
     }
 
@@ -36,7 +37,7 @@ public class VtlCompositeElementType extends IElementType implements ICompositeE
         return new VtlCompositeElement(node);
     }
 
-    @NotNull
+    @Nonnull
     public ASTNode createCompositeNode() {
         return new CompositeElement(this);
     }

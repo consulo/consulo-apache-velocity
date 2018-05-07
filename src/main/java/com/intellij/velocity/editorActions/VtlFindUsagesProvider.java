@@ -15,7 +15,8 @@
  */
 package com.intellij.velocity.editorActions;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
@@ -30,26 +31,26 @@ public class VtlFindUsagesProvider implements FindUsagesProvider {
         return null;
     }
 
-    public boolean canFindUsagesFor(@NotNull final PsiElement psiElement) {
+    public boolean canFindUsagesFor(@Nonnull final PsiElement psiElement) {
         return psiElement instanceof VtlVariable;
     }
 
-    public String getHelpId(@NotNull final PsiElement psiElement) {
+    public String getHelpId(@Nonnull final PsiElement psiElement) {
         return null;
     }
 
-    @NotNull
-    public String getType(@NotNull final PsiElement element) {
+    @Nonnull
+    public String getType(@Nonnull final PsiElement element) {
         return VelocityBundle.message("type.name.variable");
     }
 
-    @NotNull
-    public String getDescriptiveName(@NotNull final PsiElement element) {
+    @Nonnull
+    public String getDescriptiveName(@Nonnull final PsiElement element) {
         return VelocityBundle.message("type.name.variable");
     }
 
-    @NotNull
-    public String getNodeText(@NotNull final PsiElement element, final boolean useFullName) {
+    @Nonnull
+    public String getNodeText(@Nonnull final PsiElement element, final boolean useFullName) {
         if (element instanceof VtlVariable) {
             return ((VtlVariable) element).getName();
         }

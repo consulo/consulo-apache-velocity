@@ -16,14 +16,15 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlInterpolation extends VtlExpressionElement {
-    public VtlInterpolation(@NotNull final ASTNode node) {
+    public VtlInterpolation(@Nonnull final ASTNode node) {
         super(node);
     }
 }

@@ -16,17 +16,19 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlDirectiveHeader extends VtlCompositeElement {
-    public VtlDirectiveHeader(@NotNull final ASTNode node) {
+    public VtlDirectiveHeader(@Nonnull final ASTNode node) {
         super(node);
     }
 
@@ -35,7 +37,7 @@ public class VtlDirectiveHeader extends VtlCompositeElement {
         return super.findChildByType(type);
     }
 
-    @NotNull
+    @Nonnull
     public <T> T[] findChildrenByClass(Class<T> aClass) {
         return super.findChildrenByClass(aClass);
     }

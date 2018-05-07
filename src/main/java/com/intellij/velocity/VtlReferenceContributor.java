@@ -23,8 +23,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PsiElementPattern;
 import com.intellij.psi.PsiComment;
@@ -58,15 +59,15 @@ public class VtlReferenceContributor extends PsiReferenceContributor {
 
     private void registerImplicitVariableProvider(PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(VTLVARIABLE_COMMENT, new PsiReferenceProvider() {
-            @NotNull
-            public PsiReference[] getReferencesByElement(@NotNull final PsiElement element, @NotNull final ProcessingContext context) {
+            @Nonnull
+            public PsiReference[] getReferencesByElement(@Nonnull final PsiElement element, @Nonnull final ProcessingContext context) {
                 return getReferencesToJavaTypes(element);
             }
         });
 
         registrar.registerReferenceProvider(VTLVARIABLE_COMMENT, new PsiReferenceProvider() {
-            @NotNull
-            public PsiReference[] getReferencesByElement(@NotNull final PsiElement element, @NotNull final ProcessingContext context) {
+            @Nonnull
+            public PsiReference[] getReferencesByElement(@Nonnull final PsiElement element, @Nonnull final ProcessingContext context) {
                 final String text = element.getText();
                 TextRange range = PsiUtil.findRange(text, "name=\"", "\"");
                 if (range == null) {
@@ -98,8 +99,8 @@ public class VtlReferenceContributor extends PsiReferenceContributor {
 
     private void registerExternalMacroLibraryProvider(PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(VTLMACROLIBRARY_COMMENT, new PsiReferenceProvider() {
-            @NotNull
-            public PsiReference[] getReferencesByElement(@NotNull final PsiElement element, @NotNull final ProcessingContext context) {
+            @Nonnull
+            public PsiReference[] getReferencesByElement(@Nonnull final PsiElement element, @Nonnull final ProcessingContext context) {
                 final List<PsiReference> result = new SmartList<PsiReference>();
                 if (findAndAddReferencesByElement(element, "path=\"", "\"", result)) {
                     findAndAddReferencesByElement(element, "file=\"", "\"", result);
@@ -111,8 +112,8 @@ public class VtlReferenceContributor extends PsiReferenceContributor {
 
     private void registerVelocityPropertiesProvider(PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(VELOCITY_PROPERTIES_COMMENT, new PsiReferenceProvider() {
-            @NotNull
-            public PsiReference[] getReferencesByElement(@NotNull final PsiElement element, @NotNull final ProcessingContext context) {
+            @Nonnull
+            public PsiReference[] getReferencesByElement(@Nonnull final PsiElement element, @Nonnull final ProcessingContext context) {
                 final List<PsiReference> result = new SmartList<PsiReference>();
                 if (findAndAddReferencesByElement(element, "path=\"", "\"", result)) {
                     findAndAddReferencesByElement(element, "runtime_root=\"", "\"", result);
@@ -123,7 +124,7 @@ public class VtlReferenceContributor extends PsiReferenceContributor {
         });
     }
 
-    private static boolean findAndAddReferencesByElement(@NotNull final PsiElement element, @NotNull String startMarker, @NotNull String endMarker, @NotNull Collection<PsiReference> collection) {
+    private static boolean findAndAddReferencesByElement(@Nonnull final PsiElement element, @Nonnull String startMarker, @Nonnull String endMarker, @Nonnull Collection<PsiReference> collection) {
         final String text = element.getText();
         TextRange range = PsiUtil.findRange(text, startMarker, endMarker);
         if (range == null) {
@@ -145,7 +146,7 @@ public class VtlReferenceContributor extends PsiReferenceContributor {
     }
 
     @Nullable
-    public static TextRange findTypeNameRange(@NotNull String text) {
+    public static TextRange findTypeNameRange(@Nonnull String text) {
         return PsiUtil.findRange(text, "type=\"", "\"");
     }
 }

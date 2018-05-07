@@ -16,7 +16,7 @@
 
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiElement;
@@ -32,7 +32,7 @@ public class VtlOperatorExpression extends VtlCompositeElement implements VtlExp
 
     private final boolean myBinary;
 
-    public VtlOperatorExpression(@NotNull final ASTNode node, boolean binary) {
+    public VtlOperatorExpression(@Nonnull final ASTNode node, boolean binary) {
         super(node);
         myBinary = binary;
     }
@@ -53,7 +53,7 @@ public class VtlOperatorExpression extends VtlCompositeElement implements VtlExp
         return typeCalculator.calculateBinary(operand1, operand2);
     }
 
-    @NotNull
+    @Nonnull
     private VtlOperatorTokenType getOperationSign() {
         final ASTNode operationNode = getNode().findChildByType(VtlElementTypes.OPERATIONS);
         assert operationNode != null : getText();

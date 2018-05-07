@@ -20,11 +20,11 @@ import static com.intellij.velocity.psi.VtlCompositeElementTypes.LOOP_VARIABLE;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
@@ -57,10 +57,10 @@ public class VtlForeach extends VtlDirectiveImpl
 
 	@Override
 	public boolean processDeclarations(
-			@NotNull final PsiScopeProcessor processor,
-			@NotNull final ResolveState state,
+			@Nonnull final PsiScopeProcessor processor,
+			@Nonnull final ResolveState state,
 			final PsiElement lastParent,
-			@NotNull final PsiElement place)
+			@Nonnull final PsiElement place)
 	{
 		final VtlDirectiveHeader header = findHeaderOfDirective();
 		PsiElement ancestorOfPlace = place.getParent();
@@ -112,7 +112,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		private final String myName;
 		private final String myTypeName;
 
-		private FixedNameReferenceElement(@NotNull String name, @NotNull String typeName)
+		private FixedNameReferenceElement(@Nonnull String name, @Nonnull String typeName)
 		{
 			super(VtlForeach.this.getContainingFile());
 			myName = name;
@@ -125,7 +125,7 @@ public class VtlForeach extends VtlDirectiveImpl
 			return VtlForeach.this;
 		}
 
-		@NotNull
+		@Nonnull
 		@Override
 		public PsiElement getNavigationElement()
 		{
@@ -138,7 +138,7 @@ public class VtlForeach extends VtlDirectiveImpl
 			return IconDescriptorUpdaters.getIcon(this, 0);
 		}
 
-		@NotNull
+		@Nonnull
 		@Override
 		public String getName()
 		{
@@ -152,7 +152,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		}
 
 		@Override
-		public PsiElement setName(@NotNull @NonNls String s) throws IncorrectOperationException
+		public PsiElement setName(@Nonnull @NonNls String s) throws IncorrectOperationException
 		{
 			throw new IncorrectOperationException(VelocityBundle.message("operation.not.allowed"));
 		}

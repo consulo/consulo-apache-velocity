@@ -16,7 +16,8 @@
 
 package consulo.velocity;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.icons.AllIcons;
 import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
@@ -31,7 +32,7 @@ import consulo.ide.IconDescriptorUpdater;
 public class VtlIconDescriptorUpdater implements IconDescriptorUpdater
 {
 	@Override
-	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int i)
+	public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i)
 	{
 		if(element instanceof VtlParameterDeclaration)
 		{

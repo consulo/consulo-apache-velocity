@@ -15,7 +15,7 @@
  */
 package com.intellij.velocity;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
 import com.intellij.velocity.psi.files.VtlFileType;
@@ -26,7 +26,7 @@ import com.intellij.velocity.psi.files.VtlFileType;
 public class VelocityFileTypeFactory extends FileTypeFactory
 {
 	@Override
-	public void createFileTypes(final @NotNull FileTypeConsumer consumer)
+	public void createFileTypes(final @Nonnull FileTypeConsumer consumer)
 	{
 		for(String exp : VtlFileType.INSTANCE.getExtensions())
 		{

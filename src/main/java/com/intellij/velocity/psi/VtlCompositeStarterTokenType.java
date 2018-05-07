@@ -16,9 +16,10 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.velocity.psi.parsers.CompositeBodyParser;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,12 +30,12 @@ public class VtlCompositeStarterTokenType extends VtlTokenType {
 
     private final CompositeBodyParser myBodyParser;
 
-    public VtlCompositeStarterTokenType(@NotNull @NonNls final String debugName, @NotNull CompositeBodyParser bodyParser) {
+    public VtlCompositeStarterTokenType(@Nonnull @NonNls final String debugName, @Nonnull CompositeBodyParser bodyParser) {
         super(debugName);
         this.myBodyParser = bodyParser;
     }
 
-    @NotNull
+    @Nonnull
     public CompositeBodyParser getCompositeBodyParser() {
         return myBodyParser;
     }

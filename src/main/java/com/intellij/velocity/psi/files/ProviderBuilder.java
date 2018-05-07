@@ -26,8 +26,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.extensions.Extensions;
@@ -60,7 +61,7 @@ class ProviderBuilder
 {
 	private final VtlFile myFile;
 
-	public ProviderBuilder(@NotNull VtlFile file)
+	public ProviderBuilder(@Nonnull VtlFile file)
 	{
 		myFile = file;
 	}
@@ -298,7 +299,7 @@ class ProviderBuilder
 	}
 
 	@Nullable
-	private VirtualFile findRuntimeRoot(@NotNull PsiFile contextFile, @Nullable String path)
+	private VirtualFile findRuntimeRoot(@Nonnull PsiFile contextFile, @Nullable String path)
 	{
 		final PsiDirectory parent = contextFile.getParent();
 		if(path == null || path.length() == 0 || parent == null)
@@ -324,7 +325,7 @@ class ProviderBuilder
 		return null;
 	}
 
-	private boolean isOriginalEquivalent(@NotNull VtlFile file1, @NotNull VtlFile file2)
+	private boolean isOriginalEquivalent(@Nonnull VtlFile file1, @Nonnull VtlFile file2)
 	{
 		return file1.getOriginalFile().isEquivalentTo(file2.getOriginalFile());
 	}

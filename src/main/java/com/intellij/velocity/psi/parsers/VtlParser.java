@@ -21,7 +21,8 @@ import static com.intellij.velocity.psi.parsers.CompositeBodyParser.assertToken;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.consumeTokenIfPresent;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.noForeachStarted;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
@@ -49,7 +50,7 @@ public class VtlParser implements PsiParser {
         }
     };
 
-    @NotNull
+    @Nonnull
     public ASTNode parse(IElementType root, PsiBuilder builder, LanguageVersion languageVersion) {
         final PsiBuilder.Marker rootMarker = builder.mark();
         parseCompositeElements(builder, EOF_DETECTOR);

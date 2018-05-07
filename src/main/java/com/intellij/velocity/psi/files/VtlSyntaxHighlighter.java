@@ -20,7 +20,8 @@ import gnu.trove.THashMap;
 
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;
@@ -77,13 +78,13 @@ public class VtlSyntaxHighlighter extends SyntaxHighlighterBase
 		SyntaxHighlighterBase.safeMap(ourMap, TokenType.BAD_CHARACTER, VELOCITY_BAD_CHARACTER);
 	}
 
-	@NotNull
+	@Nonnull
 	public Lexer getHighlightingLexer()
 	{
 		return new VtlLexer();
 	}
 
-	@NotNull
+	@Nonnull
 	public TextAttributesKey[] getTokenHighlights(final IElementType tokenType)
 	{
 		return SyntaxHighlighterBase.pack(ourMap.get(tokenType), VELOCITY_SCRIPTING_BACKGROUND);

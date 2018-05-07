@@ -16,19 +16,20 @@
 
 package com.intellij.velocity.psi;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
 public abstract class VtlNamedElement extends VtlCompositeElement implements PsiNamedElement {
-    public VtlNamedElement(@NotNull final ASTNode node) {
+    public VtlNamedElement(@Nonnull final ASTNode node) {
         super(node);
     }
 
@@ -48,8 +49,8 @@ public abstract class VtlNamedElement extends VtlCompositeElement implements Psi
         return findChildByType(VtlElementTypes.IDENTIFIER);
     }
 
-    @NotNull
-    public PsiElement setName(@NotNull @NonNls String name) throws IncorrectOperationException {
+    @Nonnull
+    public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException {
         PsiElement nameElement = getNameElement();
         assert nameElement != null;
         final PsiElement newNameElement = PsiUtil.createIdentifierElement(getProject(), name);

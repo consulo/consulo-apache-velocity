@@ -17,7 +17,7 @@
 package com.intellij.velocity.psi;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class VtlCommentType extends VtlTokenType {
     private final int myStartDelta;
     private final int myEndDelta;
-    public VtlCommentType(@NotNull @NonNls final String debugName, int startDelta, int endDelta) {
+    public VtlCommentType(@Nonnull @NonNls final String debugName, int startDelta, int endDelta) {
         super(debugName);
         myStartDelta = startDelta;
         myEndDelta = endDelta;

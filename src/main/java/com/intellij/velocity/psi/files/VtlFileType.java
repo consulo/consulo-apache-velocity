@@ -15,11 +15,11 @@
  */
 package com.intellij.velocity.psi.files;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.highlighter.EditorHighlighter;
 import com.intellij.openapi.fileTypes.EditorHighlighterProvider;
@@ -47,7 +47,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 		FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this, new EditorHighlighterProvider()
 		{
 			@Override
-			public EditorHighlighter getEditorHighlighter(@Nullable Project project, @NotNull FileType fileType, @Nullable VirtualFile virtualFile, @NotNull EditorColorsScheme colors)
+			public EditorHighlighter getEditorHighlighter(@Nullable Project project, @Nonnull FileType fileType, @Nullable VirtualFile virtualFile, @Nonnull EditorColorsScheme colors)
 			{
 				return new VtlEditorHighlighter(project, virtualFile, colors);
 			}
@@ -55,7 +55,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	@NonNls
 	public String getId()
 	{
@@ -63,14 +63,14 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return VelocityBundle.message("file.type.description");
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	@NonNls
 	public String getDefaultExtension()
 	{
@@ -84,7 +84,7 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 		return VtlIcons.VTL_ICON;
 	}
 
-	@NotNull
+	@Nonnull
 	@NonNls
 	public String[] getExtensions()
 	{

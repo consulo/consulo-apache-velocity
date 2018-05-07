@@ -20,9 +20,10 @@ import static com.intellij.codeInspection.ProblemHighlightType.GENERIC_ERROR_OR_
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
 import static com.intellij.velocity.VelocityBundle.message;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
@@ -78,7 +79,7 @@ public class VtlTypesInspection extends VtlInspectionBase
 
 	@Override
 	@Nls
-	@NotNull
+	@Nonnull
 	public String getDisplayName()
 	{
 		return message("vtl.types.inspection");
@@ -86,7 +87,7 @@ public class VtlTypesInspection extends VtlInspectionBase
 
 	@Override
 	@NonNls
-	@NotNull
+	@Nonnull
 	public String getShortName()
 	{
 		return "VtlTypesInspection";

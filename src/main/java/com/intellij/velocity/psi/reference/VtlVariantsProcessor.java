@@ -25,7 +25,7 @@ import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isWaitOrNot
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.beanProperties.BeanProperty;

@@ -23,7 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.daemon.impl.quickfix.CreateFromUsageUtils;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.text.StringUtil;
@@ -46,12 +47,12 @@ import com.intellij.velocity.psi.reference.VtlReferenceExpression;
  * @author Alexey Chmutov
  */
 public class TypeInferenceUtil {
-    @NotNull
-    public static Collection<String> inferVariableType(@NotNull final VtlVariable variable) {
+    @Nonnull
+    public static Collection<String> inferVariableType(@Nonnull final VtlVariable variable) {
         return inferVariableType(ReferencesSearch.search(variable));
     }
 
-    @NotNull
+    @Nonnull
     public static Collection<String> inferVariableType(final Query<PsiReference> query) {
         final Ref<Set<String>> intersection = Ref.create(null);
         query.forEach(new Processor<PsiReference>() {

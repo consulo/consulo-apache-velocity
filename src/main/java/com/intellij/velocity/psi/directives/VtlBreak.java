@@ -26,14 +26,14 @@ import com.intellij.psi.impl.source.tree.TreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.velocity.psi.VtlCompositeElement;
 import com.intellij.velocity.psi.VtlElementTypes;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlBreak extends VtlCompositeElement {
-    public VtlBreak(@NotNull final ASTNode node) {
+    public VtlBreak(@Nonnull final ASTNode node) {
         super(node);
     }
 
@@ -55,7 +55,7 @@ public class VtlBreak extends VtlCompositeElement {
         };
     }
 
-    @NotNull
+    @Nonnull
     public PsiReference[] getReferences() {
         final PsiReference ref = getReference();
         return ref == null ? PsiReference.EMPTY_ARRAY : new PsiReference[]{ref};

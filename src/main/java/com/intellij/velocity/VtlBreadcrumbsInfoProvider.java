@@ -16,7 +16,7 @@
 
 package com.intellij.velocity;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.Language;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -31,7 +31,7 @@ import consulo.annotations.RequiredReadAction;
  */
 public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
 {
-	@NotNull
+	@Nonnull
 	@Override
 	public Language getLanguage()
 	{
@@ -40,14 +40,14 @@ public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
 
 	@Override
 	@RequiredReadAction
-	public boolean acceptElement(@NotNull final PsiElement e)
+	public boolean acceptElement(@Nonnull final PsiElement e)
 	{
 		return e instanceof VtlDirective;
 	}
 
 	@Override
 	@RequiredReadAction
-	public PsiElement getParent(@NotNull final PsiElement e)
+	public PsiElement getParent(@Nonnull final PsiElement e)
 	{
 		VtlDirective directive = PsiTreeUtil.getParentOfType(e, VtlDirective.class);
 		return directive instanceof VtlFile ? null : directive;
@@ -55,8 +55,8 @@ public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
 
 	@Override
 	@RequiredReadAction
-	@NotNull
-	public String getElementInfo(@NotNull final PsiElement e)
+	@Nonnull
+	public String getElementInfo(@Nonnull final PsiElement e)
 	{
 		return ((VtlDirective) e).getPresentableName();
 	}

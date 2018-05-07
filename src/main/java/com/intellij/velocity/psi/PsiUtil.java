@@ -22,9 +22,10 @@ import java.io.File;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.completion.util.PsiTypeCanonicalLookupElement;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.ASTNode;
@@ -95,8 +96,8 @@ public class PsiUtil {
         return (VtlFile) PsiFileFactory.getInstance(project).createFileFromText(fileName, VtlLanguage.INSTANCE, text);
     }
 
-    public static boolean processDeclarations(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state, @Nullable final PsiElement lastParent,
-                                              @Nullable Set<PsiFile> filesVisited, @NotNull final PsiElement elementToProcess) {
+    public static boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, @Nullable final PsiElement lastParent,
+                                              @Nullable Set<PsiFile> filesVisited, @Nonnull final PsiElement elementToProcess) {
         PsiElement child = lastParent == null ? elementToProcess.getLastChild() : lastParent.getPrevSibling();
 
         if (child == null || child.getParent() instanceof VtlDirectiveHeader) {
@@ -137,12 +138,12 @@ public class PsiUtil {
         return "${".equals(childText) || "$!{".equals(childText);
     }
 
-    @NotNull
+    @Nonnull
     public static String getPresentableText(@Nullable final PsiType psiType) {
         return psiType == null ? NULL_TYPE_NAME : psiType.getPresentableText();
     }
 
-    @NotNull
+    @Nonnull
     public static String getUnqualifiedName(@Nullable final String typeName) {
         if (typeName == null) {
             return NULL_TYPE_NAME;
@@ -151,7 +152,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static PsiType getBoxedType(PsiType type, @NotNull PsiElement context) {
+    public static PsiType getBoxedType(PsiType type, @Nonnull PsiElement context) {
         if (!(type instanceof PsiPrimitiveType) || PsiType.VOID.equals(type)) {
             return type;
         }
@@ -162,14 +163,14 @@ public class PsiUtil {
         return boxedType;
     }
 
-    @NotNull
-    public static PsiSubstitutor getSuperClassSubstitutor(@NotNull PsiClass superClass, @NotNull PsiClassType classType) {
+    @Nonnull
+    public static PsiSubstitutor getSuperClassSubstitutor(@Nonnull PsiClass superClass, @Nonnull PsiClassType classType) {
         final PsiClassType.ClassResolveResult classResolveResult = classType.resolveGenerics();
         return TypeConversionUtil.getSuperClassSubstitutor(superClass, classResolveResult.getElement(), classResolveResult.getSubstitutor());
     }
 
     @Nullable
-    public static TextRange findRange(@NotNull String source, @NotNull String startMarker, @NotNull String endMarker) {
+    public static TextRange findRange(@Nonnull String source, @Nonnull String startMarker, @Nonnull String endMarker) {
         int start = source.indexOf(startMarker);
         if (start < 0) {
             return null;
@@ -199,8 +200,8 @@ public class PsiUtil {
         return false;
     }
 
-    @NotNull
-    public static FileReference[] getFileReferences(@NotNull String text, @NotNull PsiElement element, int startOffset, final boolean considerVelocityProperties) {
+    @Nonnull
+    public static FileReference[] getFileReferences(@Nonnull String text, @Nonnull PsiElement element, int startOffset, final boolean considerVelocityProperties) {
         FileReferenceSet set = considerVelocityProperties
                 ? new VtlFileReferenceSet(text, element, startOffset)
                 : new SoftFileReferenceSet(text, element, startOffset);
@@ -208,7 +209,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static <T extends PsiFile> T findFile(@NotNull PsiReference[] references, Class<T> fileClass) {
+    public static <T extends PsiFile> T findFile(@Nonnull PsiReference[] references, Class<T> fileClass) {
         for (final PsiReference reference : references) {
             final PsiElement target = reference.resolve();
             if (fileClass.isInstance(target)) {
@@ -219,7 +220,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static String getRelativePath(@NotNull PsiFile base, @NotNull PsiFile target) {
+    public static String getRelativePath(@Nonnull PsiFile base, @Nonnull PsiFile target) {
         return getRelativePath(getPath(base), getPath(target));
     }
 
@@ -236,7 +237,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static String getPath(@NotNull PsiFile file) {
+    public static String getPath(@Nonnull PsiFile file) {
         final VirtualFile baseFile = file.getVirtualFile();
         if (baseFile == null) {
             return null;

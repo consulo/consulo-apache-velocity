@@ -16,7 +16,8 @@
 
 package com.intellij.velocity.psi.files;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
 import com.intellij.openapi.project.Project;
@@ -26,7 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile;
  * @author Alexey Chmutov
  */
 public class VtlSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
-  @NotNull
+  @Nonnull
   public SyntaxHighlighter getSyntaxHighlighter(final Project project, final VirtualFile virtualFile) {
     return new VtlSyntaxHighlighter();
   }

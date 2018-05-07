@@ -15,7 +15,8 @@
  */
 package com.intellij.velocity;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
@@ -38,7 +39,7 @@ import consulo.lang.LanguageVersion;
  * @author Alexey Chmutov
  */
 public class VtlParserDefinition implements ParserDefinition {
-    @NotNull
+    @Nonnull
     public Lexer createLexer(LanguageVersion languageVersion) {
         return new VtlLexer();
     }
@@ -51,22 +52,22 @@ public class VtlParserDefinition implements ParserDefinition {
         return VtlElementTypes.VTL_FILE;
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return TokenSet.create(TokenType.WHITE_SPACE);
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return VtlElementTypes.COMMENTS;
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return TokenSet.EMPTY;
     }
 
-    @NotNull
+    @Nonnull
     public PsiElement createElement(final ASTNode node) {
         final IElementType type = node.getElementType();
         if (type instanceof VtlCompositeElementType) {

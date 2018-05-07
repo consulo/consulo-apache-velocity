@@ -15,8 +15,9 @@
  */
 package com.intellij.velocity.inspections;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -29,8 +30,8 @@ import com.intellij.velocity.VelocityBundle;
  */
 public abstract class VtlInspectionBase extends LocalInspectionTool {
 
-    @NotNull
-    public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, final boolean isOnTheFly) {
+    @Nonnull
+    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, final boolean isOnTheFly) {
         return new PsiElementVisitor() {
             public void visitElement(final PsiElement element) {
                 registerProblems(element, holder);
@@ -41,12 +42,12 @@ public abstract class VtlInspectionBase extends LocalInspectionTool {
     protected abstract void registerProblems(PsiElement element, ProblemsHolder holder);
 
     @Nls
-    @NotNull
+    @Nonnull
     public String getGroupDisplayName() {
         return VelocityBundle.message("velocity.inspections.group");
     }
 
-    @NotNull
+    @Nonnull
     public HighlightDisplayLevel getDefaultLevel() {
         return HighlightDisplayLevel.WARNING;
     }

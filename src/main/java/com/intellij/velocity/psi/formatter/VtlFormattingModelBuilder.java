@@ -18,8 +18,8 @@ package com.intellij.velocity.psi.formatter;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.formatting.Alignment;
 import com.intellij.formatting.Wrap;
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
@@ -36,7 +36,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 public class VtlFormattingModelBuilder extends TemplateLanguageFormattingModelBuilder
 {
 	@Override
-	public TemplateLanguageBlock createTemplateLanguageBlock(@NotNull ASTNode astNode, @Nullable Wrap wrap, @Nullable Alignment alignment, @Nullable List<DataLanguageBlockWrapper> dataLanguageBlockWrappers, @NotNull CodeStyleSettings codeStyleSettings)
+	public TemplateLanguageBlock createTemplateLanguageBlock(@Nonnull ASTNode astNode, @Nullable Wrap wrap, @Nullable Alignment alignment, @Nullable List<DataLanguageBlockWrapper> dataLanguageBlockWrappers, @Nonnull CodeStyleSettings codeStyleSettings)
 	{
 		return new VtlBlock(astNode, wrap, alignment, this, codeStyleSettings, dataLanguageBlockWrappers);
 	}

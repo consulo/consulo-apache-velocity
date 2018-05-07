@@ -22,8 +22,8 @@ import static com.intellij.velocity.psi.PsiUtil.createVtlReferenceExpression;
 import static com.intellij.velocity.psi.PsiUtil.getPresentableText;
 import static com.intellij.velocity.psi.VtlElementTypes.JAVA_DOT;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
 import com.intellij.lang.ASTNode;
@@ -52,7 +52,7 @@ import com.intellij.velocity.psi.files.VtlFile;
  */
 public class VtlReferenceExpression extends AbstractQualifiedReference<VtlReferenceExpression> implements VtlExpression {
 
-    public VtlReferenceExpression(@NotNull final ASTNode node) {
+    public VtlReferenceExpression(@Nonnull final ASTNode node) {
         super(node);
     }
 
@@ -138,7 +138,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
         return processor.getVariants(ResolveResult.EMPTY_ARRAY, Character.isLowerCase(referenceName.charAt(0)));
     }
 
-    @NotNull
+    @Nonnull
     public String getUnresolvedMessage(boolean resolvedWithError) {
         final String referenceName = getReferenceName();
         PsiElement parent = getParent();
@@ -165,7 +165,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
         return message("error.no.applicable.method", referenceName, typeName, "(" + argumentTypes + ")");
     }
 
-    @NotNull
+    @Nonnull
     protected VtlReferenceExpression parseReference(String newText) {
         if (!(getParent() instanceof VtlMethodCallExpression)) {
             final String propertyName = VelocityNamingUtil.getPropertyName(newText, isFirstCharInLowerCase());
@@ -251,7 +251,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
         return referenceName == null || Character.isLowerCase(referenceName.charAt(0));
     }
 
-    @NotNull
+    @Nonnull
     public VtlCallable[] getCallableCandidates() {
         final String referenceName = getReferenceName();
         if (referenceName == null) {

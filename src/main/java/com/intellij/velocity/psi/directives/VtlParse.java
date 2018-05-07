@@ -16,8 +16,8 @@
 
 package com.intellij.velocity.psi.directives;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.PsiUtil;
@@ -29,7 +29,7 @@ import com.intellij.velocity.psi.files.VtlFile;
  * @author Alexey Chmutov
  */
 public class VtlParse extends VtlFileReferenceDirective {
-    public VtlParse(@NotNull final ASTNode node) {
+    public VtlParse(@Nonnull final ASTNode node) {
         super(node, "parse");
     }
 

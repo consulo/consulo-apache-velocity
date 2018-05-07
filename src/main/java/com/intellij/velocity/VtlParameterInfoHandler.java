@@ -15,8 +15,8 @@
  */
 package com.intellij.velocity;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.CodeInsightBundle;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.ASTNode;
@@ -78,7 +78,7 @@ public class VtlParameterInfoHandler implements ParameterInfoHandler<VtlArgument
         return call.findArgumentList();
     }
 
-    public void showParameterInfo(@NotNull final VtlArgumentList element, final CreateParameterInfoContext context) {
+    public void showParameterInfo(@Nonnull final VtlArgumentList element, final CreateParameterInfoContext context) {
         final PsiElement parent = element.getParent();
         if (!(parent instanceof VtlCallExpression)) {
             return;
@@ -95,7 +95,7 @@ public class VtlParameterInfoHandler implements ParameterInfoHandler<VtlArgument
         return findArgumentList(context);
     }
 
-    public void updateParameterInfo(@NotNull final VtlArgumentList argumentList, final UpdateParameterInfoContext context) {
+    public void updateParameterInfo(@Nonnull final VtlArgumentList argumentList, final UpdateParameterInfoContext context) {
         assert argumentList.isValid();
         PsiElement prevOwner = context.getParameterOwner();
         int prevOwnerTextOffset = prevOwner == null ? 0 : prevOwner.getTextOffset();

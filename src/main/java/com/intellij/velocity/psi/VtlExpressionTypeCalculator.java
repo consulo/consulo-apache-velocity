@@ -19,7 +19,8 @@ package com.intellij.velocity.psi;
 import static com.intellij.psi.util.TypeConversionUtil.isNumericType;
 import static com.intellij.psi.util.TypeConversionUtil.unboxAndBalanceTypes;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.PsiType;
 import consulo.java.module.util.JavaClassNames;
 
@@ -34,7 +35,7 @@ public abstract class VtlExpressionTypeCalculator
 	{
 	}
 
-	public PsiType calculateBinary(@NotNull VtlExpression leftOperand, @NotNull VtlExpression rightOperand)
+	public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 	{
 		PsiType rightType = rightOperand.getPsiType();
 		if(rightType == null)
@@ -49,7 +50,7 @@ public abstract class VtlExpressionTypeCalculator
 		return checkAndReturnNumeric(leftType, rightType);
 	}
 
-	public PsiType calculateUnary(@NotNull VtlExpression expression)
+	public PsiType calculateUnary(@Nonnull VtlExpression expression)
 	{
 		throw new AssertionError(this);
 	}
@@ -66,7 +67,7 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator PLUS_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateBinary(@NotNull VtlExpression leftOperand, @NotNull VtlExpression rightOperand)
+		public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 		{
 			PsiType rightType = rightOperand.getPsiType();
 			if(rightType == null || rightType.equalsToText(JavaClassNames.JAVA_LANG_STRING))
@@ -85,7 +86,7 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator MINUS_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateUnary(@NotNull VtlExpression operand)
+		public PsiType calculateUnary(@Nonnull VtlExpression operand)
 		{
 			PsiType type = operand.getPsiType();
 			return type != null && isNumericType(type) ? type : null;
@@ -99,13 +100,13 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator BOOLEAN_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateBinary(@NotNull VtlExpression leftOperand, @NotNull VtlExpression rightOperand)
+		public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 		{
 			return PsiType.BOOLEAN;
 		}
 
 		@Override
-		public PsiType calculateUnary(@NotNull VtlExpression operand)
+		public PsiType calculateUnary(@Nonnull VtlExpression operand)
 		{
 			return PsiType.BOOLEAN;
 		}

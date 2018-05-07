@@ -15,7 +15,8 @@
  */
 package com.intellij.velocity.psi;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
 

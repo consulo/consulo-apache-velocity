@@ -39,6 +39,7 @@ import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlDirectiveHeader;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.java.module.util.JavaClassNames;
 
@@ -135,7 +136,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		@Override
 		public Icon getIcon()
 		{
-			return IconDescriptorUpdaters.getIcon(this, 0);
+			return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
 		}
 
 		@Nonnull

@@ -24,6 +24,7 @@ import com.intellij.psi.meta.PsiMetaData;
 import com.intellij.psi.meta.PsiMetaOwner;
 import com.intellij.psi.meta.PsiPresentableMetaData;
 import com.intellij.util.ArrayUtil;
+import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
 
 /**
@@ -53,7 +54,7 @@ public abstract class VtlPresentableNamedElement extends VtlNamedElement impleme
 
 	public Icon getIcon()
 	{
-		return IconDescriptorUpdaters.getIcon(this, 0);
+		return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
 	}
 
 	@NonNls

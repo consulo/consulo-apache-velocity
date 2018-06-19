@@ -13,10 +13,6 @@ import org.jetbrains.annotations.Nullable;
 %%
 
 %{
-  public _VtlLexer() {
-    this((java.io.Reader)null);
-  }
-
   private class StateHolder extends ListElement {
     public final Integer transitionalState;
 
@@ -59,7 +55,6 @@ import org.jetbrains.annotations.Nullable;
     zzAtBOL = true;
     zzAtEOF = false;
     zzBuffer = "";
-    zzBufferArray = null;
     zzCurrentPos = 0;
     zzEndRead = 0;
     zzFin = new boolean [ZZ_BUFFERSIZE+1];
@@ -169,8 +164,8 @@ import org.jetbrains.annotations.Nullable;
 
 %public
 %class _VtlLexer
-%implements FlexLexer
-%function advance
+%extends LexerBase
+%function advanceImpl
 %type IElementType
 %unicode
 %eof{  return;

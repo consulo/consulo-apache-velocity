@@ -16,9 +16,8 @@
 package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -27,7 +26,7 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -56,8 +55,8 @@ public class VtlCompositeElement extends ASTWrapperPsiElement {
         return (VtlFile) super.getContainingFile();
     }
 
-    public Icon getIcon(final int flags) {
-        return TargetAWT.to(VtlIcons.SHARP_ICON);
+    public Image getIcon(final int flags) {
+        return VtlIcons.SHARP_ICON;
     }
 
     public String toString() {

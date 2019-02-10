@@ -15,8 +15,6 @@
  */
 package com.intellij.velocity.psi;
 
-import javax.swing.Icon;
-
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -24,8 +22,8 @@ import com.intellij.psi.meta.PsiMetaData;
 import com.intellij.psi.meta.PsiMetaOwner;
 import com.intellij.psi.meta.PsiPresentableMetaData;
 import com.intellij.util.ArrayUtil;
-import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -37,7 +35,7 @@ public abstract class VtlPresentableNamedElement extends VtlNamedElement impleme
 		super(node);
 	}
 
-	public Icon getIcon(final int flags)
+	public Image getIcon(final int flags)
 	{
 		return getIcon();
 	}
@@ -52,9 +50,9 @@ public abstract class VtlPresentableNamedElement extends VtlNamedElement impleme
 		return this;
 	}
 
-	public Icon getIcon()
+	public Image getIcon()
 	{
-		return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
+		return IconDescriptorUpdaters.getIcon(this, 0);
 	}
 
 	@NonNls

@@ -17,7 +17,6 @@ package com.intellij.velocity.psi.directives;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
@@ -31,7 +30,7 @@ import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.VtlPresentableNamedElement;
 import com.intellij.velocity.psi.VtlVariable;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -96,7 +95,7 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
         return VelocityBundle.message("type.name.macro");
     }
 
-    public Icon getIcon() {
-        return TargetAWT.to(VtlIcons.SHARP_ICON);
+    public Image getIcon() {
+        return VtlIcons.SHARP_ICON;
     }
 }

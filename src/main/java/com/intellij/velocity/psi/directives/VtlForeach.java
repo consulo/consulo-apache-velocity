@@ -22,7 +22,6 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
@@ -39,9 +38,9 @@ import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlDirectiveHeader;
 import com.intellij.velocity.psi.VtlVariable;
-import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.java.module.util.JavaClassNames;
+import consulo.ui.image.Image;
 
 /**
  * @author : Alexey Chmutov
@@ -134,9 +133,9 @@ public class VtlForeach extends VtlDirectiveImpl
 		}
 
 		@Override
-		public Icon getIcon()
+		public Image getIcon()
 		{
-			return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
+			return IconDescriptorUpdaters.getIcon(this, 0);
 		}
 
 		@Nonnull

@@ -17,7 +17,6 @@ package com.intellij.velocity.psi.directives;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
@@ -34,8 +33,8 @@ import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -137,8 +136,8 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
             return VelocityBundle.message("type.name.variable");
         }
 
-        public Icon getIcon() {
-            return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
+        public Image getIcon() {
+            return IconDescriptorUpdaters.getIcon(this, 0);
         }
 
         public PsiType getPsiType() {

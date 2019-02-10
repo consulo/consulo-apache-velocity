@@ -18,9 +18,8 @@ package com.intellij.velocity.psi;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.openapi.util.Factory;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiComment;
@@ -32,8 +31,8 @@ import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.files.VtlFile;
-import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
@@ -92,8 +91,8 @@ public class VtlImplicitVariable extends RenameableFakePsiElement implements Vtl
         }
     }
 
-    public Icon getIcon() {
-        return TargetAWT.to(IconDescriptorUpdaters.getIcon(this, 0));
+    public Image getIcon() {
+        return IconDescriptorUpdaters.getIcon(this, 0);
     }
 
     public static VtlImplicitVariable getOrCreate(@Nonnull final Map<String, VtlImplicitVariable> mapToAddTo, @Nonnull final PsiFile containingFile, @Nullable final PsiComment comment, final String name, @Nullable final VtlFile scopeFile) {

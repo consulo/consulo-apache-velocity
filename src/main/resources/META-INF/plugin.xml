@@ -64,6 +64,8 @@
 
 		<customPropertyScopeProvider implementation="com.intellij.velocity.psi.VtlPropertyScopeProvider"/>
 
+		<editorHighlighterProvider filetype="VTL" implementationClass="com.intellij.velocity.psi.files.VtlEditorHighlighterProvider" />
+
 		<lang.foldingBuilder language="VTL" implementationClass="com.intellij.velocity.VtlFoldingBuilder"/>
 		<lang.findUsagesProvider language="VTL" implementationClass="com.intellij.velocity.editorActions.VtlFindUsagesProvider"/>
 		<inspectionToolProvider implementation="com.intellij.velocity.inspections.VtlInspectionToolProvider"/>

@@ -44,15 +44,6 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	private VtlFileType()
 	{
 		super(VtlLanguage.INSTANCE);
-
-		FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this, new EditorHighlighterProvider()
-		{
-			@Override
-			public EditorHighlighter getEditorHighlighter(@Nullable Project project, @Nonnull FileType fileType, @Nullable VirtualFile virtualFile, @Nonnull EditorColorsScheme colors)
-			{
-				return new VtlEditorHighlighter(project, virtualFile, colors);
-			}
-		});
 	}
 
 	@Override

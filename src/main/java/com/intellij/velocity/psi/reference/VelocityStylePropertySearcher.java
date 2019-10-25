@@ -16,8 +16,6 @@
 
 package com.intellij.velocity.psi.reference;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Ref;
@@ -25,15 +23,13 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiReference;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.PsiSearchHelper;
-import com.intellij.psi.search.SearchScope;
-import com.intellij.psi.search.TextOccurenceProcessor;
-import com.intellij.psi.search.UsageSearchContext;
+import com.intellij.psi.search.*;
 import com.intellij.psi.search.searches.MethodReferencesSearch;
 import com.intellij.util.Processor;
 import com.intellij.util.QueryExecutor;
 import com.intellij.velocity.psi.files.VtlFileType;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -41,7 +37,7 @@ import com.intellij.velocity.psi.files.VtlFileType;
 public class VelocityStylePropertySearcher implements QueryExecutor<PsiReference, MethodReferencesSearch.SearchParameters>
 {
 	@Override
-	public boolean execute(@Nonnull final MethodReferencesSearch.SearchParameters parameters, @Nonnull final Processor<PsiReference> consumer)
+	public boolean execute(@Nonnull final MethodReferencesSearch.SearchParameters parameters, @Nonnull final Processor<? super PsiReference> consumer)
 	{
 		final PsiMethod method = parameters.getMethod();
 		final Ref<String> name = Ref.create(null);

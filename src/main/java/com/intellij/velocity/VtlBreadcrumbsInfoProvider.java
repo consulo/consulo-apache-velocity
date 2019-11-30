@@ -16,7 +16,6 @@
 
 package com.intellij.velocity;
 
-import javax.annotation.Nonnull;
 import com.intellij.lang.Language;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -24,7 +23,9 @@ import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
 import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
-import consulo.annotations.RequiredReadAction;
+import consulo.annotation.access.RequiredReadAction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

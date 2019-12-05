@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<idea-plugin version="2">
-
-  <extensions xmlns="com.intellij.velocity">
-    <globalMacroProvider implementation="com.intellij.velocity.spring.SpringGlobalMacroProvider"/>
-  </extensions>
-
-</idea-plugin>
+<consulo-plugin>
+	<extensions xmlns="com.intellij.velocity">
+		<globalMacroProvider implementation="com.intellij.velocity.spring.SpringGlobalMacroProvider"/>
+	</extensions>
+</consulo-plugin>

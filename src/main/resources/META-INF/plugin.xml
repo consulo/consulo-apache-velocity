@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<idea-plugin>
+<consulo-plugin>
 	<id>com.intellij.velocity</id>
 	<name>Apache Velocity</name>
 	<version>SNAPSHOT</version>
@@ -143,4 +143,4 @@
 
 		<fileTypeFactory implementation="com.intellij.velocity.VelocityFileTypeFactory"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>

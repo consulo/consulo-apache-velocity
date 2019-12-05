@@ -16,23 +16,12 @@
 
 package com.intellij.velocity.editorActions;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
-
-import java.util.Collection;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionInitializationContext;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.codeInsight.completion.CompletionType;
+import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.ElementPattern;
 import com.intellij.patterns.PsiElementPattern;
@@ -51,6 +40,12 @@ import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import consulo.awt.TargetAWT;
 import consulo.codeInsight.completion.CompletionProvider;
+import consulo.util.dataholder.Key;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+
+import static com.intellij.patterns.PlatformPatterns.psiElement;
 
 /**
  * @author Alexey Chmutov

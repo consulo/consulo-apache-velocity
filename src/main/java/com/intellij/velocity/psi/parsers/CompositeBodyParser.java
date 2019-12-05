@@ -21,10 +21,11 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlCompositeElementType;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
-import static com.intellij.velocity.psi.parsers.VtlParser.*;
-import static com.intellij.velocity.psi.VtlElementTypes.*;
-import com.intellij.openapi.util.Key;
+import consulo.util.dataholder.Key;
 
+import static com.intellij.velocity.psi.VtlElementTypes.*;
+import static com.intellij.velocity.psi.parsers.VtlParser.parseBinaryExpression;
+import static com.intellij.velocity.psi.parsers.VtlParser.parseList;
 
 /**
  * Created by IntelliJ IDEA.

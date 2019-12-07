@@ -46,7 +46,7 @@ public class Util {
     }
 
     private static String getTestDataFilePath(final String dataSubpath, final String testName, final String fileExtension) {
-        return PathManager.getHomePath() + "/" + dataSubpath + "/" + testName + "." + fileExtension;
+        return "/" + dataSubpath + "/" + testName + "." + fileExtension;
     }
 
     static String getInputDataFileName(final String testName) {

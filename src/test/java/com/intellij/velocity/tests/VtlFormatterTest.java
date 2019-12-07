@@ -1,6 +1,5 @@
 package com.intellij.velocity.tests;
 
-import com.intellij.openapi.application.PathManager;
 import consulo.testFramework.FormattingTestCase;
 
 /**
@@ -18,7 +17,7 @@ public class VtlFormatterTest extends FormattingTestCase
 	@Override
 	protected String getTestDataPath()
 	{
-		return PathManager.getHomePath();
+		return "";
 	}
 
 	protected String getBasePath()

@@ -60,7 +60,6 @@ import org.jetbrains.annotations.Nullable;
     zzFin = new boolean [ZZ_BUFFERSIZE+1];
     zzLexicalState = 0;
     zzMarkedPos = 0;
-    zzPushbackPos  = 0;
     zzStartRead = 0;
     zzState = 0;
     commentLevel = 0;
@@ -168,8 +167,6 @@ import org.jetbrains.annotations.Nullable;
 %function advanceImpl
 %type IElementType
 %unicode
-%eof{  return;
-%eof}
 
 LINE_TERMINATOR = \r|\n|\r\n
 WS1 = [ ]
@@ -359,5 +356,5 @@ TEMPLATE_TEXT_IN_STRING_TEXT = !([^]*({KEYS_FOR_YYINITIAL}|\")[^]*)
   \(                                          { leftParen(); yybegin(PARENS); return LEFT_PAREN; }
 }
  
-.                                             { return BAD_CHARACTER; }
+[^]                                           { return BAD_CHARACTER; }
 

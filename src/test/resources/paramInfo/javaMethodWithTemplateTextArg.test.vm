@@ -1,2 +1,0 @@
-#* @vtlvariable name="bar" type="my.pack.SomeInterface" *#
-$bar.foo("some<caret>Arg")

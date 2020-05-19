@@ -1,3 +1,0 @@
-#* @vtlvariable name="b<caret>ar" type="java.lang.Integer" *#
-#set($bar=2)
-${bar}

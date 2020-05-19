@@ -1,3 +1,0 @@
-#* @vtlvariable name="foo" type="my.pack.MyClass" *#
-$foo.propNewObj.p<caret>ropNewObj.propNewObj
-$foo.getPropNewObj()

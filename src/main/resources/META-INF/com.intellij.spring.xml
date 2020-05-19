@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<consulo-plugin>
-	<extensions xmlns="com.intellij.velocity">
-		<globalMacroProvider implementation="com.intellij.velocity.spring.SpringGlobalMacroProvider"/>
-	</extensions>
-</consulo-plugin>

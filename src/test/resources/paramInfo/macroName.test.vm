@@ -1,4 +1,0 @@
-#macro(mmm $a $b)
-#end
-
-#mm<caret>m()

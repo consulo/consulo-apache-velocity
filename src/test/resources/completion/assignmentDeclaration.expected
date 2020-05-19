@@ -1,3 +1,0 @@
-#macro(macro1 $p) #end
-#set($myvar = '')
-#set($var = $myvar<caret>)

@@ -1,9 +1,0 @@
-#* @vtlvariable name="var1" type="int" *#
-
-#macro(macrocall $param1 $param2)
-$param1
-$param2
-#end
-
-#macrocall($var1 $var1)
-#<warning descr="Call of 'macrocall' with wrong number of arguments">macrocall</warning>() 

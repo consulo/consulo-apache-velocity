@@ -1,6 +1,0 @@
-#set( $mytext = "#if($var1 < 5)
-!!!
-#else
-???
-#end
-" )

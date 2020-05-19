@@ -1,4 +1,0 @@
-#macro(keyMacro $p)
-#end
-
-#{keyMacro}(<caret>)  

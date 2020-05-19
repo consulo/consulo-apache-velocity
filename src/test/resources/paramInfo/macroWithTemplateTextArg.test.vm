@@ -1,4 +1,0 @@
-#macro(mmm $a)
-#end
-
-#mmm("some<caret>Arg")

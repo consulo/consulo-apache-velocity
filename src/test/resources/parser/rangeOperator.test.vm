@@ -1,2 +1,0 @@
-#foreach($r in [5..$t])
-#end

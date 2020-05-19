@@ -25,9 +25,9 @@
 	</parent>
 
 	<groupId>consulo.plugin</groupId>
-	<artifactId>com.intellij.velocity-parent</artifactId>
+	<artifactId>com.intellij.velocity-api</artifactId>
 	<version>2-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<repositories>
 		<repository>
@@ -40,8 +40,12 @@
 		</repository>
 	</repositories>
 
-	<modules>
-		<module>plugin</module>
-		<module>velocity-api</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>com.intellij.xml</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>

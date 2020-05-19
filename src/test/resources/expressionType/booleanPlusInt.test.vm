@@ -1,2 +1,0 @@
-#if(false <caret>+ 4)
-#end

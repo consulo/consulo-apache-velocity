@@ -1,5 +1,0 @@
-#set($newName = 'aaa')
-#foreach($forVar in [2..3])
-$velocityCount
-#end
-$<caret>newName

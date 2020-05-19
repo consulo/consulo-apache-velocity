@@ -1,3 +1,0 @@
-#* @vtlvariable name="foo" type="my.pack.MyClass" *#
-$foo.returnObj().returnObj().returnObj()
-$foo.propObject.propObject.propObject

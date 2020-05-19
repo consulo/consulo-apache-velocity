@@ -1,5 +1,0 @@
-#foreach($loopVar in $foo)
-#foreach($loopVar in $foo)
-$lo<caret>opVar
-#end
-#end

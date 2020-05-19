@@ -1,4 +1,0 @@
-#macro(mymacro)
-#end
-
-#<caret>

@@ -1,3 +1,0 @@
-#* @vtlmacrolibrary path="macroLibraryForTests.vm" *#
-<caret>
-#mymacro('r')

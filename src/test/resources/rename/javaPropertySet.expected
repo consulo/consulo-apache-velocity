@@ -1,3 +1,0 @@
-#* @vtlvariable name="foo" type="my.pack.MyClass" *#
-#set($foo.P<caret>ropNew = 23)
-$foo.setPropNew(44)

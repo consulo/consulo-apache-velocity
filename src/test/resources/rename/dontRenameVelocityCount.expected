@@ -1,3 +1,0 @@
-#foreach($forVar in [2..3])
-$velocity<caret>Count
-#end

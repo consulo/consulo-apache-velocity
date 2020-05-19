@@ -1,5 +1,0 @@
-#set($newName=2)
-${<caret>newName}
-
-#set($newName = 3 + $newName)
-$newName

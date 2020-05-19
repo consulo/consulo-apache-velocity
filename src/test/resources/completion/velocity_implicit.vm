@@ -1,3 +1,0 @@
-#* @implicitly included *#
-#* @vtlvariable name="someVarExternal" type="long" *#
-#* @vtlmacrolibrary path="macroLibrary.vm" *#

@@ -1,3 +1,0 @@
-#* @vtlvariable name="n<caret>ewName" type="java.lang.Integer" *#
-#set($newName=2)
-${newName}

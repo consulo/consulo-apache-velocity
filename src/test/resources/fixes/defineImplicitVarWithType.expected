@@ -1,3 +1,0 @@
-#* @vtlvariable name="foo" type="java.lang.String" *#
-<caret>$foo.replaceFirst('f','d')
-#set($bar = $foo.substring(4))

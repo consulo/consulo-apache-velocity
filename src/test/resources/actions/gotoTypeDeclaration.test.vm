@@ -1,2 +1,0 @@
-#* @vtlvariable name="var1" type="foo.Bar" *#
-$<caret>var1

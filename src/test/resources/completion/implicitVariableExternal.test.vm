@@ -1,3 +1,0 @@
-#* @vtlvariable name="someVar" type="boolean" *#
-$so<caret>
-$someVar

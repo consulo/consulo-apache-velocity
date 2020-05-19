@@ -1,3 +1,0 @@
-#* @vtlvariable name="bar" type="foo.N<caret>ewClass" *#
-#set($bar=2)
-${bar}

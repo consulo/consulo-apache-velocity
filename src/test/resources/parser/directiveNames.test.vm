@@ -1,5 +1,0 @@
-#literal()
-#set($var1 = ${val2})
-#end
-#evaluate($var1)
-#stop

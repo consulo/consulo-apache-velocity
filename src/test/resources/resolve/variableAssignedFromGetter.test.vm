@@ -1,3 +1,0 @@
-#* @vtlvariable name="foo" type="my.pack.MyClass" *#
-#set($bar = $foo.getPropObject())
-$ba<caret>r

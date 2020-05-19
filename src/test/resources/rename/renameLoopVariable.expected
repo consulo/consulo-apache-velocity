@@ -1,3 +1,0 @@
-#foreach($newName in [2..3])
-$<caret>newName
-#end

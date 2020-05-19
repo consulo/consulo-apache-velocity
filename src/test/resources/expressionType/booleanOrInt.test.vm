@@ -1,2 +1,0 @@
-#if(false<caret> || 47)
-#end

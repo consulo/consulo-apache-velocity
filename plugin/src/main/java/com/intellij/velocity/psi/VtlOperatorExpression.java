@@ -17,11 +17,12 @@
 package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.velocity.VelocityBundle;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,7 +38,7 @@ public class VtlOperatorExpression extends VtlCompositeElement implements VtlExp
         myBinary = binary;
     }
 
-    public PsiType getPsiType() {
+    public VelocityType getPsiType() {
         VtlExpressionTypeCalculator typeCalculator = getOperationSign().getTypeCalculator();
         VtlExpression operand1 = getOperand1();
         if (operand1 == null) {
@@ -80,7 +81,7 @@ public class VtlOperatorExpression extends VtlCompositeElement implements VtlExp
 
     public String getIndefiniteTypeMessage() {
         VtlExpression op1 = getOperand1();
-        PsiType opType1 = op1 == null ? null : op1.getPsiType();
+		VelocityType opType1 = op1 == null ? null : op1.getPsiType();
         if(opType1 == null) {
             return null;
         }
@@ -88,7 +89,7 @@ public class VtlOperatorExpression extends VtlCompositeElement implements VtlExp
             return VelocityBundle.message("invalid.operand.type", PsiUtil.getPresentableText(opType1));
         }
         VtlExpression op2 = getOperand2();
-        PsiType opType2 = op2 == null ? null : op2.getPsiType();
+		VelocityType opType2 = op2 == null ? null : op2.getPsiType();
         if(opType2 == null) {
             return null;
         }

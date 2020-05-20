@@ -18,12 +18,10 @@ package com.intellij.velocity.psi.directives;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import consulo.velocity.api.facade.VelocityType;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.RenameableFakePsiElement;
 import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
@@ -36,6 +34,7 @@ import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.ui.image.Image;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -141,7 +140,7 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
             return IconDescriptorUpdaters.getIcon(this, 0);
         }
 
-        public PsiType getPsiType() {
+        public VelocityType getPsiType() {
             return getAssignedVariableElementType();
         }
 

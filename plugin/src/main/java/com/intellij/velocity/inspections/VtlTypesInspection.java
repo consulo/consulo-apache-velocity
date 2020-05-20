@@ -26,11 +26,11 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLoopVariable;
 import com.intellij.velocity.psi.VtlOperatorExpression;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -67,7 +67,7 @@ public class VtlTypesInspection extends VtlInspectionBase
 			{
 				return;
 			}
-			final PsiType type = expression.getPsiType();
+			final VelocityType type = expression.getPsiType();
 			if(type == null)
 			{
 				return;

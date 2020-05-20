@@ -24,6 +24,7 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.velocity.VelocityBundle;
+import consulo.annotation.access.RequiredReadAction;
 
 /**
  * @author Alexey Chmutov
@@ -39,6 +40,7 @@ public abstract class VtlInspectionBase extends LocalInspectionTool {
         };
     }
 
+    @RequiredReadAction
     protected abstract void registerProblems(PsiElement element, ProblemsHolder holder);
 
     @Nls

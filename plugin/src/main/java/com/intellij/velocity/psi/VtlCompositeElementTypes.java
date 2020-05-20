@@ -17,7 +17,6 @@ package com.intellij.velocity.psi;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.velocity.psi.directives.VtlBreak;
@@ -29,7 +28,7 @@ import com.intellij.velocity.psi.directives.VtlMacroImpl;
 import com.intellij.velocity.psi.directives.VtlParse;
 import com.intellij.velocity.psi.directives.VtlSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.java.module.util.JavaClassNames;
+import consulo.velocity.api.psi.StandardVelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -185,14 +184,14 @@ public interface VtlCompositeElementTypes
 		}
 	};
 
-	VtlCompositeElementType INTEGER_LITERAL = new VtlLiteralExpressionType("IntegerLiteral", PsiType.INT);
-	VtlCompositeElementType DOUBLE_LITERAL = new VtlLiteralExpressionType("DoubleLiteral", PsiType.DOUBLE);
-	VtlCompositeElementType BOOLEAN_LITERAL = new VtlLiteralExpressionType("BooleanLiteral", PsiType.BOOLEAN);
-	VtlCompositeElementType DOUBLEQUOTED_TEXT = new VtlLiteralExpressionType("DoubleQuotedText", JavaClassNames.JAVA_LANG_STRING);
-	VtlCompositeElementType STRING_LITERAL = new VtlLiteralExpressionType("StringLiteral", JavaClassNames.JAVA_LANG_STRING);
-	VtlCompositeElementType LIST_EXPRESSION = new VtlLiteralExpressionType("ListExpression", JavaClassNames.JAVA_UTIL_LIST);
+	VtlCompositeElementType INTEGER_LITERAL = new VtlLiteralExpressionType("IntegerLiteral", StandardVelocityType.INT);
+	VtlCompositeElementType DOUBLE_LITERAL = new VtlLiteralExpressionType("DoubleLiteral", StandardVelocityType.DOUBLE);
+	VtlCompositeElementType BOOLEAN_LITERAL = new VtlLiteralExpressionType("BooleanLiteral", StandardVelocityType.BOOLEAN);
+	VtlCompositeElementType DOUBLEQUOTED_TEXT = new VtlLiteralExpressionType("DoubleQuotedText", StandardVelocityType.STRING);
+	VtlCompositeElementType STRING_LITERAL = new VtlLiteralExpressionType("StringLiteral", StandardVelocityType.STRING);
+	VtlCompositeElementType LIST_EXPRESSION = new VtlLiteralExpressionType("ListExpression", StandardVelocityType.LIST);
 	VtlCompositeElementType RANGE_EXPRESSION = new VtlCompositeElementType("RangeExpression");
-	VtlCompositeElementType MAP_EXPRESSION = new VtlLiteralExpressionType("MapExpression", JavaClassNames.JAVA_UTIL_MAP);
+	VtlCompositeElementType MAP_EXPRESSION = new VtlLiteralExpressionType("MapExpression", StandardVelocityType.MAP);
 
 	TokenSet STRING_LITERALS = TokenSet.create(STRING_LITERAL, DOUBLEQUOTED_TEXT);
 }

@@ -15,10 +15,7 @@
  */
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nullable;
-
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
 
 /**
@@ -32,10 +29,5 @@ public class VtlParameterDeclaration extends VtlPresentableNamedElement implemen
 
     public String getTypeName() {
         return VelocityBundle.message("type.name.macro.parameter");
-    }
-
-    @Nullable
-    public PsiType getPsiType() {
-        return null;
     }
 }

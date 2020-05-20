@@ -26,13 +26,13 @@ import com.intellij.openapi.util.Factory;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.FakePsiElement;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.files.VtlFile;
 import consulo.ui.image.Image;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -140,7 +140,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
             return myComment;
         }
 
-        public PsiType getPsiType() {
+        public VelocityType getPsiType() {
             return null;
         }
     }

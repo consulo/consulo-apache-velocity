@@ -31,7 +31,6 @@ import javax.annotation.Nullable;
 
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.roots.ModuleRootManager;
@@ -72,8 +71,8 @@ class ProviderBuilder
 		{
 			public Result<Collection<VtlVariable>> compute()
 			{
-				final Collection<VtlVariable> result = new ArrayList<VtlVariable>();
-				for(final VtlGlobalVariableProvider provider : Extensions.getExtensions(VtlGlobalVariableProvider.EP_NAME))
+				final Collection<VtlVariable> result = new ArrayList<>();
+				for(final VtlGlobalVariableProvider provider : VtlGlobalVariableProvider.EP_NAME.getExtensionList())
 				{
 					result.addAll(provider.getGlobalVariables(myFile));
 				}
@@ -88,7 +87,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Map<String, Set<VtlMacro>>> compute()
 			{
-				final Map<String, Set<VtlMacro>> result = new THashMap<String, Set<VtlMacro>>();
+				final Map<String, Set<VtlMacro>> result = new THashMap<>();
 				myFile.accept(new PsiRecursiveElementVisitor()
 				{
 					@Override
@@ -116,7 +115,7 @@ class ProviderBuilder
 		Set<VtlMacro> sameNameMacros = result.get(macroName);
 		if(sameNameMacros == null)
 		{
-			sameNameMacros = new THashSet<VtlMacro>();
+			sameNameMacros = new THashSet<>();
 			result.put(macroName, sameNameMacros);
 		}
 		sameNameMacros.add(macro);
@@ -128,7 +127,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Map<String, VtlImplicitVariable>> compute()
 			{
-				final Map<String, VtlImplicitVariable> result = new THashMap<String, VtlImplicitVariable>();
+				final Map<String, VtlImplicitVariable> result = new THashMap<>();
 				Properties defaultVariables = myFile.getViewProvider().getUserData(FileTemplateManager.DEFAULT_TEMPLATE_PROPERTIES);
 				if(defaultVariables != null)
 				{
@@ -169,8 +168,8 @@ class ProviderBuilder
 		{
 			public Result<Collection<VtlMacro>> compute()
 			{
-				final Collection<VtlMacro> result = new ArrayList<VtlMacro>();
-				for(final VtlGlobalMacroProvider provider : Extensions.getExtensions(VtlGlobalMacroProvider.EP_NAME))
+				final Collection<VtlMacro> result = new ArrayList<>();
+				for(final VtlGlobalMacroProvider provider : VtlGlobalMacroProvider.EP_NAME.getExtensionList())
 				{
 					result.addAll(provider.getGlobalMacros(myFile));
 				}
@@ -185,7 +184,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Collection<VtlFileProxy>> compute()
 			{
-				final Collection<VtlFileProxy> result = new THashSet<VtlFileProxy>();
+				final Collection<VtlFileProxy> result = new THashSet<>();
 				myFile.accept(new PsiRecursiveElementVisitor()
 				{
 					@Override
@@ -238,7 +237,7 @@ class ProviderBuilder
 			public CachedValueProvider.Result<VelocityPropertiesProvider> compute()
 			{
 				final Set dependencies = new HashSet(3);
-				final Ref<VelocityPropertiesProvider> result = new Ref<VelocityPropertiesProvider>();
+				final Ref<VelocityPropertiesProvider> result = new Ref<>();
 
 				PsiRecursiveElementVisitor visitor = new PsiRecursiveElementVisitor()
 				{

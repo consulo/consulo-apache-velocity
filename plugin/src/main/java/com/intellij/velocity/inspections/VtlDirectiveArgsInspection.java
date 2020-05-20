@@ -17,43 +17,55 @@
 package com.intellij.velocity.inspections;
 
 import static com.intellij.codeInspection.ProblemHighlightType.LIKE_UNUSED_SYMBOL;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
 import static com.intellij.velocity.VelocityBundle.message;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.velocity.psi.directives.VtlSet;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
+import com.intellij.codeInspection.ProblemsHolder;
+import com.intellij.psi.PsiElement;
+import com.intellij.velocity.psi.directives.VtlSet;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.velocity.api.facade.VelocityFacade;
+import consulo.velocity.api.facade.VelocityType;
 
-public class VtlDirectiveArgsInspection extends VtlInspectionBase {
-  protected void registerProblems(PsiElement element, ProblemsHolder holder) {
-    if (element instanceof VtlSet) {
-      VtlSet vtlSet = (VtlSet)element;
-      String msg = null;
-      if (vtlSet.getAssignedMethodCallExpression() != null) {
-        holder.registerProblem(vtlSet.getFirstChild(), message("assignment.to.method.call"), LIKE_UNUSED_SYMBOL);
-      }
-      else {
-        PsiType assignedType = vtlSet.getAssignedVariableElementType();
-        if (PsiType.VOID.equals(assignedType)) {
-          holder.registerProblem(vtlSet.getFirstChild(), message("assignment.of.void"), LIKE_UNUSED_SYMBOL);
-        }
-      }
-    }
-  }
+public class VtlDirectiveArgsInspection extends VtlInspectionBase
+{
+	@RequiredReadAction
+	@Override
+	protected void registerProblems(PsiElement element, ProblemsHolder holder)
+	{
+		if(element instanceof VtlSet)
+		{
+			VtlSet vtlSet = (VtlSet) element;
+			if(vtlSet.getAssignedMethodCallExpression() != null)
+			{
+				holder.registerProblem(vtlSet.getFirstChild(), message("assignment.to.method.call"), LIKE_UNUSED_SYMBOL);
+			}
+			else
+			{
+				VelocityType assignedType = vtlSet.getAssignedVariableElementType();
+				VelocityFacade facade = VelocityFacade.getFacade(element);
+				if(facade.isVoidType(assignedType))
+				{
+					holder.registerProblem(vtlSet.getFirstChild(), message("assignment.of.void"), LIKE_UNUSED_SYMBOL);
+				}
+			}
+		}
+	}
 
-  @Nls
-  @Nonnull
-  public String getDisplayName() {
-    return message("vtl.directive.args.inspection");
-  }
+	@Nls
+	@Nonnull
+	public String getDisplayName()
+	{
+		return message("vtl.directive.args.inspection");
+	}
 
-  @NonNls
-  @Nonnull
-  public String getShortName() {
-    return "VtlDirectiveArgsInspection";
-  }
+	@NonNls
+	@Nonnull
+	public String getShortName()
+	{
+		return "VtlDirectiveArgsInspection";
+	}
 }

@@ -18,109 +18,119 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 
+import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.properties.references.PropertyReference;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlFileReferenceDirective;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
-import org.jetbrains.annotations.NonNls;
+import consulo.velocity.api.psi.StandardVelocityType;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Alexey Chmutov
  * Date: 07.06.2008
  */
-public class VtlLiteralExpressionType extends VtlCompositeElementType {
-    private final String myTypeName;
-    private final PsiPrimitiveType myPrimitiveType;
+public class VtlLiteralExpressionType extends VtlCompositeElementType
+{
+	private final StandardVelocityType myStandardType;
 
-    public VtlLiteralExpressionType(@Nonnull @NonNls String debugName, @Nonnull String typeName) {
-        super(debugName);
-        myTypeName = typeName;
-        myPrimitiveType = null;
-    }
+	public VtlLiteralExpressionType(@Nonnull @NonNls String debugName, @Nonnull StandardVelocityType standardType)
+	{
+		super(debugName);
+		myStandardType = standardType;
+	}
 
-    public VtlLiteralExpressionType(@Nonnull @NonNls String debugName, @Nonnull PsiType primitiveType) {
-        super(debugName);
-        myTypeName = null;
-        assert primitiveType instanceof PsiPrimitiveType;
-        myPrimitiveType = (PsiPrimitiveType) primitiveType;
-    }
+	@Override
+	public PsiElement createPsiElement(ASTNode node)
+	{
+		return VtlCompositeElementTypes.STRING_LITERALS.contains(this)
+				? new VtlStringLiteral(node)
+				: new VtlLiteralExpression(node);
+	}
 
-    @Override
-    public PsiElement createPsiElement(ASTNode node) {
-        return VtlCompositeElementTypes.STRING_LITERALS.contains(this)
-                ? new VtlStringLiteral(node)
-                : new VtlLiteralExpression(node);
-    }
+	public class VtlLiteralExpression extends VtlCompositeElement implements VtlExpression
+	{
+		public VtlLiteralExpression(@Nonnull final ASTNode node)
+		{
+			super(node);
+		}
 
-    public class VtlLiteralExpression extends VtlCompositeElement implements VtlExpression {
-        public VtlLiteralExpression(@Nonnull final ASTNode node) {
-            super(node);
-        }
+		@Override
+		public StandardVelocityType getPsiType()
+		{
+			return myStandardType;
+		}
+	}
 
-        public PsiType getPsiType() {
-            if (myPrimitiveType != null) {
-                return myPrimitiveType;
-            }
-            return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(myTypeName, getResolveScope());
-        }
-    }
+	public class VtlStringLiteral extends VtlLiteralExpression
+	{
 
-    public class VtlStringLiteral extends VtlLiteralExpression {
+		public VtlStringLiteral(@Nonnull final ASTNode node)
+		{
+			super(node);
+		}
 
-        public VtlStringLiteral(@Nonnull final ASTNode node) {
-            super(node);
-        }
+		@Override
+		@Nonnull
+		public PsiReference[] getReferences()
+		{
+			if(isFileReference())
+			{
+				return PsiUtil.getFileReferences(getValueText(), this, getFirstChild().getTextLength(), true);
+			}
+			if(isPropertyReference())
+			{
+				return new PsiReference[]{new PropertyReference(getValueText(), this, null, true)};
+			}
+			return PsiReference.EMPTY_ARRAY;
+		}
 
-        @Nonnull
-        public PsiReference[] getReferences() {
-            if (isFileReference()) {
-                return PsiUtil.getFileReferences(getValueText(), this, getFirstChild().getTextLength(), true);
-            }
-            if (isPropertyReference()) {
-                return new PsiReference[]{new PropertyReference(getValueText(), this, null, true)};
-            }
-            return PsiReference.EMPTY_ARRAY;
-        }
+		private boolean isFileReference()
+		{
+			return isStringLiteralAndArgumentOf(VtlFileReferenceDirective.class);
+		}
 
-        private boolean isFileReference() {
-            return isStringLiteralAndArgumentOf(VtlFileReferenceDirective.class);
-        }
+		private boolean isPropertyReference()
+		{
+			if(!isStringLiteralAndArgumentOf(VtlMacroCall.class) || getPrevSibling() != null)
+			{
+				return false;
+			}
+			VtlMacroCall macroCall = (VtlMacroCall) getParent().getParent();
+			String macroName = macroCall.getReferenceExpression().getReferenceName();
+			return "springMessageText".equals(macroName) || "springMessage".equals(macroName)
+					|| "springThemeText".equals(macroName) || "springTheme".equals(macroName);
+		}
 
-        private boolean isPropertyReference() {
-            if (!isStringLiteralAndArgumentOf(VtlMacroCall.class) || getPrevSibling() != null) {
-                return false;
-            }
-            VtlMacroCall macroCall = (VtlMacroCall) getParent().getParent();
-            String macroName = macroCall.getReferenceExpression().getReferenceName();
-            return "springMessageText".equals(macroName) || "springMessage".equals(macroName)
-                   || "springThemeText".equals(macroName) || "springTheme".equals(macroName);
-        }
+		private String getValueText()
+		{
+			String text = getText();
+			return text.substring(1, text.length() - 1);
+		}
 
-        private String getValueText() {
-            String text = getText();
-            return text.substring(1, text.length() - 1);
-        }
+		private boolean isStringLiteralAndArgumentOf(Class<? extends VtlDirective> directiveClass)
+		{
+			final PsiElement parent = getParent();
+			return parent instanceof VtlArgumentList && directiveClass.isInstance(parent.getParent());
+		}
 
-        private boolean isStringLiteralAndArgumentOf(Class<? extends VtlDirective> directiveClass) {
-            final PsiElement parent = getParent();
-            return parent instanceof VtlArgumentList && directiveClass.isInstance(parent.getParent());
-        }
+		public TextRange getValueRange()
+		{
+			return new TextRange(1, getText().length() - 1);
+		}
 
-        public TextRange getValueRange() {
-          return new TextRange(1, getText().length() - 1);
-        }
-
-        public VtlStringLiteral setStringValue(final TextRange range, final String newContent) {
-          String oldText = getText();
-          String newText = oldText.substring(0, range.getStartOffset()) + newContent + oldText.substring(range.getEndOffset());
-          final PsiElement newElement = PsiUtil.createStringLiteral(getProject(), newText);
-          final ASTNode newNode = newElement.getNode();
-          getParent().getNode().replaceChild(getNode(), newNode);
-          return (VtlStringLiteral) newNode.getPsi();
-        }
-    }
+		public VtlStringLiteral setStringValue(final TextRange range, final String newContent)
+		{
+			String oldText = getText();
+			String newText = oldText.substring(0, range.getStartOffset()) + newContent + oldText.substring(range.getEndOffset());
+			final PsiElement newElement = PsiUtil.createStringLiteral(getProject(), newText);
+			final ASTNode newNode = newElement.getNode();
+			getParent().getNode().replaceChild(getNode(), newNode);
+			return (VtlStringLiteral) newNode.getPsi();
+		}
+	}
 }

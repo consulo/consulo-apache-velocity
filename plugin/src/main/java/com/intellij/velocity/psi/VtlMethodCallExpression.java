@@ -19,9 +19,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
-import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -36,17 +35,13 @@ public class VtlMethodCallExpression extends VtlCallExpression implements VtlExp
         return findNotNullChildByClass(VtlArgumentList.class);
     }
 
-    public PsiType[] getArgumentTypes() {
+    public VelocityType[] getArgumentTypes() {
         VtlExpression[] args = getArgumentList().getArguments();
-        return ContainerUtil.map2Array(args, PsiType.class, new NullableFunction<VtlExpression, PsiType>() {
-            public PsiType fun(final VtlExpression expression) {
-                return expression.getPsiType();
-            }
-        });
+        return ContainerUtil.map2Array(args, VelocityType.class, expression -> expression.getPsiType());
     }
 
     @Nullable
-    public PsiType getPsiType() {
+    public VelocityType getPsiType() {
         return getReferenceExpression().getPsiType();
     }
 }

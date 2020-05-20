@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 
 import com.intellij.psi.PsiType;
 import consulo.java.module.util.JavaClassNames;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +36,7 @@ public abstract class VtlExpressionTypeCalculator
 	{
 	}
 
-	public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
+	public VelocityType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 	{
 		PsiType rightType = rightOperand.getPsiType();
 		if(rightType == null)
@@ -50,7 +51,7 @@ public abstract class VtlExpressionTypeCalculator
 		return checkAndReturnNumeric(leftType, rightType);
 	}
 
-	public PsiType calculateUnary(@Nonnull VtlExpression expression)
+	public VelocityType calculateUnary(@Nonnull VtlExpression expression)
 	{
 		throw new AssertionError(this);
 	}

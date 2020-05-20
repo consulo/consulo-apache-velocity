@@ -35,7 +35,11 @@ import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiReference;
+import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReferenceSet;
 import com.intellij.psi.scope.PsiScopeProcessor;
@@ -49,6 +53,8 @@ import com.intellij.velocity.psi.files.VtlFileType;
 import com.intellij.velocity.psi.reference.SoftFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.psi.tree.PsiElementFactory;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -139,11 +145,11 @@ public class PsiUtil {
     }
 
     @Nonnull
-    public static String getPresentableText(@Nullable final PsiType psiType) {
+    public static String getPresentableText(@Nullable final VelocityType psiType) {
         return psiType == null ? NULL_TYPE_NAME : psiType.getPresentableText();
     }
 
-    @Nonnull
+	@Nonnull
     public static String getUnqualifiedName(@Nullable final String typeName) {
         if (typeName == null) {
             return NULL_TYPE_NAME;

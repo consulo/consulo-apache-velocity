@@ -16,7 +16,17 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.codeInsight.completion.*;
+import static com.intellij.patterns.PlatformPatterns.psiElement;
+
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionInitializationContext;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
@@ -41,11 +51,7 @@ import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import consulo.awt.TargetAWT;
 import consulo.codeInsight.completion.CompletionProvider;
 import consulo.util.dataholder.Key;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
-
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import consulo.velocity.completion.VelocityDirectiveValidator;
 
 /**
  * @author Alexey Chmutov
@@ -124,7 +130,7 @@ public class VtlCompletionContributor extends CompletionContributor
 			final VtlDirective directive = context.get(DIRECTIVE_KEY);
 			for(final String name : VtlDirective.DIRECTIVE_NAMES)
 			{
-				if(!VtlDirective.Validator.isAllowed(directive, name))
+				if(!VelocityDirectiveValidator.isAllowed(directive, name))
 				{
 					continue;
 				}
@@ -134,7 +140,7 @@ public class VtlCompletionContributor extends CompletionContributor
 					@Override
 					protected boolean openingParenNeeded()
 					{
-						return VtlDirective.Validator.areParenthesesNeeded(directive, name);
+						return VelocityDirectiveValidator.areParenthesesNeeded(directive, name);
 					}
 				}));
 			}

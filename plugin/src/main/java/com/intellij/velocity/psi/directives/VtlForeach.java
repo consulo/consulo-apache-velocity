@@ -25,10 +25,8 @@ import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiType;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.RenameableFakePsiElement;
 import com.intellij.psi.scope.PsiScopeProcessor;
@@ -39,8 +37,9 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlDirectiveHeader;
 import com.intellij.velocity.psi.VtlVariable;
 import consulo.ide.IconDescriptorUpdaters;
-import consulo.java.module.util.JavaClassNames;
 import consulo.ui.image.Image;
+import consulo.velocity.api.facade.VelocityType;
+import consulo.velocity.api.psi.StandardVelocityType;
 
 /**
  * @author : Alexey Chmutov
@@ -92,7 +91,7 @@ public class VtlForeach extends VtlDirectiveImpl
 	{
 		if(velocityCountElement == null)
 		{
-			velocityCountElement = new FixedNameReferenceElement("velocityCount", JavaClassNames.JAVA_LANG_INTEGER);
+			velocityCountElement = new FixedNameReferenceElement("velocityCount", StandardVelocityType.INT);
 		}
 		return velocityCountElement;
 	}
@@ -101,7 +100,7 @@ public class VtlForeach extends VtlDirectiveImpl
 	{
 		if(velocityHasNextElement == null)
 		{
-			velocityHasNextElement = new FixedNameReferenceElement("velocityHasNext", JavaClassNames.JAVA_LANG_BOOLEAN);
+			velocityHasNextElement = new FixedNameReferenceElement("velocityHasNext", StandardVelocityType.BOOLEAN);
 		}
 		return velocityHasNextElement;
 	}
@@ -110,13 +109,13 @@ public class VtlForeach extends VtlDirectiveImpl
 	{
 		@NonNls
 		private final String myName;
-		private final String myTypeName;
+		private final VelocityType myType;
 
-		private FixedNameReferenceElement(@Nonnull String name, @Nonnull String typeName)
+		private FixedNameReferenceElement(@Nonnull String name, @Nonnull VelocityType type)
 		{
 			super(VtlForeach.this.getContainingFile());
 			myName = name;
-			myTypeName = typeName;
+			myType = type;
 		}
 
 		@Override
@@ -148,7 +147,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		@Override
 		public String getTypeName()
 		{
-			return PsiUtil.getUnqualifiedName(myTypeName);
+			return PsiUtil.getUnqualifiedName(myType);
 		}
 
 		@Override
@@ -164,9 +163,9 @@ public class VtlForeach extends VtlDirectiveImpl
 
 		@Override
 		@Nullable
-		public PsiType getPsiType()
+		public VelocityType getPsiType()
 		{
-			return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(myTypeName, getResolveScope());
+			return myType;
 		}
 	}
 }

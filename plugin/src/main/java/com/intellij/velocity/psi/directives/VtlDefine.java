@@ -17,9 +17,7 @@
 package com.intellij.velocity.psi.directives;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiType;
-import consulo.java.module.util.JavaClassNames;
+import consulo.velocity.api.psi.StandardVelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -32,9 +30,8 @@ public class VtlDefine extends VtlAssignment
 	}
 
 	@Override
-	public PsiType getAssignedVariableElementType()
+	public StandardVelocityType getAssignedVariableElementType()
 	{
-		return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(JavaClassNames.JAVA_LANG_STRING,
-				getResolveScope());
+		return StandardVelocityType.STRING;
 	}
 }

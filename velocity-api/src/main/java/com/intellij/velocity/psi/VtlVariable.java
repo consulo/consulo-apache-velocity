@@ -16,15 +16,21 @@
 
 package com.intellij.velocity.psi;
 
-import com.intellij.psi.PsiNamedElement;
-import consulo.velocity.api.facade.VelocityType;
-
 import javax.annotation.Nullable;
+
+import com.intellij.psi.PsiNamedElement;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
  */
-public interface VtlVariable extends PsiNamedElement {
-    @Nullable
-	VelocityType getPsiType();
+public interface VtlVariable extends PsiNamedElement
+{
+	@Nullable
+	@RequiredReadAction
+	default VelocityType getPsiType()
+	{
+		return null;
+	}
 }

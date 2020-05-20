@@ -17,20 +17,13 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiArrayType;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiSubstitutor;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.PsiTypeParameter;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.TypeConversionUtil;
 import com.intellij.velocity.VelocityBundle;
-import consulo.java.module.util.JavaClassNames;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.velocity.api.facade.VelocityFacade;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -42,14 +35,17 @@ public class VtlLoopVariable extends VtlPresentableNamedElement implements VtlVa
 		super(node);
 	}
 
+	@Override
 	public String getTypeName()
 	{
 		return VelocityBundle.message("type.name.loop.variable");
 	}
 
-	public PsiType getPsiType()
+	@RequiredReadAction
+	@Override
+	public VelocityType getPsiType()
 	{
-		return extractTypeFromIterable(getIterableExpression());
+		return VelocityFacade.getFacade(getIterableExpression()).extractTypeFromIterable(getIterableExpression());
 	}
 
 	@Nullable
@@ -66,66 +62,6 @@ public class VtlLoopVariable extends VtlPresentableNamedElement implements VtlVa
 		}
 		return null;
 	}
-
-	@Nullable
-	private static PsiType extractTypeFromIterable(VtlExpression expr)
-	{
-		if(expr == null)
-		{
-			return null;
-		}
-		PsiType type = expr.getPsiType();
-		if(type == null)
-		{
-			return null;
-		}
-		if(type instanceof PsiArrayType)
-		{
-			return ((PsiArrayType) type).getComponentType();
-		}
-		if(!(type instanceof PsiClassType))
-		{
-			return null;
-		}
-		PsiClassType classType = (PsiClassType) type;
-		PsiElementFactory factory = JavaPsiFacade.getInstance(expr.getProject()).getElementFactory();
-		GlobalSearchScope scope = expr.getResolveScope();
-
-		for(Object[] iterable : VELOCITY_ITERABLES)
-		{
-			PsiClassType iterableClassType = factory.createTypeByFQClassName((String) iterable[0], scope);
-			if(!TypeConversionUtil.isAssignable(iterableClassType, classType))
-			{
-				continue;
-			}
-			final PsiClass iterableClass = iterableClassType.resolve();
-			if(iterableClass == null)
-			{
-				continue;
-			}
-			final PsiSubstitutor substitutor = PsiUtil.getSuperClassSubstitutor(iterableClass, classType);
-			PsiTypeParameter[] paremeters = iterableClass.getTypeParameters();
-			int paramIndex = ((Integer) iterable[1]).intValue();
-			PsiType result = paramIndex < paremeters.length ? substitutor.substitute(paremeters[paramIndex]) : null;
-			return result != null ? result : factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_OBJECT, scope);
-		}
-		return null;
-	}
-
-	private static final Object[][] VELOCITY_ITERABLES = {
-			{
-					JavaClassNames.JAVA_UTIL_ITERATOR,
-					0
-			},
-			{
-					JavaClassNames.JAVA_UTIL_COLLECTION,
-					0
-			},
-			{
-					JavaClassNames.JAVA_UTIL_MAP,
-					1
-			}
-	};
 
 	public static String[] getVelocityIterables(@Nonnull String className)
 	{

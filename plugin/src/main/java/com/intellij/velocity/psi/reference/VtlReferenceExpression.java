@@ -16,7 +16,6 @@
 
 package com.intellij.velocity.psi.reference;
 
-import static com.intellij.openapi.util.text.StringUtil.join;
 import static com.intellij.velocity.VelocityBundle.message;
 import static com.intellij.velocity.psi.PsiUtil.createVtlReferenceExpression;
 import static com.intellij.velocity.psi.PsiUtil.getPresentableText;
@@ -24,10 +23,16 @@ import static com.intellij.velocity.psi.VtlElementTypes.JAVA_DOT;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementResolveResult;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.PsiNamedElement;
+import com.intellij.psi.ResolveResult;
+import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.CheckUtil;
 import com.intellij.psi.impl.beanProperties.BeanProperty;
 import com.intellij.psi.impl.beanProperties.BeanPropertyElement;
@@ -39,19 +44,20 @@ import com.intellij.velocity.editorActions.VtlTailType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlCallable;
 import com.intellij.velocity.psi.VtlElementTypes;
-import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlMethodCallExpression;
 import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.velocity.api.facade.VelocityType;
+import consulo.velocity.api.psi.VelocityReferenceExpression;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlReferenceExpression extends AbstractQualifiedReference<VtlReferenceExpression> implements VtlExpression {
-
+public class VtlReferenceExpression extends AbstractQualifiedReference<VtlReferenceExpression> implements VelocityReferenceExpression
+{
     public VtlReferenceExpression(@Nonnull final ASTNode node) {
         super(node);
     }
@@ -276,7 +282,7 @@ public class VtlReferenceExpression extends AbstractQualifiedReference<VtlRefere
     }
 
     @Nullable
-    public PsiType getPsiType() {
+    public VelocityType getPsiType() {
         final PsiElement element = resolve();
         if (element instanceof VtlVariable) {
             return ((VtlVariable) element).getPsiType();

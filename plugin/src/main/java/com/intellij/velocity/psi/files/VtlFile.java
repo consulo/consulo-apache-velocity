@@ -25,10 +25,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.fileTypes.FileType;
@@ -47,12 +46,12 @@ import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.directives.VtlDirective;
-import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
+import consulo.velocity.api.psi.VelocityFile;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
+public class VtlFile extends PsiFileBase implements VelocityFile {
   private static final String QUOTED_TEXT = "\"([^\"]*)\"";
   private static final String QUOTED_TEXT_NOT_EMPTY = "\"([^\"]+)\"";
   private static final String PATH_TO_FILE = "[ ]*path=" + QUOTED_TEXT_NOT_EMPTY;

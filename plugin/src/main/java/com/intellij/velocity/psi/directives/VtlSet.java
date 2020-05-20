@@ -23,6 +23,7 @@ import com.intellij.psi.PsiType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.velocity.api.facade.VelocityType;
 
 /**
  * @author Alexey Chmutov
@@ -35,7 +36,7 @@ public class VtlSet extends VtlAssignment {
 
     @Override
     @Nullable
-    public PsiType getAssignedVariableElementType() {
+    public VelocityType getAssignedVariableElementType() {
         final VtlReferenceExpression element = getAssignedVariableElement();
         if(element == null) {
             return null;

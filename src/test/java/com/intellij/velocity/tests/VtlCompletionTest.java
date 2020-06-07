@@ -23,7 +23,7 @@ import junit.framework.Assert;
 /**
  * @author Alexey Chmutov
  */
-public class VtlCompletionTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlCompletionTest extends JavaCodeInsightFixtureTestCase {
 
     public void testImplicitVariable() throws Throwable {
         doTest();

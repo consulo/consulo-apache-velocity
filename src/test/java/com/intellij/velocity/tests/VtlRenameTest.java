@@ -9,7 +9,7 @@ import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
 /**
  * @author Alexey Chmutov
  */
-public class VtlRenameTest extends JavaCodeInsightFixtureTestCase {
+public a class VtlRenameTest extends JavaCodeInsightFixtureTestCase {
 
 
     public void testMacroFromDecl() throws Throwable {

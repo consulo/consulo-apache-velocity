@@ -9,7 +9,7 @@ import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
 /**
  * @author Alexey Chmutov
  */
-public class VtlEditingTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlEditingTest extends JavaCodeInsightFixtureTestCase {
 
     public void testCloseEmptyBracesForInterpolation() throws Throwable {
         doTest('{');

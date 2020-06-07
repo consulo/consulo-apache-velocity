@@ -18,7 +18,7 @@ import com.intellij.velocity.psi.files.VtlFileViewProviderFactory;
  * User: Alexey Chmutov
  * Date: 18.06.2008
  */
-public class VtlTemplateDataLanguageTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlTemplateDataLanguageTest extends JavaCodeInsightFixtureTestCase {
     public void testManuallyMappedDataLanguage() throws Throwable {
         VtlFile file = createFile("file1.vm");
         Util.mapTemplateDataLanguageFor(file, JavaLanguage.INSTANCE);

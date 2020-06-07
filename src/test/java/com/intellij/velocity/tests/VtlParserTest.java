@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Alexey Chmutov
  *         Date: 18.04.2008
  */
-public class VtlParserTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlParserTest extends JavaCodeInsightFixtureTestCase {
 
     public void testIfElseifElseEnd() throws Throwable {
         doTest();

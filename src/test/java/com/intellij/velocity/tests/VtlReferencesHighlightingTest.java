@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * @author Alexey Chmutov
  */
-public class VtlReferencesHighlightingTest extends VtlHighlightingTestCase {
+public abstract class VtlReferencesHighlightingTest extends VtlHighlightingTestCase {
 
   @Override
   protected String getBasePath() {

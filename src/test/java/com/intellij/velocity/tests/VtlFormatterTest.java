@@ -7,7 +7,7 @@ import consulo.testFramework.FormattingTestCase;
  *         Date: Jul 1, 2009
  *         Time: 8:17:23 PM
  */
-public class VtlFormatterTest extends FormattingTestCase
+public abstract class VtlFormatterTest extends FormattingTestCase
 {
 	public VtlFormatterTest()
 	{

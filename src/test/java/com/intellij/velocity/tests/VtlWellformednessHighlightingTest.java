@@ -9,7 +9,7 @@ import com.intellij.velocity.inspections.wellformedness.VtlInterpolationsInspect
 /**
  * @author Alexey Chmutov
  */
-public class VtlWellformednessHighlightingTest extends VtlHighlightingTestCase {
+public abstract class VtlWellformednessHighlightingTest extends VtlHighlightingTestCase {
 
     protected String getBasePath() {
         return "/svnPlugins/velocity/tests/testData/highlighting/wellformedness/";

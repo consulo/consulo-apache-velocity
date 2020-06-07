@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Alexey Chmutov
  */
-public class VtlFixesTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlFixesTest extends JavaCodeInsightFixtureTestCase {
 
   @Override
   protected String getBasePath() {

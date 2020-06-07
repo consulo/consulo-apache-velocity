@@ -20,7 +20,7 @@ import com.intellij.velocity.inspections.VtlDirectiveArgsInspection;
 /**
  * @author Alexey Chmutov
  */
-public class VtlDirectiveArgsHighlightingTest extends VtlHighlightingTestCase {
+public abstract class VtlDirectiveArgsHighlightingTest extends VtlHighlightingTestCase {
 
     protected String getBasePath() {
         return "/svnPlugins/velocity/tests/testData/highlighting/directiveArgs/";

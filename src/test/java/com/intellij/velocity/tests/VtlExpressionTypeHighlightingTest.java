@@ -10,7 +10,7 @@ import com.intellij.testFramework.builders.JavaModuleFixtureBuilder;
 /**
  * @author Alexey Chmutov
  */
-public class VtlExpressionTypeHighlightingTest extends VtlHighlightingTestCase {
+public abstract class VtlExpressionTypeHighlightingTest extends VtlHighlightingTestCase {
 
     protected String getBasePath() {
         return "/svnPlugins/velocity/tests/testData/highlighting/expressionType/";

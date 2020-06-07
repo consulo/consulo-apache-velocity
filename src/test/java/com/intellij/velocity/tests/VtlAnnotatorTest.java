@@ -10,7 +10,7 @@ import com.intellij.velocity.inspections.VtlReferencesInspection;
 /**
  * @author Alexey Chmutov
  */
-public class VtlAnnotatorTest extends VtlHighlightingTestCase {
+public abstract class VtlAnnotatorTest extends VtlHighlightingTestCase {
 
     protected String getBasePath() {
         return "/svnPlugins/velocity/tests/testData/highlighting/annotator/";

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author Alexey Chmutov
  */
-public class VtlResolveTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlResolveTest extends JavaCodeInsightFixtureTestCase {
 
     protected String getBasePath() {
         return "/svnPlugins/velocity/tests/testData/resolve/";

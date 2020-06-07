@@ -14,7 +14,7 @@ import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
 /**
  * @author Alexey Chmutov
  */
-public class VtlActionsTest extends JavaCodeInsightFixtureTestCase
+public abstract class VtlActionsTest extends JavaCodeInsightFixtureTestCase
 {
 
 	public String getBasePath()

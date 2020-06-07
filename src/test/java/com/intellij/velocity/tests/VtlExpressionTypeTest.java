@@ -1,16 +1,17 @@
 package com.intellij.velocity.tests;
 
-import static com.intellij.psi.CommonClassNames.JAVA_LANG_STRING;
 import com.intellij.psi.PsiType;
-import static com.intellij.psi.PsiType.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
 import com.intellij.velocity.psi.VtlExpression;
 
+import static com.intellij.psi.CommonClassNames.JAVA_LANG_STRING;
+import static com.intellij.psi.PsiType.*;
+
 /**
  * @author : Alexey Chmutov
  */
-public class VtlExpressionTypeTest extends JavaCodeInsightFixtureTestCase {
+public abstract class VtlExpressionTypeTest extends JavaCodeInsightFixtureTestCase {
 
     public void testLeftString() throws Throwable {
         assertExpressionType(JAVA_LANG_STRING);

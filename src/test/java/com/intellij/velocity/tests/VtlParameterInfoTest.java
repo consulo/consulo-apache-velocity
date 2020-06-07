@@ -1,7 +1,5 @@
 package com.intellij.velocity.tests;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInsight.hint.ShowParameterInfoContext;
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext;
 import com.intellij.lang.parameterInfo.ParameterInfoHandler;
@@ -14,10 +12,12 @@ import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import com.intellij.velocity.psi.VtlCallable;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Alexey Chmutov
  */
-public class VtlParameterInfoTest extends JavaCodeInsightFixtureTestCase
+public abstract class VtlParameterInfoTest extends JavaCodeInsightFixtureTestCase
 {
 
 	protected String getBasePath()

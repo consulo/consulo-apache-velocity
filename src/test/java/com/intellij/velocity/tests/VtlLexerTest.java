@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Alexey Chmutov
  *         Date: 03.04.2008
  */
-public class VtlLexerTest extends UsefulTestCase {
+public abstract class VtlLexerTest extends UsefulTestCase {
 
     public void testFormalReference() throws Throwable {
         doTest();

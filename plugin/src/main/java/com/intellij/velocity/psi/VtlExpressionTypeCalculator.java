@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import com.intellij.psi.PsiType;
 import consulo.java.module.util.JavaClassNames;
 import consulo.velocity.api.facade.VelocityType;
+import consulo.velocity.api.psi.StandardVelocityType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,12 +39,12 @@ public abstract class VtlExpressionTypeCalculator
 
 	public VelocityType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 	{
-		PsiType rightType = rightOperand.getPsiType();
+		VelocityType rightType = rightOperand.getPsiType();
 		if(rightType == null)
 		{
 			return null;
 		}
-		PsiType leftType = leftOperand.getPsiType();
+		VelocityType leftType = leftOperand.getPsiType();
 		if(leftType == null)
 		{
 			return null;
@@ -56,7 +57,7 @@ public abstract class VtlExpressionTypeCalculator
 		throw new AssertionError(this);
 	}
 
-	private static PsiType checkAndReturnNumeric(PsiType leftType, PsiType rightType)
+	private static VelocityType checkAndReturnNumeric(VelocityType leftType, VelocityType rightType)
 	{
 		if(isNumericType(leftType) && isNumericType(rightType))
 		{
@@ -68,14 +69,14 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator PLUS_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
+		public VelocityType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 		{
-			PsiType rightType = rightOperand.getPsiType();
+			VelocityType rightType = rightOperand.getPsiType();
 			if(rightType == null || rightType.equalsToText(JavaClassNames.JAVA_LANG_STRING))
 			{
 				return rightType;
 			}
-			PsiType leftType = leftOperand.getPsiType();
+			VelocityType leftType = leftOperand.getPsiType();
 			if(leftType == null || leftType.equalsToText(JavaClassNames.JAVA_LANG_STRING))
 			{
 				return leftType;
@@ -87,9 +88,9 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator MINUS_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateUnary(@Nonnull VtlExpression operand)
+		public VelocityType calculateUnary(@Nonnull VtlExpression operand)
 		{
-			PsiType type = operand.getPsiType();
+			VelocityType type = operand.getPsiType();
 			return type != null && isNumericType(type) ? type : null;
 		}
 	};
@@ -101,15 +102,15 @@ public abstract class VtlExpressionTypeCalculator
 	public static final VtlExpressionTypeCalculator BOOLEAN_CALCULATOR = new VtlExpressionTypeCalculator()
 	{
 		@Override
-		public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
+		public VelocityType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 		{
-			return PsiType.BOOLEAN;
+			return StandardVelocityType.BOOLEAN;
 		}
 
 		@Override
-		public PsiType calculateUnary(@Nonnull VtlExpression operand)
+		public VelocityType calculateUnary(@Nonnull VtlExpression operand)
 		{
-			return PsiType.BOOLEAN;
+			return StandardVelocityType.BOOLEAN;
 		}
 	};
 }

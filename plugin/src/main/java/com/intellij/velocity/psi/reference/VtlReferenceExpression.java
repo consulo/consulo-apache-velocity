@@ -21,12 +21,15 @@ import static com.intellij.velocity.psi.PsiUtil.createVtlReferenceExpression;
 import static com.intellij.velocity.psi.PsiUtil.getPresentableText;
 import static com.intellij.velocity.psi.VtlElementTypes.JAVA_DOT;
 
+import java.beans.BeanProperty;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.lookup.TailTypeDecorator;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementResolveResult;
 import com.intellij.psi.PsiManager;
@@ -34,8 +37,6 @@ import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.ResolveResult;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.CheckUtil;
-import com.intellij.psi.impl.beanProperties.BeanProperty;
-import com.intellij.psi.impl.beanProperties.BeanPropertyElement;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.util.Function;
 import com.intellij.util.IncorrectOperationException;
@@ -50,275 +51,348 @@ import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.velocity.api.facade.VelocityType;
 import consulo.velocity.api.psi.VelocityReferenceExpression;
+import consulo.velocity.psi.impl.AbstractQualifiedReference;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlReferenceExpression extends AbstractQualifiedReference<VtlReferenceExpression> implements VelocityReferenceExpression
 {
-    public VtlReferenceExpression(@Nonnull final ASTNode node) {
-        super(node);
-    }
+	public VtlReferenceExpression(@Nonnull final ASTNode node)
+	{
+		super(node);
+	}
 
-    @Override
-    protected boolean processVariantsInner(PsiScopeProcessor processor) {
-        final VtlReferenceExpression qualifier = getQualifierInner();
-        if (qualifier == null) {
-            PsiElement parent = getParent();
-            if (parent instanceof VtlMacroCall) {
-                final VtlFile containingFile = ((VtlMacroCall) parent).getContainingFile();
-                return containingFile.processAllMacrosInScope(processor, ResolveState.initial());
-            }
-            return processUnqualifiedVariants(processor);
-        }
-        final PsiType type = qualifier.getPsiType();
-        if (type instanceof PsiClassType) {
-            final PsiClass psiClass = com.intellij.psi.util.PsiUtil.resolveClassInType(type);
-            if (psiClass != null && !psiClass.processDeclarations(processor, ResolveState.initial(), null, this)) {
-                return false;
-            }
-        }
-        final PsiElement psiElement = qualifier.resolve();
-        return psiElement == null || psiElement.processDeclarations(processor, ResolveState.initial(), null, this);
-    }
+	@Override
+	protected boolean processVariantsInner(PsiScopeProcessor processor)
+	{
+		final VtlReferenceExpression qualifier = getQualifierInner();
+		if(qualifier == null)
+		{
+			PsiElement parent = getParent();
+			if(parent instanceof VtlMacroCall)
+			{
+				final VtlFile containingFile = ((VtlMacroCall) parent).getContainingFile();
+				return containingFile.processAllMacrosInScope(processor, ResolveState.initial());
+			}
+			return processUnqualifiedVariants(processor);
+		}
+		final PsiType type = qualifier.getPsiType();
+		if(type instanceof PsiClassType)
+		{
+			final PsiClass psiClass = com.intellij.psi.util.PsiUtil.resolveClassInType(type);
+			if(psiClass != null && !psiClass.processDeclarations(processor, ResolveState.initial(), null, this))
+			{
+				return false;
+			}
+		}
+		final PsiElement psiElement = qualifier.resolve();
+		return psiElement == null || psiElement.processDeclarations(processor, ResolveState.initial(), null, this);
+	}
 
-    public boolean hasQualifier() {
-        return getQualifierInner() != null;
-    }
+	public boolean hasQualifier()
+	{
+		return getQualifierInner() != null;
+	}
 
-    public boolean isQualifierResolved() {
-        VtlReferenceExpression qualifier = getQualifierInner();
-        return qualifier == null || qualifier.resolve() != null;
-    }
+	public boolean isQualifierResolved()
+	{
+		VtlReferenceExpression qualifier = getQualifierInner();
+		return qualifier == null || qualifier.resolve() != null;
+	}
 
-    @Nullable
-    private VtlReferenceExpression getQualifierInner() {
-        PsiElement child = getFirstChild();
-        while (child != null) {
-            if (child instanceof VtlReferenceExpression) {
-                return (VtlReferenceExpression) child;
-            }
-            if (child instanceof VtlMethodCallExpression) {
-                return ((VtlMethodCallExpression) child).getReferenceExpression();
-            }
-            child = child.getNextSibling();
-        }
-        return null;
-    }
+	@Nullable
+	private VtlReferenceExpression getQualifierInner()
+	{
+		PsiElement child = getFirstChild();
+		while(child != null)
+		{
+			if(child instanceof VtlReferenceExpression)
+			{
+				return (VtlReferenceExpression) child;
+			}
+			if(child instanceof VtlMethodCallExpression)
+			{
+				return ((VtlMethodCallExpression) child).getReferenceExpression();
+			}
+			child = child.getNextSibling();
+		}
+		return null;
+	}
 
-    @Nullable
-    public VtlReferenceExpression getParentReferenceExpression() {
-        PsiElement parent = getParent();
-        if (parent instanceof VtlReferenceExpression) {
-            return (VtlReferenceExpression) parent;
-        }
-        return null;
-    }
+	@Nullable
+	public VtlReferenceExpression getParentReferenceExpression()
+	{
+		PsiElement parent = getParent();
+		if(parent instanceof VtlReferenceExpression)
+		{
+			return (VtlReferenceExpression) parent;
+		}
+		return null;
+	}
 
-    protected ResolveResult[] resolveInner() {
-        final String referenceName = getReferenceName();
-        if (referenceName == null) {
-            return ResolveResult.EMPTY_ARRAY;
-        }
+	@Override
+	protected ResolveResult[] resolveInner()
+	{
+		final String referenceName = getReferenceName();
+		if(referenceName == null)
+		{
+			return ResolveResult.EMPTY_ARRAY;
+		}
 
-        final PsiElement parent = getParent();
-        if (parent instanceof VtlAssignment) {
-            VtlAssignment assignment = (VtlAssignment) parent;
-            VtlVariable var = assignment.getAssignedVariable();
-            if (var != null && assignment.getAssignedVariableElement() == this) {
-                return new ResolveResult[]{new PsiElementResolveResult(var)};
-            }
-        }
+		final PsiElement parent = getParent();
+		if(parent instanceof VtlAssignment)
+		{
+			VtlAssignment assignment = (VtlAssignment) parent;
+			VtlVariable var = assignment.getAssignedVariable();
+			if(var != null && assignment.getAssignedVariableElement() == this)
+			{
+				return new ResolveResult[]{new PsiElementResolveResult(var)};
+			}
+		}
 
-        final VtlVariantsProcessor<ResolveResult> processor = new VtlVariantsProcessor<ResolveResult>(parent, getContainingFile(), referenceName, false) {
-            protected ResolveResult execute(final PsiNamedElement element, final boolean error) {
-                if (element instanceof BeanPropertyElement) {
-                    return new PsiElementResolveResult(((BeanPropertyElement) element).getMethod());
-                }
-                return new PsiElementResolveResult(element, !error);
-            }
-        };
-        processVariantsInner(processor);
-        return processor.getVariants(ResolveResult.EMPTY_ARRAY, Character.isLowerCase(referenceName.charAt(0)));
-    }
+		final VtlVariantsProcessor<ResolveResult> processor = new VtlVariantsProcessor<ResolveResult>(parent, getContainingFile(), referenceName, false)
+		{
+			@Override
+			protected ResolveResult execute(final PsiNamedElement element, final boolean error)
+			{
+				if(element instanceof BeanPropertyElement)
+				{
+					return new PsiElementResolveResult(((BeanPropertyElement) element).getMethod());
+				}
+				return new PsiElementResolveResult(element, !error);
+			}
+		};
+		processVariantsInner(processor);
+		return processor.getVariants(ResolveResult.EMPTY_ARRAY, Character.isLowerCase(referenceName.charAt(0)));
+	}
 
-    @Nonnull
-    public String getUnresolvedMessage(boolean resolvedWithError) {
-        final String referenceName = getReferenceName();
-        PsiElement parent = getParent();
-        if (parent instanceof VtlMacroCall) {
-            String msgKey = resolvedWithError ? "error.wrong.number.of.arguments.for.macro" : "error.cannot.resolve.macro";
-            return message(msgKey, referenceName);
-        }
-        final VtlReferenceExpression qualifier = getQualifierInner();
-        if (qualifier == null) {
-            return message("error.cannot.resolve.variable", referenceName);
-        }
-        String typeName = getPresentableText(qualifier.getPsiType());
-        if (!(parent instanceof VtlMethodCallExpression)) {
-            return message("error.cannot.resolve.property", referenceName, typeName);
-        }
-        if (!resolvedWithError) {
-            return message("error.cannot.resolve.method", referenceName, typeName);
-        }
-        String argumentTypes = join(((VtlMethodCallExpression) parent).getArgumentTypes(), new Function<PsiType, String>() {
-            public String fun(final PsiType psiType) {
-                return getPresentableText(psiType);
-            }
-        }, ", ");
-        return message("error.no.applicable.method", referenceName, typeName, "(" + argumentTypes + ")");
-    }
+	@Nonnull
+	public String getUnresolvedMessage(boolean resolvedWithError)
+	{
+		final String referenceName = getReferenceName();
+		PsiElement parent = getParent();
+		if(parent instanceof VtlMacroCall)
+		{
+			String msgKey = resolvedWithError ? "error.wrong.number.of.arguments.for.macro" : "error.cannot.resolve.macro";
+			return message(msgKey, referenceName);
+		}
+		final VtlReferenceExpression qualifier = getQualifierInner();
+		if(qualifier == null)
+		{
+			return message("error.cannot.resolve.variable", referenceName);
+		}
+		String typeName = getPresentableText(qualifier.getPsiType());
+		if(!(parent instanceof VtlMethodCallExpression))
+		{
+			return message("error.cannot.resolve.property", referenceName, typeName);
+		}
+		if(!resolvedWithError)
+		{
+			return message("error.cannot.resolve.method", referenceName, typeName);
+		}
+		String argumentTypes = StringUtil.join(((VtlMethodCallExpression) parent).getArgumentTypes(), PsiUtil::getPresentableText, ", ");
+		return message("error.no.applicable.method", referenceName, typeName, "(" + argumentTypes + ")");
+	}
 
-    @Nonnull
-    protected VtlReferenceExpression parseReference(String newText) {
-        if (!(getParent() instanceof VtlMethodCallExpression)) {
-            final String propertyName = VelocityNamingUtil.getPropertyName(newText, isFirstCharInLowerCase());
-            if (propertyName != null) {
-                newText = propertyName;
-            }
-        }
-        return createVtlReferenceExpression(newText, getProject());
-    }
+	@Override
+	@Nonnull
+	protected VtlReferenceExpression parseReference(String newText)
+	{
+		if(!(getParent() instanceof VtlMethodCallExpression))
+		{
+			final String propertyName = VelocityNamingUtil.getPropertyName(newText, isFirstCharInLowerCase());
+			if(propertyName != null)
+			{
+				newText = propertyName;
+			}
+		}
+		return createVtlReferenceExpression(newText, getProject());
+	}
 
 
-    protected PsiElement getSeparator() {
-        return findChildByType(JAVA_DOT);
-    }
+	@Override
+	protected PsiElement getSeparator()
+	{
+		return findChildByType(JAVA_DOT);
+	}
 
-    @Override
-    public String toString() {
-        return getNode().getElementType().toString();
-    }
+	@Override
+	public String toString()
+	{
+		return getNode().getElementType().toString();
+	}
 
-    public PsiElement getReferenceNameElement() {
-        return findChildByType(VtlElementTypes.IDENTIFIER);
-    }
+	@Override
+	public PsiElement getReferenceNameElement()
+	{
+		return findChildByType(VtlElementTypes.IDENTIFIER);
+	}
 
-    @Override
-    public boolean isReferenceTo(final PsiElement element) {
-        final PsiManager manager = getManager();
-        for (final ResolveResult result : multiResolve(false)) {
-            final PsiElement target = result.getElement();
-            if (manager.areElementsEquivalent(element, target)) {
-                return true;
-            }
-            if (target instanceof BeanPropertyElement
-                    && manager.areElementsEquivalent(element, ((BeanPropertyElement) target).getMethod())) {
-                return true;
-            }
-        }
-        return false;
-    }
+	@RequiredReadAction
+	@Override
+	public boolean isReferenceTo(final PsiElement element)
+	{
+		final PsiManager manager = getManager();
+		for(final ResolveResult result : multiResolve(false))
+		{
+			final PsiElement target = result.getElement();
+			if(manager.areElementsEquivalent(element, target))
+			{
+				return true;
+			}
+			if(target instanceof BeanPropertyElement
+					&& manager.areElementsEquivalent(element, ((BeanPropertyElement) target).getMethod()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public Object[] getVariants() {
-        return getVariants(false);
-    }
+	@Override
+	public Object[] getVariants()
+	{
+		return getVariants(false);
+	}
 
-    public Object[] getVariants(boolean propertiesOnly) {
-        final VtlVariantsProcessor<PsiNamedElement> processor = new VtlVariantsProcessor<PsiNamedElement>(getParent(), getContainingFile(), null, propertiesOnly) {
-            protected PsiNamedElement execute(final PsiNamedElement element, final boolean error) {
-                return element;
-            }
-        };
-        processVariantsInner(processor);
-        PsiNamedElement[] variants = processor.getVariants(PsiNamedElement.EMPTY_ARRAY, isFirstCharInLowerCase());
+	public Object[] getVariants(boolean propertiesOnly)
+	{
+		final VtlVariantsProcessor<PsiNamedElement> processor = new VtlVariantsProcessor<PsiNamedElement>(getParent(), getContainingFile(), null, propertiesOnly)
+		{
+			@Override
+			protected PsiNamedElement execute(final PsiNamedElement element, final boolean error)
+			{
+				return element;
+			}
+		};
+		processVariantsInner(processor);
+		PsiNamedElement[] variants = processor.getVariants(PsiNamedElement.EMPTY_ARRAY, isFirstCharInLowerCase());
 
-        return ContainerUtil.map2Array(variants, Object.class, new Function<PsiNamedElement, Object>() {
-            public Object fun(final PsiNamedElement element) {
-                LookupElementBuilder lookupElement = LookupElementBuilder.create(element);
-                if (element instanceof VtlVariable) {
-                    PsiType type = ((VtlVariable) element).getPsiType();
-                    if (type != null) {
-                        lookupElement = lookupElement.withTypeText(type.getPresentableText());
-                    }
-                } else if (element instanceof BeanPropertyElement) {
-                  final PsiType type = ((BeanPropertyElement)element).getPropertyType();
-                  if (type != null) {
-                    lookupElement = lookupElement.withTypeText(type.getPresentableText());
-                  }
-                }
-                else if (element instanceof PsiMethod) {
-                  return TailTypeDecorator.withTail(lookupElement, VtlTailType.METHOD_CALL_TAIL_TYPE);
-                }
-                else if (element instanceof VtlMacro) {
-                  PsiElement sibling = getPrevSibling();
-                  boolean closingBraceNeeded = sibling != null && "{".equals(sibling.getText());
-                  return TailTypeDecorator.withTail(lookupElement, new VtlTailType(closingBraceNeeded));
-                }
-                return lookupElement;
-            }
-        });
-    }
+		return ContainerUtil.map2Array(variants, Object.class, new Function<PsiNamedElement, Object>()
+		{
+			@Override
+			public Object fun(final PsiNamedElement element)
+			{
+				LookupElementBuilder lookupElement = LookupElementBuilder.create(element);
+				if(element instanceof VtlVariable)
+				{
+					PsiType type = ((VtlVariable) element).getPsiType();
+					if(type != null)
+					{
+						lookupElement = lookupElement.withTypeText(type.getPresentableText());
+					}
+				}
+				else if(element instanceof BeanPropertyElement)
+				{
+					final PsiType type = ((BeanPropertyElement) element).getPropertyType();
+					if(type != null)
+					{
+						lookupElement = lookupElement.withTypeText(type.getPresentableText());
+					}
+				}
+				else if(element instanceof PsiMethod)
+				{
+					return TailTypeDecorator.withTail(lookupElement, VtlTailType.METHOD_CALL_TAIL_TYPE);
+				}
+				else if(element instanceof VtlMacro)
+				{
+					PsiElement sibling = getPrevSibling();
+					boolean closingBraceNeeded = sibling != null && "{".equals(sibling.getText());
+					return TailTypeDecorator.withTail(lookupElement, new VtlTailType(closingBraceNeeded));
+				}
+				return lookupElement;
+			}
+		});
+	}
 
-    protected boolean isFirstCharInLowerCase() {
-        final String referenceName = getReferenceName();
-        return referenceName == null || Character.isLowerCase(referenceName.charAt(0));
-    }
+	protected boolean isFirstCharInLowerCase()
+	{
+		final String referenceName = getReferenceName();
+		return referenceName == null || Character.isLowerCase(referenceName.charAt(0));
+	}
 
-    @Nonnull
-    public VtlCallable[] getCallableCandidates() {
-        final String referenceName = getReferenceName();
-        if (referenceName == null) {
-            return VtlCallable.EMPTY_ARRAY;
-        }
-        VtlVariantsProcessor<VtlCallable> processor = new VtlVariantsProcessor<VtlCallable>(getParent(), getContainingFile(), null, false) {
-            protected VtlCallable execute(final PsiNamedElement element, final boolean error) {
-                if (!referenceName.equals(element.getName())) {
-                    return null;
-                }
-                if (element instanceof VtlMacro) {
-                    return (VtlMacro) element;
-                }
-                if (element instanceof PsiMethod) {
-                    return new VtlMethod((PsiMethod) element);
-                }
-                return null;
-            }
-        };
-        processVariantsInner(processor);
-        return processor.getVariants(VtlCallable.EMPTY_ARRAY, Character.isLowerCase(referenceName.charAt(0)));
-    }
+	@Nonnull
+	public VtlCallable[] getCallableCandidates()
+	{
+		final String referenceName = getReferenceName();
+		if(referenceName == null)
+		{
+			return VtlCallable.EMPTY_ARRAY;
+		}
+		VtlVariantsProcessor<VtlCallable> processor = new VtlVariantsProcessor<VtlCallable>(getParent(), getContainingFile(), null, false)
+		{
+			@Override
+			protected VtlCallable execute(final PsiNamedElement element, final boolean error)
+			{
+				if(!referenceName.equals(element.getName()))
+				{
+					return null;
+				}
+				if(element instanceof VtlMacro)
+				{
+					return (VtlMacro) element;
+				}
+				if(element instanceof PsiMethod)
+				{
+					return new VtlMethod((PsiMethod) element);
+				}
+				return null;
+			}
+		};
+		processVariantsInner(processor);
+		return processor.getVariants(VtlCallable.EMPTY_ARRAY, Character.isLowerCase(referenceName.charAt(0)));
+	}
 
-    @Nullable
-    public VelocityType getPsiType() {
-        final PsiElement element = resolve();
-        if (element instanceof VtlVariable) {
-            return ((VtlVariable) element).getPsiType();
-        }
-        if (element instanceof PsiMethod) {
-            PsiMethod method = (PsiMethod) element;
-            return getSubstitutedType(method, method.getReturnType());
-        }
-        if (element instanceof BeanProperty) {
-            final BeanProperty beanProperty = (BeanProperty) element;
-            return getSubstitutedType(beanProperty.getMethod(), beanProperty.getPropertyType());
-        }
-        return null;
-    }
+	@Nullable
+	@RequiredReadAction
+	public VelocityType getPsiType()
+	{
+		final PsiElement element = resolve();
+		if(element instanceof VtlVariable)
+		{
+			return ((VtlVariable) element).getPsiType();
+		}
+		if(element instanceof PsiMethod)
+		{
+			PsiMethod method = (PsiMethod) element;
+			return getSubstitutedType(method, method.getReturnType());
+		}
+		if(element instanceof BeanProperty)
+		{
+			final BeanProperty beanProperty = (BeanProperty) element;
+			return getSubstitutedType(beanProperty.getMethod(), beanProperty.getPropertyType());
+		}
+		return null;
+	}
 
-    private PsiType getSubstitutedType(PsiMethod method, PsiType result) {
-        if (!(result instanceof PsiClassType)) {
-            return result;
-        }
-        PsiClassType resultClassType = (PsiClassType) result;
-//        if (!resultClassType.hasParameters()) { disabled due to parameter type in itself returns false from hasParameters()
-//            return result;
-//        }
-        PsiClassType qualifierClassType = (PsiClassType) getQualifierInner().getPsiType();
-        assert qualifierClassType != null;
-        final PsiSubstitutor substitutor = PsiUtil.getSuperClassSubstitutor(method.getContainingClass(), qualifierClassType);
-        return substitutor.substitute(resultClassType);
-    }
+	private PsiType getSubstitutedType(PsiMethod method, PsiType result)
+	{
+		if(!(result instanceof PsiClassType))
+		{
+			return result;
+		}
+		PsiClassType resultClassType = (PsiClassType) result;
+		//        if (!resultClassType.hasParameters()) { disabled due to parameter type in itself returns false from hasParameters()
+		//            return result;
+		//        }
+		PsiClassType qualifierClassType = (PsiClassType) getQualifierInner().getPsiType();
+		assert qualifierClassType != null;
+		final PsiSubstitutor substitutor = PsiUtil.getSuperClassSubstitutor(method.getContainingClass(), qualifierClassType);
+		return substitutor.substitute(resultClassType);
+	}
 
-    @Override
-    public PsiElement handleElementRename(final String newElementName) throws IncorrectOperationException {
-        CheckUtil.checkWritable(this);
-        final PsiElement newReferenceName = parseReference(newElementName).getReferenceNameElement();
-        getNode().replaceChild(getReferenceNameElement().getNode(), newReferenceName.getNode());
-        return this;
-    }
+	@Override
+	public PsiElement handleElementRename(final String newElementName) throws IncorrectOperationException
+	{
+		CheckUtil.checkWritable(this);
+		final PsiElement newReferenceName = parseReference(newElementName).getReferenceNameElement();
+		getNode().replaceChild(getReferenceNameElement().getNode(), newReferenceName.getNode());
+		return this;
+	}
 
 }
 

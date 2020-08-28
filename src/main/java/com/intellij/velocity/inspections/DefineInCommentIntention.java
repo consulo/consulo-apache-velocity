@@ -15,13 +15,6 @@
  */
 package com.intellij.velocity.inspections;
 
-import java.io.IOException;
-import java.util.Collection;
-
-import javax.swing.Icon;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.template.Template;
@@ -52,8 +45,13 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.awt.TargetAWT;
 import consulo.roots.ContentFolderScopes;
+import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * @author Alexey Chmutov
@@ -224,9 +222,9 @@ public abstract class DefineInCommentIntention implements IntentionAction
 			}
 
 			@Override
-			public Icon getIconFor(final VtlFile aValue)
+			public Image getIconFor(final VtlFile aValue)
 			{
-				return TargetAWT.to(VtlIcons.VTL_ICON);
+				return VtlIcons.VTL_ICON;
 			}
 		};
 		JBPopupFactory.getInstance().createListPopup(step).showInBestPositionFor(editor);

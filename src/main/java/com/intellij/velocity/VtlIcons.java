@@ -16,7 +16,8 @@
 
 package com.intellij.velocity;
 
-import com.intellij.openapi.util.IconLoader;
+import consulo.annotation.DeprecationInfo;
+import consulo.apache.velocity.icon.VelocityIconGroup;
 import consulo.ui.image.Image;
 
 /**
@@ -24,9 +25,11 @@ import consulo.ui.image.Image;
  * User: Alexey Chmutov
  * Date: 22.05.2008
  */
+@Deprecated
+@DeprecationInfo("Use VelocityIconGroup")
 public interface VtlIcons
 {
-	Image SHARP_ICON = IconLoader.getIcon("/icons/sharp.png");
+	Image SHARP_ICON = VelocityIconGroup.sharp();
 
-	Image VTL_ICON = IconLoader.getIcon("/icons/velocity.png");
+	Image VTL_ICON = VelocityIconGroup.velocity();
 }

@@ -16,15 +16,6 @@
 
 package com.intellij.velocity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.DumbService;
@@ -35,16 +26,15 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileFilter;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.containers.HashMap;
-import com.intellij.util.indexing.DataIndexer;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.indexing.FileContent;
-import com.intellij.util.indexing.ID;
-import com.intellij.util.indexing.ScalarIndexExtension;
+import com.intellij.util.indexing.*;
 import com.intellij.util.io.BooleanDataDescriptor;
 import com.intellij.util.io.KeyDescriptor;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileType;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author Alexey Chmutov
@@ -90,7 +80,7 @@ public class VtlFileIndex extends ScalarIndexExtension<Boolean> {
                         || !IMPLICIT_INCLUDE_MARKER.equals(text.subSequence(0, markerLength).toString())) {
                     return Collections.emptyMap();
                 }
-                final HashMap<Boolean, Void> map = new HashMap<Boolean, Void>();
+                final HashMap<Boolean, Void> map = new HashMap<Boolean, Void>(1);
                 map.put(Boolean.TRUE, null);
                 return map;
             }

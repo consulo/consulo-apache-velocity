@@ -15,14 +15,6 @@
  */
 package com.intellij.velocity.psi.files;
 
-import gnu.trove.THashSet;
-
-import java.util.Arrays;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lang.html.HTMLLanguage;
@@ -41,6 +33,10 @@ import com.intellij.psi.templateLanguages.ConfigurableTemplateLanguageFileViewPr
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
 import com.intellij.psi.templateLanguages.TemplateLanguage;
 import com.intellij.velocity.psi.VtlLanguage;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Set;
 
 /**
  * @author Alexey Chmutov
@@ -67,7 +63,7 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
 
     @Nonnull
     public Set<Language> getLanguages() {
-        return new THashSet<Language>(Arrays.asList(VtlLanguage.INSTANCE, getTemplateDataLanguage()));
+        return Set.of(VtlLanguage.INSTANCE, getTemplateDataLanguage());
     }
 
     @Nullable

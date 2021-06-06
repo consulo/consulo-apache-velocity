@@ -15,20 +15,6 @@
  */
 package com.intellij.velocity.psi.files;
 
-import gnu.trove.THashSet;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.fileTypes.FileType;
@@ -41,13 +27,16 @@ import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.velocity.VtlFileIndex;
-import com.intellij.velocity.psi.PsiUtil;
-import com.intellij.velocity.psi.VtlImplicitVariable;
-import com.intellij.velocity.psi.VtlLanguage;
-import com.intellij.velocity.psi.VtlMacro;
-import com.intellij.velocity.psi.VtlVariable;
+import com.intellij.velocity.psi.*;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Alexey Chmutov
@@ -237,7 +226,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   @Nonnull
   public Set<VtlMacro> getDefinedMacros() {
     Map<String, Set<VtlMacro>> macros = myAllMacros.getValue();
-    Set<VtlMacro> res = new THashSet<VtlMacro>(macros.size());
+    Set<VtlMacro> res = new HashSet<VtlMacro>(macros.size());
     for (Set<VtlMacro> sameNameMacros : macros.values()) {
       res.addAll(sameNameMacros);
     }

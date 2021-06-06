@@ -16,16 +16,6 @@
 
 package com.intellij.velocity.psi;
 
-import gnu.trove.THashSet;
-
-import java.io.File;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.codeInsight.completion.util.PsiTypeCanonicalLookupElement;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.ASTNode;
@@ -49,6 +39,14 @@ import com.intellij.velocity.psi.files.VtlFileType;
 import com.intellij.velocity.psi.reference.SoftFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * @author Alexey Chmutov
@@ -115,7 +113,7 @@ public class PsiUtil {
             }
             if (child instanceof VtlParse) {
                 if (filesVisited == null) {
-                    filesVisited = new THashSet<PsiFile>();
+                    filesVisited = new HashSet<PsiFile>();
                 }
                 VtlFile file = ((VtlParse) child).resolveFile();
                 if (file != null && !filesVisited.contains(file)) {

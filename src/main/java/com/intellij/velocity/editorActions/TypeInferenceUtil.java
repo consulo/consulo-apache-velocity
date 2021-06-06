@@ -16,15 +16,6 @@
 
 package com.intellij.velocity.editorActions;
 
-import gnu.trove.THashSet;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInsight.daemon.impl.quickfix.CreateFromUsageUtils;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.text.StringUtil;
@@ -34,14 +25,13 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.search.searches.ReferencesSearch;
 import com.intellij.util.Processor;
 import com.intellij.util.Query;
-import com.intellij.velocity.psi.VtlDirectiveHeader;
-import com.intellij.velocity.psi.VtlInterpolation;
-import com.intellij.velocity.psi.VtlLoopVariable;
-import com.intellij.velocity.psi.VtlMethodCallExpression;
-import com.intellij.velocity.psi.VtlVariable;
+import com.intellij.velocity.psi.*;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.reference.VelocityNamingUtil;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author Alexey Chmutov
@@ -82,7 +72,7 @@ public class TypeInferenceUtil {
                 if (loopVariable == null) {
                     return true;
                 }
-                final Set<String> typeNames = new THashSet<String>();
+                final Set<String> typeNames = new HashSet<String>();
                 for (final String typeName : inferVariableType(loopVariable)) {
                     typeNames.addAll(Arrays.asList(VtlLoopVariable.getVelocityIterables(typeName)));
                 }
@@ -103,7 +93,7 @@ public class TypeInferenceUtil {
     public static Set<String> suggestClassesWithMember(final VtlReferenceExpression reference) {
         final PsiFile file = reference.getElement().getContainingFile();
         final String referenceName = reference.getReferenceName();
-        final THashSet<String> classes = new THashSet<String>();
+        final Set<String> classes = new HashSet<String>();
         PsiElement parent = reference.getParent();
         if (parent instanceof VtlMethodCallExpression) {
             CreateFromUsageUtils.addClassesWithMember(referenceName, file, classes, true, false);

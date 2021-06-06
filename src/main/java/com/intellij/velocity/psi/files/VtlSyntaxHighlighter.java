@@ -16,12 +16,6 @@
 
 package com.intellij.velocity.psi.files;
 
-import gnu.trove.THashMap;
-
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;
@@ -32,6 +26,10 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.velocity.lexer.VtlLexer;
 import com.intellij.velocity.psi.VtlElementTypes;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alexey Chmutov
@@ -59,7 +57,7 @@ public class VtlSyntaxHighlighter extends SyntaxHighlighterBase
 
 	static
 	{
-		ourMap = new THashMap<IElementType, TextAttributesKey>();
+		ourMap = new HashMap<IElementType, TextAttributesKey>();
 		SyntaxHighlighterBase.safeMap(ourMap, TokenSet.create(VtlElementTypes.DOT, VtlElementTypes.JAVA_DOT), VELOCITY_DOT);
 		SyntaxHighlighterBase.safeMap(ourMap, TokenSet.create(VtlElementTypes.LEFT_PAREN, VtlElementTypes.RIGHT_PAREN), VELOCITY_PARENTHS);
 		SyntaxHighlighterBase.safeMap(ourMap, TokenSet.create(VtlElementTypes.LEFT_BRACKET, VtlElementTypes.RIGHT_BRACKET), VELOCITY_BRACKETS);

@@ -16,19 +16,6 @@
 
 package com.intellij.velocity.psi.files;
 
-import gnu.trove.THashMap;
-import gnu.trove.THashSet;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.extensions.Extensions;
@@ -38,11 +25,7 @@ import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiRecursiveElementVisitor;
+import com.intellij.psi.*;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.PsiModificationTracker;
@@ -53,6 +36,10 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlImplicitVariable;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlVariable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
 
 /**
  * @author Alexey Chmutov
@@ -88,7 +75,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Map<String, Set<VtlMacro>>> compute()
 			{
-				final Map<String, Set<VtlMacro>> result = new THashMap<String, Set<VtlMacro>>();
+				final Map<String, Set<VtlMacro>> result = new HashMap<String, Set<VtlMacro>>();
 				myFile.accept(new PsiRecursiveElementVisitor()
 				{
 					@Override
@@ -116,7 +103,7 @@ class ProviderBuilder
 		Set<VtlMacro> sameNameMacros = result.get(macroName);
 		if(sameNameMacros == null)
 		{
-			sameNameMacros = new THashSet<VtlMacro>();
+			sameNameMacros = new HashSet<VtlMacro>();
 			result.put(macroName, sameNameMacros);
 		}
 		sameNameMacros.add(macro);
@@ -128,7 +115,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Map<String, VtlImplicitVariable>> compute()
 			{
-				final Map<String, VtlImplicitVariable> result = new THashMap<String, VtlImplicitVariable>();
+				final Map<String, VtlImplicitVariable> result = new HashMap<String, VtlImplicitVariable>();
 				Properties defaultVariables = myFile.getViewProvider().getUserData(FileTemplateManager.DEFAULT_TEMPLATE_PROPERTIES);
 				if(defaultVariables != null)
 				{
@@ -185,7 +172,7 @@ class ProviderBuilder
 		{
 			public CachedValueProvider.Result<Collection<VtlFileProxy>> compute()
 			{
-				final Collection<VtlFileProxy> result = new THashSet<VtlFileProxy>();
+				final Collection<VtlFileProxy> result = new HashSet<VtlFileProxy>();
 				myFile.accept(new PsiRecursiveElementVisitor()
 				{
 					@Override

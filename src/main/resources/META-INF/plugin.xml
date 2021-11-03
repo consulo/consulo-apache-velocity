@@ -47,7 +47,7 @@
 
 		<highlightErrorFilter implementation="com.intellij.velocity.inspections.VtlErrorFilter"/>
 
-		<lang.syntaxHighlighterFactory key="VTL" implementationClass="com.intellij.velocity.psi.files.VtlSyntaxHighlighterFactory"/>
+		<lang.syntaxHighlighterFactory language="VTL" implementationClass="com.intellij.velocity.psi.files.VtlSyntaxHighlighterFactory"/>
 		<syntaxHighlighter key="VTL" implementationClass="com.intellij.velocity.psi.files.VtlSyntaxHighlighter"/>
 
 		<lang.parserDefinition language="VTL" implementationClass="com.intellij.velocity.VtlParserDefinition"/>

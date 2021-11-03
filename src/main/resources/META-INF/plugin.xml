@@ -24,6 +24,10 @@
 	<category>Template Languages</category>
 	<description>Provides syntax and error highlighting, smart editing and inspections for the Velocity template language.</description>
 
+	<tags>
+		<tag>template.language</tag>
+	</tags>
+
 	<extensionPoints>
 		<extensionPoint name="globalVariableProvider" interface="com.intellij.velocity.VtlGlobalVariableProvider"/>
 		<extensionPoint name="globalMacroProvider" interface="com.intellij.velocity.VtlGlobalMacroProvider"/>

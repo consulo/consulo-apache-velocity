@@ -15,24 +15,16 @@
  */
 package com.intellij.velocity.psi.files;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.Icon;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.editor.highlighter.EditorHighlighter;
-import com.intellij.openapi.fileTypes.EditorHighlighterProvider;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.fileTypes.TemplateLanguageFileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.velocity.VtlIcons;
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlLanguage;
+import consulo.apache.velocity.localize.VelocityLocalize;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
@@ -48,7 +40,6 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 
 	@Override
 	@Nonnull
-	@NonNls
 	public String getId()
 	{
 		return "VTL";
@@ -56,14 +47,13 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 
 	@Override
 	@Nonnull
-	public String getDescription()
+	public LocalizeValue getDescription()
 	{
-		return VelocityBundle.message("file.type.description");
+		return VelocityLocalize.fileTypeDescription();
 	}
 
 	@Override
 	@Nonnull
-	@NonNls
 	public String getDefaultExtension()
 	{
 		return "vm";
@@ -77,7 +67,6 @@ public class VtlFileType extends LanguageFileType implements TemplateLanguageFil
 	}
 
 	@Nonnull
-	@NonNls
 	public String[] getExtensions()
 	{
 		return new String[]{

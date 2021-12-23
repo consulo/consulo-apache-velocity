@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-apache-velocity">
 	<id>com.intellij.velocity</id>
 	<name>Apache Velocity</name>
 	<version>SNAPSHOT</version>

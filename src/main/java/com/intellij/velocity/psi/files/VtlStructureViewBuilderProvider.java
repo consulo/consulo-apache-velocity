@@ -15,46 +15,34 @@
  */
 package com.intellij.velocity.psi.files;
 
+import com.intellij.velocity.psi.VtlLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.fileEditor.structureView.StructureViewBuilder;
+import consulo.language.Language;
+import consulo.language.editor.structureView.PsiStructureViewFactory;
+import consulo.language.editor.structureView.TemplateLanguageStructureViewBuilder;
+import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.ide.structureView.StructureView;
-import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
-import com.intellij.ide.structureView.impl.StructureViewComposite;
-import com.intellij.ide.structureView.impl.TemplateLanguageStructureViewBuilder;
-import com.intellij.lang.PsiStructureViewFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.psi.PsiFile;
-import com.intellij.velocity.VelocityBundle;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory
 {
 	@Override
 	@Nullable
 	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
 	{
-		return new TemplateLanguageStructureViewBuilder(psiFile)
-		{
-			@Override
-			protected StructureViewComposite.StructureViewDescriptor createMainView(final FileEditor fileEditor, final PsiFile mainFile)
-			{
-				StructureView mainView = new TreeBasedStructureViewBuilder()
-				{
-					@Override
-					@Nonnull
-					public StructureViewModel createStructureViewModel(Editor editor)
-					{
-						return new VtlStructureViewModel((VtlFile) mainFile);
-					}
-				}.createStructureView(fileEditor, mainFile.getProject());
-				return new StructureViewComposite.StructureViewDescriptor(VelocityBundle.message("tab.structureview.vtl.view"), mainView, mainFile.getFileType().getIcon());
-			}
-		};
+		return TemplateLanguageStructureViewBuilder.create(psiFile, (psiFile1, editor) -> new VtlStructureViewModel((VtlFile) psiFile));
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
 	}
 }

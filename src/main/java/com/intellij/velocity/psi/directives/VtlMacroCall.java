@@ -16,8 +16,6 @@
 
 package com.intellij.velocity.psi.directives;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import static com.intellij.velocity.psi.VtlCompositeElementTypes.REFERENCE_EXPRESSION;
@@ -25,6 +23,8 @@ import static com.intellij.velocity.psi.VtlCompositeElementTypes.REFERENCE_EXPRE
 import javax.annotation.Nonnull;
 
 import com.intellij.velocity.psi.VtlExpression;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author Alexey Chmutov

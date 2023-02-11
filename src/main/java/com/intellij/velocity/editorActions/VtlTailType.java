@@ -16,14 +16,15 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.codeInsight.TailType;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
+import consulo.language.editor.completion.lookup.TailType;
+import consulo.document.Document;
+import consulo.codeEditor.Editor;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlTailType extends TailType {
+public class VtlTailType extends TailType
+{
 
     public static final TailType METHOD_CALL_TAIL_TYPE = new VtlTailType(false);
 

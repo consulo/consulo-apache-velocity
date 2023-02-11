@@ -16,27 +16,29 @@
 
 package com.intellij.velocity.inspections;
 
-import static com.intellij.codeInspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
-import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
-import static com.intellij.velocity.VelocityBundle.message;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLoopVariable;
 import com.intellij.velocity.psi.VtlOperatorExpression;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.psi.PsiElement;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+
+import static com.intellij.velocity.VelocityBundle.message;
+import static consulo.language.editor.inspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
+import static consulo.language.editor.inspection.ProblemHighlightType.WEAK_WARNING;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Alexey Chmutov
  * Date: 27.06.2008
  */
+@ExtensionImpl
 public class VtlTypesInspection extends VtlInspectionBase
 {
 	@Override

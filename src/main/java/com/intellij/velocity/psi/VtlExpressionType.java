@@ -16,8 +16,8 @@
 
 package com.intellij.velocity.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 

@@ -18,8 +18,8 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 import com.intellij.velocity.psi.directives.VtlDirectiveImpl;
 
 /**

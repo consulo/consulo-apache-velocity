@@ -16,37 +16,37 @@
 
 package com.intellij.velocity.inspections;
 
-import static com.intellij.velocity.psi.PsiUtil.getRelativePath;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.roots.ContentIterator;
-import com.intellij.openapi.roots.ModuleFileIndex;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReferenceSet;
-import com.intellij.psi.search.FilenameIndex;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.Function;
-import com.intellij.util.SmartList;
-import com.intellij.util.containers.ContainerUtil;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.files.VelocityPropertiesProvider;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.codeEditor.Editor;
+import consulo.content.ContentIterator;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.path.FileReference;
+import consulo.language.psi.path.FileReferenceSet;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.search.FilenameIndex;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.content.ModuleFileIndex;
+import consulo.module.content.ModuleRootManager;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.SmartList;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Function;
+
+import static com.intellij.velocity.psi.PsiUtil.getRelativePath;
 
 /**
  * @author Alexey Chmutov
@@ -58,7 +58,7 @@ public class Util {
   }
 
   @Nullable
-  static <T extends PsiReference> T findReferenceExpression(@Nonnull Editor editor, @Nonnull PsiFile file, @Nonnull Class<T> refClass) {
+  static <T extends PsiReference> T findReferenceExpression(@Nonnull consulo.codeEditor.Editor editor, @Nonnull PsiFile file, @Nonnull Class<T> refClass) {
     int offset = editor.getCaretModel().getOffset();
     final CharSequence charSequence = editor.getDocument().getCharsSequence();
     if (charSequence.length() == offset || charSequence.length() > offset && !Character.isJavaIdentifierPart(charSequence.charAt(offset))) {
@@ -69,15 +69,15 @@ public class Util {
   }
 
   @Nonnull
-  static <T> List<T> collectFilePaths(@Nonnull PsiElement element, @Nonnull final Function<PsiFile, T> converter) {
+  static <T> List<T> collectFilePaths(@Nonnull consulo.language.psi.PsiElement element, @Nonnull final Function<consulo.language.psi.PsiFile, T> converter) {
     final List<T> allFiles = new SmartList<T>();
     final PsiManager psiManager = element.getManager();
-    ModuleFileIndex fileIndex = ModuleRootManager.getInstance(ModuleUtil.findModuleForPsiElement(element)).getFileIndex();
+    ModuleFileIndex fileIndex = ModuleRootManager.getInstance(ModuleUtilCore.findModuleForPsiElement(element)).getFileIndex();
     fileIndex.iterateContent(new ContentIterator() {
-      public boolean processFile(VirtualFile fileOrDir) {
+      public boolean processFile(consulo.virtualFileSystem.VirtualFile fileOrDir) {
         PsiFile psiFile = psiManager.findFile(fileOrDir);
         if (psiFile != null) {
-          ContainerUtil.addIfNotNull(converter.fun(psiFile), allFiles);
+          ContainerUtil.addIfNotNull(allFiles, converter.apply(psiFile));
         }
         return true;
       }
@@ -100,7 +100,7 @@ public class Util {
       if (!(ref instanceof FileReference)) {
         continue;
       }
-      FileReferenceSet refSet = ((FileReference)ref).getFileReferenceSet();
+      FileReferenceSet refSet = ((consulo.language.psi.path.FileReference)ref).getFileReferenceSet();
       if (refSet instanceof VtlFileReferenceSet && refSet.getLastReference() != null) {
         return (VtlFileReferenceSet)refSet;
       }
@@ -109,25 +109,25 @@ public class Util {
   }
 
   @Nonnull
-  static PsiFile[] findReferencedFiles(@Nullable final Module module, @Nonnull String nameFile) {
+  static consulo.language.psi.PsiFile[] findReferencedFiles(@Nullable final Module module, @Nonnull String nameFile) {
     if (module == null) return PsiFile.EMPTY_ARRAY;
     return FilenameIndex.getFilesByName(module.getProject(), nameFile, new GlobalSearchScope(module.getProject()) {
-      private final VirtualFile[] myContentRoots = ModuleRootManager.getInstance(module).getContentRoots();
+      private final consulo.virtualFileSystem.VirtualFile[] myContentRoots = ModuleRootManager.getInstance(module).getContentRoots();
 
       public boolean contains(VirtualFile file) {
-        for (VirtualFile contentRoot : myContentRoots) {
-          if (VfsUtil.isAncestor(contentRoot, file, false)) {
+        for (consulo.virtualFileSystem.VirtualFile contentRoot : myContentRoots) {
+          if (VirtualFileUtil.isAncestor(contentRoot, file, false)) {
             return true;
           }
         }
         return false;
       }
 
-      public int compare(VirtualFile file1, VirtualFile file2) {
+      public int compare(consulo.virtualFileSystem.VirtualFile file1, consulo.virtualFileSystem.VirtualFile file2) {
         return 0;
       }
 
-      public boolean isSearchInModuleContent(@Nonnull Module aModule) {
+      public boolean isSearchInModuleContent(@Nonnull consulo.module.Module aModule) {
         return aModule == module;
       }
 
@@ -140,7 +140,7 @@ public class Util {
   static String computeFilePath(VelocityPropertiesProvider velocityProperties,
                                 String referencedFilePath,
                                 String pathString,
-                                PsiFile fileToInsertComment) {
+                                consulo.language.psi.PsiFile fileToInsertComment) {
     for (String path : velocityProperties.getResourceLoaderPathList()) {
       String relativePath = ".".equals(path) ? pathString : path + "/" + pathString;
       if (!referencedFilePath.endsWith(relativePath)) {

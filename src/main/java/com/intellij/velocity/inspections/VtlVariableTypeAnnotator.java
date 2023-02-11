@@ -15,22 +15,22 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPrimitiveType;
-import com.intellij.psi.PsiReference;
+import com.intellij.java.language.psi.PsiPrimitiveType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.VtlReferenceContributor;
 import com.intellij.velocity.psi.VtlImplicitVariable;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.document.util.TextRange;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlVariableTypeAnnotator implements Annotator {
-
+public class VtlVariableTypeAnnotator implements Annotator
+{
     public void annotate(final PsiElement element, final AnnotationHolder holder) {
 
         if (!VtlReferenceContributor.VTLVARIABLE_COMMENT.accepts(element)) {

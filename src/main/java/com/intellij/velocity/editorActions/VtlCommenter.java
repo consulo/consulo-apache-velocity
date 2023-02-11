@@ -16,31 +16,50 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.lang.Commenter;
+import com.intellij.velocity.psi.VtlLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Commenter;
+import consulo.language.Language;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Alexey Chmutov
  * Date: 05.06.2008
  */
-public class VtlCommenter implements Commenter {
-    public String getLineCommentPrefix() {
-        return "##";
-    }
+@ExtensionImpl
+public class VtlCommenter implements Commenter
+{
+	public String getLineCommentPrefix()
+	{
+		return "##";
+	}
 
-    public String getBlockCommentPrefix() {
-        return "#*";
-    }
+	public String getBlockCommentPrefix()
+	{
+		return "#*";
+	}
 
-    public String getBlockCommentSuffix() {
-        return "*#";
-    }
+	public String getBlockCommentSuffix()
+	{
+		return "*#";
+	}
 
-  public String getCommentedBlockCommentPrefix() {
-    return null;
-  }
+	public String getCommentedBlockCommentPrefix()
+	{
+		return null;
+	}
 
-  public String getCommentedBlockCommentSuffix() {
-    return null;
-  }
+	public String getCommentedBlockCommentSuffix()
+	{
+		return null;
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 }

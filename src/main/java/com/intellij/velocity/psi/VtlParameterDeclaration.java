@@ -15,11 +15,11 @@
  */
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nullable;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
+import consulo.language.ast.ASTNode;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

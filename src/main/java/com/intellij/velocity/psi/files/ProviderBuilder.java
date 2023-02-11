@@ -16,19 +16,16 @@
 
 package com.intellij.velocity.psi.files;
 
-import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.PsiModificationTracker;
+import consulo.component.extension.Extensions;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.PsiRecursiveElementVisitor;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.content.ModuleRootManager;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.path.FileReference;
+import consulo.application.util.CachedValueProvider;
 import com.intellij.velocity.VtlFileIndex;
 import com.intellij.velocity.VtlGlobalMacroProvider;
 import com.intellij.velocity.VtlGlobalVariableProvider;
@@ -36,6 +33,9 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlImplicitVariable;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.fileTemplate.FileTemplateManager;
+import consulo.util.lang.ref.Ref;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,10 +76,10 @@ class ProviderBuilder
 			public CachedValueProvider.Result<Map<String, Set<VtlMacro>>> compute()
 			{
 				final Map<String, Set<VtlMacro>> result = new HashMap<String, Set<VtlMacro>>();
-				myFile.accept(new PsiRecursiveElementVisitor()
+				myFile.accept(new consulo.language.psi.PsiRecursiveElementVisitor()
 				{
 					@Override
-					public void visitElement(PsiElement element)
+					public void visitElement(consulo.language.psi.PsiElement element)
 					{
 						super.visitElement(element);
 						if(element instanceof VtlMacro)
@@ -128,7 +128,7 @@ class ProviderBuilder
 				myFile.accept(new PsiRecursiveElementVisitor()
 				{
 					@Override
-					public void visitComment(PsiComment comment)
+					public void visitComment(consulo.language.psi.PsiComment comment)
 					{
 						final String text = comment.getText();
 						String[] nameAndTypeAndScopeFilePath = VtlFile.findVariableNameAndTypeAndScopeFilePath(text);
@@ -173,10 +173,10 @@ class ProviderBuilder
 			public CachedValueProvider.Result<Collection<VtlFileProxy>> compute()
 			{
 				final Collection<VtlFileProxy> result = new HashSet<VtlFileProxy>();
-				myFile.accept(new PsiRecursiveElementVisitor()
+				myFile.accept(new consulo.language.psi.PsiRecursiveElementVisitor()
 				{
 					@Override
-					public void visitComment(PsiComment comment)
+					public void visitComment(consulo.language.psi.PsiComment comment)
 					{
 						final String text = comment.getText();
 						String[] pathAndScopeFilePath = VtlFile.findMacroLibraryPathAndScopeFilePath(text);
@@ -202,13 +202,13 @@ class ProviderBuilder
 	}
 
 	@Nullable
-	private static VtlFile findVtlFile(PsiComment comment, String text, @Nullable String filePath)
+	private static VtlFile findVtlFile(consulo.language.psi.PsiComment comment, String text, @Nullable String filePath)
 	{
 		return findFile(comment, text, filePath, VtlFile.class);
 	}
 
 	@Nullable
-	private static <T extends PsiFile> T findFile(PsiComment comment, String text, @Nullable String filePath, Class<T> fileClass)
+	private static <T extends consulo.language.psi.PsiFile> T findFile(consulo.language.psi.PsiComment comment, String text, @Nullable String filePath, Class<T> fileClass)
 	{
 		if(filePath == null)
 		{
@@ -225,20 +225,20 @@ class ProviderBuilder
 			public CachedValueProvider.Result<VelocityPropertiesProvider> compute()
 			{
 				final Set dependencies = new HashSet(3);
-				final Ref<VelocityPropertiesProvider> result = new Ref<VelocityPropertiesProvider>();
+				final consulo.util.lang.ref.Ref<VelocityPropertiesProvider> result = new Ref<VelocityPropertiesProvider>();
 
-				PsiRecursiveElementVisitor visitor = new PsiRecursiveElementVisitor()
+				consulo.language.psi.PsiRecursiveElementVisitor visitor = new consulo.language.psi.PsiRecursiveElementVisitor()
 				{
 
 					@Override
-					public void visitFile(PsiFile file)
+					public void visitFile(consulo.language.psi.PsiFile file)
 					{
 						dependencies.add(file);
 						super.visitFile(file);
 					}
 
 					@Override
-					public void visitComment(PsiComment comment)
+					public void visitComment(consulo.language.psi.PsiComment comment)
 					{
 						if(result.get() != null)
 						{
@@ -255,11 +255,11 @@ class ProviderBuilder
 						{
 							return;
 						}
-						PsiFile psiFile = findFile(comment, text, velocityPropertiesPathAndScopeFilePath[0], PsiFile.class);
+						consulo.language.psi.PsiFile psiFile = findFile(comment, text, velocityPropertiesPathAndScopeFilePath[0], consulo.language.psi.PsiFile.class);
 						if(psiFile instanceof PropertiesFile)
 						{
 							dependencies.add(psiFile);
-							VirtualFile runtimeRoot = findRuntimeRoot(comment.getContainingFile(), velocityPropertiesPathAndScopeFilePath[1]);
+							consulo.virtualFileSystem.VirtualFile runtimeRoot = findRuntimeRoot(comment.getContainingFile(), velocityPropertiesPathAndScopeFilePath[1]);
 							result.set(new VelocityPropertiesProvider((PropertiesFile)psiFile, runtimeRoot));
 						}
 					}
@@ -286,25 +286,25 @@ class ProviderBuilder
 	}
 
 	@Nullable
-	private VirtualFile findRuntimeRoot(@Nonnull PsiFile contextFile, @Nullable String path)
+	private VirtualFile findRuntimeRoot(@Nonnull consulo.language.psi.PsiFile contextFile, @Nullable String path)
 	{
-		final PsiDirectory parent = contextFile.getParent();
+		final consulo.language.psi.PsiDirectory parent = contextFile.getParent();
 		if(path == null || path.length() == 0 || parent == null)
 			return null;
-		final VirtualFile context = parent.getVirtualFile();
+		final consulo.virtualFileSystem.VirtualFile context = parent.getVirtualFile();
 		if(path.charAt(0) != '/')
 		{
 			return context.findFileByRelativePath(path);
 		}
-		final Module module = ModuleUtil.findModuleForPsiElement(contextFile);
+		final Module module = ModuleUtilCore.findModuleForPsiElement(contextFile);
 		if(module == null)
 			return null;
-		ModuleRootManager moduleRootManager = ModuleRootManager.getInstance(module);
+		consulo.module.content.ModuleRootManager moduleRootManager = ModuleRootManager.getInstance(module);
 		if(moduleRootManager == null)
 			return null;
-		for(VirtualFile root : moduleRootManager.getContentRoots())
+		for(consulo.virtualFileSystem.VirtualFile root : moduleRootManager.getContentRoots())
 		{
-			if(VfsUtil.isAncestor(root, context, false))
+			if(VirtualFileUtil.isAncestor(root, context, false))
 			{
 				return path.length() == 1 ? root : root.findFileByRelativePath(path.substring(1));
 			}

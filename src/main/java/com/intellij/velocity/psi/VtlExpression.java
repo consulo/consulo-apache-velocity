@@ -15,10 +15,10 @@
  */
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nullable;
+import com.intellij.java.language.psi.PsiType;
+import consulo.language.psi.PsiElement;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
@@ -27,5 +27,5 @@ public interface VtlExpression extends PsiElement {
 
     VtlExpression[] EMPTY_ARRAY = new VtlExpression[0];
     @Nullable
-    PsiType getPsiType();
+	PsiType getPsiType();
 }

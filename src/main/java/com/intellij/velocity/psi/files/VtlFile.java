@@ -15,21 +15,21 @@
  */
 package com.intellij.velocity.psi.files;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.util.CachedValue;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
+import consulo.application.util.CachedValueProvider;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.application.util.CachedValue;
+import consulo.application.util.CachedValuesManager;
 import com.intellij.velocity.VtlFileIndex;
 import com.intellij.velocity.psi.*;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
+import consulo.fileTemplate.FileTemplateManager;
+import consulo.language.impl.psi.PsiFileBase;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -62,12 +62,12 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   private static final Pattern VELOCITY_PROPERTIES_PATTERN = Pattern
       .compile("(.*?)" + VELOCITY_PROPERTIES_MARKER + PATH_TO_FILE + "([ ]+runtime_root=" + QUOTED_TEXT + ")?" + SCOPE_FILE_AND_ANY_TAIL);
 
-  private final CachedValue<Map<String, VtlImplicitVariable>> myImplicitVars;
-  private final CachedValue<Collection<VtlVariable>> myGlobalVars;
+  private final consulo.application.util.CachedValue<Map<String, VtlImplicitVariable>> myImplicitVars;
+  private final consulo.application.util.CachedValue<Collection<VtlVariable>> myGlobalVars;
   private final CachedValue<Collection<VtlMacro>> myGlobalMacros;
-  private final CachedValue<Collection<VtlFileProxy>> myMacroLibraries;
-  private final CachedValue<Map<String, Set<VtlMacro>>> myAllMacros;
-  private final CachedValue<VelocityPropertiesProvider> myVelocityProperties;
+  private final consulo.application.util.CachedValue<Collection<VtlFileProxy>> myMacroLibraries;
+  private final consulo.application.util.CachedValue<Map<String, Set<VtlMacro>>> myAllMacros;
+  private final consulo.application.util.CachedValue<VelocityPropertiesProvider> myVelocityProperties;
 
   public VtlFile(FileViewProvider viewProvider) {
     super(viewProvider, VtlLanguage.INSTANCE);
@@ -80,7 +80,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     myVelocityProperties = createCachedValue(builder.createVelocityPropertiesProvider());
   }
 
-  private <T> CachedValue<T> createCachedValue(final CachedValueProvider<T> provider) {
+  private <T> consulo.application.util.CachedValue<T> createCachedValue(final CachedValueProvider<T> provider) {
     return CachedValuesManager.getManager(getProject()).createCachedValue(provider, false);
   }
 
@@ -110,8 +110,8 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   }
 
   @Override
-  public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor,
-                                     @Nonnull final ResolveState state,
+  public boolean processDeclarations(@Nonnull final consulo.language.psi.resolve.PsiScopeProcessor processor,
+                                     @Nonnull final consulo.language.psi.resolve.ResolveState state,
                                      @Nullable final PsiElement lastParent,
                                      @Nonnull final PsiElement place) {
     if (!processExportableDeclarations(processor, state, null)) {
@@ -130,7 +130,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
            processImplicitlyIncludedFiles(processor, state);
   }
 
-  private boolean processGlobalMacros(PsiScopeProcessor processor, ResolveState state) {
+  private boolean processGlobalMacros(PsiScopeProcessor processor, consulo.language.psi.resolve.ResolveState state) {
     for (final VtlMacro macro : myGlobalMacros.getValue()) {
       if (!processor.execute(macro, state)) {
         return false;
@@ -139,7 +139,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  private boolean processExportableDeclarations(PsiScopeProcessor processor, ResolveState state, @Nullable VtlFile placeFile) {
+  private boolean processExportableDeclarations(consulo.language.psi.resolve.PsiScopeProcessor processor, consulo.language.psi.resolve.ResolveState state, @Nullable VtlFile placeFile) {
     for (final VtlImplicitVariable var : myImplicitVars.getValue().values()) {
       if (var.isVisibleIn(placeFile) && !processor.execute(var, state)) {
         return false;
@@ -149,7 +149,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
   }
 
 
-  private boolean processVelocityPropertiesLibraries(PsiScopeProcessor processor, ResolveState state) {
+  private boolean processVelocityPropertiesLibraries(consulo.language.psi.resolve.PsiScopeProcessor processor, consulo.language.psi.resolve.ResolveState state) {
     VelocityPropertiesProvider velocityProperties = myVelocityProperties.getValue();
     if (velocityProperties == null) {
       return true;
@@ -183,7 +183,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  private boolean processMacroLibraries(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, VtlFile placeFile) {
+  private boolean processMacroLibraries(@Nonnull final consulo.language.psi.resolve.PsiScopeProcessor processor, @Nonnull final consulo.language.psi.resolve.ResolveState state, VtlFile placeFile) {
     for (VtlFileProxy lib : myMacroLibraries.getValue()) {
       if (!lib.isVisibleIn(placeFile)) {
         continue;
@@ -195,7 +195,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  private boolean processMacrosInFile(PsiScopeProcessor processor, ResolveState state) {
+  private boolean processMacrosInFile(consulo.language.psi.resolve.PsiScopeProcessor processor, consulo.language.psi.resolve.ResolveState state) {
     for (Set<VtlMacro> macros : myAllMacros.getValue().values()) {
       assert macros.size() > 0;
       if (!processor.execute(macros.iterator().next(), state)) {
@@ -205,7 +205,7 @@ public class VtlFile extends PsiFileBase implements VtlDirectiveHolder {
     return true;
   }
 
-  public boolean processAllMacrosInScope(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state) {
+  public boolean processAllMacrosInScope(@Nonnull final consulo.language.psi.resolve.PsiScopeProcessor processor, @Nonnull final consulo.language.psi.resolve.ResolveState state) {
     return processGlobalMacros(processor, state) &&
            processMacroLibraries(processor, state, null) &&
            processVelocityPropertiesLibraries(processor, state) &&

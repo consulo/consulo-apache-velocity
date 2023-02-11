@@ -16,57 +16,80 @@
 
 package com.intellij.velocity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilder;
-import com.intellij.lang.folding.FoldingDescriptor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
+import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.dumb.DumbAware;
+import consulo.document.Document;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.folding.FoldingBuilder;
+import consulo.language.editor.folding.FoldingDescriptor;
+import consulo.language.psi.PsiElement;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlFoldingBuilder implements FoldingBuilder, DumbAware {
-    @Nonnull
-    public FoldingDescriptor[] buildFoldRegions(@Nonnull final ASTNode node, @Nonnull final Document document) {
-        final PsiElement element = node.getPsi();
-        if (!(element instanceof VtlFile)) {
-            return FoldingDescriptor.EMPTY;
-        }
-        List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
-        for (VtlDirective composite : ((VtlFile) element).getDirectiveChildren()) {
-            addFoldingDescriptors(descriptors, composite);
-        }
-        return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
-    }
+@ExtensionImpl
+public class VtlFoldingBuilder implements FoldingBuilder, DumbAware
+{
+	@RequiredReadAction
+	@Nonnull
+	public FoldingDescriptor[] buildFoldRegions(@Nonnull final ASTNode node, @Nonnull final Document document)
+	{
+		final PsiElement element = node.getPsi();
+		if(!(element instanceof VtlFile))
+		{
+			return FoldingDescriptor.EMPTY;
+		}
+		List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
+		for(VtlDirective composite : ((VtlFile) element).getDirectiveChildren())
+		{
+			addFoldingDescriptors(descriptors, composite);
+		}
+		return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
+	}
 
-    private static void addFoldingDescriptors(final List<FoldingDescriptor> descriptors, final VtlDirective composite) {
-        final int start = composite.getFoldingStartOffset();
-        final int end = composite.getFoldingEndOffset();
-        final ASTNode node = composite.getNode();
-        if (start + 1 >= end || node == null) {
-            return;
-        }
-        descriptors.add(new FoldingDescriptor(node, new TextRange(start, end)));
-        for (final VtlDirective child : composite.getDirectiveChildren()) {
-            addFoldingDescriptors(descriptors, child);
-        }
-    }
+	private static void addFoldingDescriptors(final List<FoldingDescriptor> descriptors, final VtlDirective composite)
+	{
+		final int start = composite.getFoldingStartOffset();
+		final int end = composite.getFoldingEndOffset();
+		final ASTNode node = composite.getNode();
+		if(start + 1 >= end || node == null)
+		{
+			return;
+		}
+		descriptors.add(new FoldingDescriptor(node, new TextRange(start, end)));
+		for(final VtlDirective child : composite.getDirectiveChildren())
+		{
+			addFoldingDescriptors(descriptors, child);
+		}
+	}
 
-    public String getPlaceholderText(@Nonnull final ASTNode node) {
-        return "...";
-    }
+	@RequiredReadAction
+	public String getPlaceholderText(@Nonnull final ASTNode node)
+	{
+		return "...";
+	}
 
-    public boolean isCollapsedByDefault(@Nonnull final ASTNode node) {
-        return false;
-    }
+	@RequiredReadAction
+	public boolean isCollapsedByDefault(@Nonnull final ASTNode node)
+	{
+		return false;
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 }
 

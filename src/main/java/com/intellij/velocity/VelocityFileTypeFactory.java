@@ -15,14 +15,17 @@
  */
 package com.intellij.velocity;
 
-import javax.annotation.Nonnull;
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
 import com.intellij.velocity.psi.files.VtlFileType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.virtualFileSystem.fileType.FileTypeConsumer;
+import consulo.virtualFileSystem.fileType.FileTypeFactory;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VelocityFileTypeFactory extends FileTypeFactory
 {
 	@Override

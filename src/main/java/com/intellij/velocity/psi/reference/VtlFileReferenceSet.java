@@ -16,20 +16,16 @@
 
 package com.intellij.velocity.psi.reference;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import com.intellij.velocity.psi.files.VelocityPropertiesProvider;
+import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.psi.*;
+import consulo.util.collection.ContainerUtil;
+import consulo.virtualFileSystem.VirtualFile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileSystemItem;
-import com.intellij.psi.PsiManager;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.velocity.psi.files.VelocityPropertiesProvider;
-import com.intellij.velocity.psi.files.VtlFile;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Alexey Chmutov
@@ -55,13 +51,13 @@ public class VtlFileReferenceSet extends SoftFileReferenceSet {
     }
 
     @Nonnull
-    private Collection<PsiFileSystemItem> getVtlDefaultContexts(@Nonnull VelocityPropertiesProvider velocityProperties) {
+    private Collection<consulo.language.psi.PsiFileSystemItem> getVtlDefaultContexts(@Nonnull VelocityPropertiesProvider velocityProperties) {
         PsiManager manager = getElement().getManager();
-        Collection<PsiFileSystemItem> vtlDefaultContexts = new ArrayList<PsiFileSystemItem>();
-        for (PsiFileSystemItem defaultContext : super.getDefaultContexts()) {
+        Collection<consulo.language.psi.PsiFileSystemItem> vtlDefaultContexts = new ArrayList<consulo.language.psi.PsiFileSystemItem>();
+        for (consulo.language.psi.PsiFileSystemItem defaultContext : super.getDefaultContexts()) {
             for (VirtualFile resourceLoaderPath : velocityProperties.getResourceLoaderPathListBasedOn(defaultContext.getVirtualFile())) {
                 PsiDirectory resourceLoaderContext = manager.findDirectory(resourceLoaderPath);
-                ContainerUtil.addIfNotNull(resourceLoaderContext, vtlDefaultContexts);
+                ContainerUtil.addIfNotNull(vtlDefaultContexts, resourceLoaderContext);
             }
         }
         return vtlDefaultContexts;

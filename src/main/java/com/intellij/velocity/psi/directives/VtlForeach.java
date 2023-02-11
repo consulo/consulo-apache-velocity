@@ -16,31 +16,30 @@
 
 package com.intellij.velocity.psi.directives;
 
-import static com.intellij.velocity.psi.VtlCompositeElementTypes.LOOP_VARIABLE;
-
-import java.util.Collection;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.VelocityBundle;
+import com.intellij.velocity.psi.PsiUtil;
+import com.intellij.velocity.psi.VtlCompositeElementTypes;
+import com.intellij.velocity.psi.VtlDirectiveHeader;
+import com.intellij.velocity.psi.VtlVariable;
+import consulo.java.language.module.util.JavaClassNames;
+import consulo.language.ast.ASTNode;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.impl.psi.RenameableFakePsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.language.psi.search.ReferencesSearch;
+import consulo.language.util.IncorrectOperationException;
+import consulo.ui.image.Image;
+import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 
-import org.jetbrains.annotations.NonNls;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.impl.RenameableFakePsiElement;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.search.searches.ReferencesSearch;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.velocity.VelocityBundle;
-import com.intellij.velocity.psi.PsiUtil;
-import com.intellij.velocity.psi.VtlDirectiveHeader;
-import com.intellij.velocity.psi.VtlVariable;
-import consulo.ide.IconDescriptorUpdaters;
-import consulo.java.module.util.JavaClassNames;
-import consulo.ui.image.Image;
 
 /**
  * @author : Alexey Chmutov
@@ -59,11 +58,11 @@ public class VtlForeach extends VtlDirectiveImpl
 	public boolean processDeclarations(
 			@Nonnull final PsiScopeProcessor processor,
 			@Nonnull final ResolveState state,
-			final PsiElement lastParent,
+			final consulo.language.psi.PsiElement lastParent,
 			@Nonnull final PsiElement place)
 	{
 		final VtlDirectiveHeader header = findHeaderOfDirective();
-		PsiElement ancestorOfPlace = place.getParent();
+		consulo.language.psi.PsiElement ancestorOfPlace = place.getParent();
 		while(ancestorOfPlace != null && ancestorOfPlace != this)
 		{
 			if(ancestorOfPlace == header)
@@ -80,7 +79,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		{
 			return false;
 		}
-		PsiElement loopVariable = header.findChildByType(LOOP_VARIABLE);
+		PsiElement loopVariable = header.findChildByType(VtlCompositeElementTypes.LOOP_VARIABLE);
 		if(loopVariable != null && lastParent != loopVariable && !processor.execute(loopVariable, state))
 		{
 			return false;
@@ -120,7 +119,7 @@ public class VtlForeach extends VtlDirectiveImpl
 		}
 
 		@Override
-		public PsiElement getParent()
+		public consulo.language.psi.PsiElement getParent()
 		{
 			return VtlForeach.this;
 		}

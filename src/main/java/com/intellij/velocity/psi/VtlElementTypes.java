@@ -20,10 +20,10 @@ import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.MINUS_CALCUL
 import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.MULTIPLICATIVE_CALCULATOR;
 import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.PLUS_CALCULATOR;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.ast.TokenType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenSet;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.parsers.*;
 
@@ -32,8 +32,8 @@ import com.intellij.velocity.psi.parsers.*;
  */
 public interface VtlElementTypes extends TokenType, VtlCompositeElementTypes {
 
-    IElementType DOLLAR = new IElementType("DOLLAR", VtlLanguage.INSTANCE);
-    IElementType SHARP = new IElementType("SHARP", VtlLanguage.INSTANCE);
+    consulo.language.ast.IElementType DOLLAR = new IElementType("DOLLAR", VtlLanguage.INSTANCE);
+    consulo.language.ast.IElementType SHARP = new IElementType("SHARP", VtlLanguage.INSTANCE);
 
     VtlTokenType SHARP_SET = new VtlCompositeStarterTokenType("#SET", SetDirectiveBodyParser.INSTANCE);
     VtlTokenType SHARP_IF = new VtlCompositeStarterTokenType("#IF", IfDirectiveBodyParser.INSTANCE);
@@ -123,19 +123,19 @@ public interface VtlElementTypes extends TokenType, VtlCompositeElementTypes {
 
     VtlTokenType CHAR_ESCAPE = new VtlTokenType("CHAR_ESCAPE");
 
-    TokenSet LOGICAL_OPERATIONS = TokenSet.create(AND, OR);
+    consulo.language.ast.TokenSet LOGICAL_OPERATIONS = TokenSet.create(AND, OR);
 
-    TokenSet RELATIONAL_OPERATIONS = TokenSet.create(LT, GT, LTE, GTE, EQ, NEQ);
+    consulo.language.ast.TokenSet RELATIONAL_OPERATIONS = consulo.language.ast.TokenSet.create(LT, GT, LTE, GTE, EQ, NEQ);
 
     TokenSet ADDITIVE_OPERATIONS = TokenSet.create(PLUS, MINUS);
 
-    TokenSet MULTIPLICATIVE_OPERATIONS = TokenSet.create(ASTERISK, DIVIDE, PERCENT);
+    consulo.language.ast.TokenSet MULTIPLICATIVE_OPERATIONS = TokenSet.create(ASTERISK, DIVIDE, PERCENT);
 
-    TokenSet UNARY_OPERATIONS = TokenSet.create(EXCLAIM, MINUS);
+    consulo.language.ast.TokenSet UNARY_OPERATIONS = consulo.language.ast.TokenSet.create(EXCLAIM, MINUS);
 
-    TokenSet OPERATIONS = TokenSet.orSet(LOGICAL_OPERATIONS, RELATIONAL_OPERATIONS, ADDITIVE_OPERATIONS, LOGICAL_OPERATIONS, MULTIPLICATIVE_OPERATIONS, UNARY_OPERATIONS);
+    consulo.language.ast.TokenSet OPERATIONS = TokenSet.orSet(LOGICAL_OPERATIONS, RELATIONAL_OPERATIONS, ADDITIVE_OPERATIONS, LOGICAL_OPERATIONS, MULTIPLICATIVE_OPERATIONS, UNARY_OPERATIONS);
 
-    TokenSet DIR_STARTERS = TokenSet.create(SHARP_SET, SHARP_IF, SHARP_FOREACH, SHARP_ELSEIF, SHARP_INCLUDE, SHARP_MACRODECL, SHARP_PARSE, SHARP_LITERAL, SHARP_EVALUATE, SHARP_DEFINE);
+    consulo.language.ast.TokenSet DIR_STARTERS = TokenSet.create(SHARP_SET, SHARP_IF, SHARP_FOREACH, SHARP_ELSEIF, SHARP_INCLUDE, SHARP_MACRODECL, SHARP_PARSE, SHARP_LITERAL, SHARP_EVALUATE, SHARP_DEFINE);
 
-    TokenSet COMMENTS = TokenSet.create(MULTILINE_COMMENT, ONELINE_COMMENT, DOCUMENTING_COMMENT);
+    consulo.language.ast.TokenSet COMMENTS = TokenSet.create(MULTILINE_COMMENT, ONELINE_COMMENT, DOCUMENTING_COMMENT);
 }

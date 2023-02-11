@@ -15,16 +15,30 @@
  */
 package com.intellij.velocity.psi.files;
 
-import com.intellij.lang.Language;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.FileViewProviderFactory;
-import com.intellij.psi.PsiManager;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.file.VirtualFileViewProviderFactory;
+import consulo.language.psi.PsiManager;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.fileType.FileType;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlFileViewProviderFactory implements FileViewProviderFactory{
-  public VtlFileViewProvider createFileViewProvider(final VirtualFile file, final Language language, final PsiManager manager, final boolean physical) {
-    return new VtlFileViewProvider(manager, file, physical);
-  }
+@ExtensionImpl
+public class VtlFileViewProviderFactory implements VirtualFileViewProviderFactory
+{
+	public VtlFileViewProvider createFileViewProvider(final VirtualFile file, final Language language, final PsiManager manager, final boolean physical)
+	{
+		return new VtlFileViewProvider(manager, file, physical);
+	}
+
+	@Nonnull
+	@Override
+	public FileType getFileType()
+	{
+		return VtlFileType.INSTANCE;
+	}
 }

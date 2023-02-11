@@ -19,10 +19,10 @@ package com.intellij.velocity.psi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNamedElement;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiNamedElement;
+import consulo.language.util.IncorrectOperationException;
+import consulo.language.ast.ASTNode;
 import org.jetbrains.annotations.NonNls;
 
 /**
@@ -51,7 +51,7 @@ public abstract class VtlNamedElement extends VtlCompositeElement implements Psi
 
     @Nonnull
     public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException {
-        PsiElement nameElement = getNameElement();
+        consulo.language.psi.PsiElement nameElement = getNameElement();
         assert nameElement != null;
         final PsiElement newNameElement = PsiUtil.createIdentifierElement(getProject(), name);
         nameElement.replace(newNameElement);

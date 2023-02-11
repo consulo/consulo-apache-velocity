@@ -23,8 +23,8 @@ import static com.intellij.velocity.psi.VtlElementTypes.RIGHT_PAREN;
 import static com.intellij.velocity.psi.VtlElementTypes.START_REFERENCE;
 import static com.intellij.velocity.psi.VtlElementTypes.START_REF_FORMAL;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.parser.PsiBuilder;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
 

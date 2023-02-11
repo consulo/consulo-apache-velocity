@@ -15,26 +15,28 @@
  */
 package com.intellij.velocity.inspections.wellformedness;
 
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.inspections.VtlInspectionBase;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.directives.VtlAssignment;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.psi.PsiElement;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlInterpolationsInspection extends VtlInspectionBase {
 
-    protected void registerProblems(PsiElement element, ProblemsHolder holder) {
+    protected void registerProblems(consulo.language.psi.PsiElement element, ProblemsHolder holder) {
         if (element instanceof VtlParameterDeclaration) {
             PsiElement wouldBeFormalNotationStart = element.getFirstChild();
             if(PsiUtil.isFormalNotationStart(wouldBeFormalNotationStart)) {

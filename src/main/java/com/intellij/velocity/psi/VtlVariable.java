@@ -16,8 +16,9 @@
 
 package com.intellij.velocity.psi;
 
-import com.intellij.psi.PsiNamedElement;
-import com.intellij.psi.PsiType;
+import com.intellij.java.language.psi.PsiType;
+import consulo.language.psi.PsiNamedElement;
+
 import javax.annotation.Nullable;
 
 /**
@@ -25,5 +26,5 @@ import javax.annotation.Nullable;
  */
 public interface VtlVariable extends PsiNamedElement {
     @Nullable
-    PsiType getPsiType();
+	PsiType getPsiType();
 }

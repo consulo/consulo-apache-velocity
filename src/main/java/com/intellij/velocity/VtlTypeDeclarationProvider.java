@@ -16,14 +16,15 @@
 
 package com.intellij.velocity;
 
-import com.intellij.codeInsight.navigation.actions.TypeDeclarationProvider;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.util.PsiUtil;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.java.language.psi.util.PsiUtil;
 import com.intellij.velocity.psi.VtlImplicitVariable;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.editor.action.TypeDeclarationProvider;
+import consulo.language.psi.PsiElement;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,18 +32,19 @@ import javax.annotation.Nullable;
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlTypeDeclarationProvider extends TypeDeclarationProvider
 {
 	@RequiredReadAction
 	@Nullable
 	@Override
-	public PsiElement[] getSymbolTypeDeclarations(@Nonnull PsiElement symbol, @Nullable Editor editor, int offset)
+	public consulo.language.psi.PsiElement[] getSymbolTypeDeclarations(@Nonnull PsiElement symbol, @Nullable Editor editor, int offset)
 	{
 		if(symbol instanceof VtlImplicitVariable)
 		{
 			PsiType type = ((VtlImplicitVariable) symbol).getPsiType();
 			PsiClass psiClass = PsiUtil.resolveClassInType(type);
-			return psiClass == null ? null : new PsiElement[]{psiClass};
+			return psiClass == null ? null : new consulo.language.psi.PsiElement[]{psiClass};
 		}
 		return null;
 	}

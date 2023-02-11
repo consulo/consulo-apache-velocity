@@ -16,9 +16,9 @@
 
 package com.intellij.velocity.psi.directives;
 
-import javax.annotation.Nonnull;
+import consulo.language.ast.ASTNode;
 
-import com.intellij.lang.ASTNode;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

@@ -15,17 +15,25 @@
  */
 package com.intellij.velocity.psi;
 
-import com.intellij.lang.InjectableLanguage;
-import com.intellij.lang.Language;
-import com.intellij.psi.templateLanguages.TemplateLanguage;
+import consulo.language.InjectableLanguage;
+import consulo.language.Language;
+import consulo.language.template.TemplateLanguage;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlLanguage extends Language implements TemplateLanguage, InjectableLanguage {
-    public static final VtlLanguage INSTANCE = new VtlLanguage();
+public class VtlLanguage extends Language implements TemplateLanguage, InjectableLanguage
+{
+	public static final VtlLanguage INSTANCE = new VtlLanguage();
 
-    private VtlLanguage() {
-        super("VTL");
-    }
+	private VtlLanguage()
+	{
+		super("VTL");
+	}
+
+	@Override
+	public String getDisplayName()
+	{
+		return "Apache Velocity";
+	}
 }

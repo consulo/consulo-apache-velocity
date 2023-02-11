@@ -15,17 +15,21 @@
  */
 package com.intellij.velocity.psi;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.impl.search.CustomPropertyScopeProvider;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.SearchScope;
+import com.intellij.java.indexing.impl.search.CustomPropertyScopeProvider;
 import com.intellij.velocity.psi.files.VtlFileType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.scope.SearchScope;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.project.Project;
 
 /**
  * @author peter
  */
-public class VtlPropertyScopeProvider implements CustomPropertyScopeProvider{
-  public SearchScope getScope(final Project project) {
-    return GlobalSearchScope.getScopeRestrictedByFileTypes(GlobalSearchScope.allScope(project), VtlFileType.INSTANCE);
-  }
+@ExtensionImpl
+public class VtlPropertyScopeProvider implements CustomPropertyScopeProvider
+{
+	public SearchScope getScope(final Project project)
+	{
+		return consulo.language.psi.scope.GlobalSearchScope.getScopeRestrictedByFileTypes(GlobalSearchScope.allScope(project), VtlFileType.INSTANCE);
+	}
 }

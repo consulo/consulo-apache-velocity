@@ -3,12 +3,12 @@
 
 package com.intellij.velocity.lexer;
 
-import static com.intellij.velocity.psi.VtlElementTypes.*;
-import com.intellij.velocity.psi.*;
-import com.intellij.lexer.*;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.lexer.LexerBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static com.intellij.velocity.psi.VtlElementTypes.*;
 
 %%
 

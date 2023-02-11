@@ -16,18 +16,20 @@
 
 package com.intellij.velocity.inspections;
 
-import static com.intellij.codeInspection.ProblemHighlightType.LIKE_UNUSED_SYMBOL;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
-import static com.intellij.velocity.VelocityBundle.message;
-
-import javax.annotation.Nonnull;
-
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.directives.VtlSet;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 
+import javax.annotation.Nonnull;
+
+import static com.intellij.velocity.VelocityBundle.message;
+import static consulo.language.editor.inspection.ProblemHighlightType.LIKE_UNUSED_SYMBOL;
+
+@ExtensionImpl
 public class VtlDirectiveArgsInspection extends VtlInspectionBase {
   protected void registerProblems(PsiElement element, ProblemsHolder holder) {
     if (element instanceof VtlSet) {

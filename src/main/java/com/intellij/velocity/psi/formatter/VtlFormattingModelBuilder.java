@@ -16,28 +16,39 @@
 
 package com.intellij.velocity.psi.formatter;
 
-import java.util.List;
+import com.intellij.velocity.psi.VtlLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.codeStyle.Alignment;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.Wrap;
+import consulo.language.codeStyle.template.DataLanguageBlockWrapper;
+import consulo.language.codeStyle.template.TemplateLanguageBlock;
+import consulo.language.codeStyle.template.TemplateLanguageFormattingModelBuilder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.formatting.Alignment;
-import com.intellij.formatting.Wrap;
-import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
-import com.intellij.formatting.templateLanguages.TemplateLanguageBlock;
-import com.intellij.formatting.templateLanguages.TemplateLanguageFormattingModelBuilder;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
+import java.util.List;
 
 /**
  * @author Alexey Chmutov
  *         Date: Jun 26, 2009
  *         Time: 4:07:09 PM
  */
+@ExtensionImpl
 public class VtlFormattingModelBuilder extends TemplateLanguageFormattingModelBuilder
 {
 	@Override
 	public TemplateLanguageBlock createTemplateLanguageBlock(@Nonnull ASTNode astNode, @Nullable Wrap wrap, @Nullable Alignment alignment, @Nullable List<DataLanguageBlockWrapper> dataLanguageBlockWrappers, @Nonnull CodeStyleSettings codeStyleSettings)
 	{
 		return new VtlBlock(astNode, wrap, alignment, this, codeStyleSettings, dataLanguageBlockWrappers);
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
 	}
 }

@@ -15,21 +15,14 @@
  */
 package com.intellij.velocity.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.velocity.psi.directives.VtlBreak;
-import com.intellij.velocity.psi.directives.VtlDefine;
-import com.intellij.velocity.psi.directives.VtlFileReferenceDirective;
-import com.intellij.velocity.psi.directives.VtlForeach;
-import com.intellij.velocity.psi.directives.VtlMacroCall;
-import com.intellij.velocity.psi.directives.VtlMacroImpl;
-import com.intellij.velocity.psi.directives.VtlParse;
-import com.intellij.velocity.psi.directives.VtlSet;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.psi.directives.*;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.java.module.util.JavaClassNames;
+import consulo.java.language.module.util.JavaClassNames;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IFileElementType;
+import consulo.language.ast.TokenSet;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author Alexey Chmutov
@@ -37,14 +30,14 @@ import consulo.java.module.util.JavaClassNames;
 public interface VtlCompositeElementTypes
 {
 
-	IFileElementType VTL_FILE = new IFileElementType("VTL_FILE", VtlLanguage.INSTANCE);
+	consulo.language.ast.IFileElementType VTL_FILE = new IFileElementType("VTL_FILE", VtlLanguage.INSTANCE);
 
 	VtlCompositeElementType DIRECTIVE_ELSE = new VtlDirectiveType("DirectiveElse", "else", false);
 	VtlCompositeElementType DIRECTIVE_ELSEIF = new VtlDirectiveType("DirectiveElseif", "elseif", false);
 	VtlCompositeElementType DIRECTIVE_FOREACH = new VtlDirectiveType("DirectiveForeach")
 	{
 		@Override
-		public PsiElement createPsiElement(ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(ASTNode node)
 		{
 			return new VtlForeach(node);
 		}
@@ -52,7 +45,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType DIRECTIVE_BREAK = new VtlCompositeElementType("DirectiveBreak")
 	{
 		@Override
-		public PsiElement createPsiElement(ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(ASTNode node)
 		{
 			return new VtlBreak(node);
 		}
@@ -62,7 +55,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType DIRECTIVE_DEFINE = new VtlDirectiveType("DirectiveDefine")
 	{
 		@Override
-		public PsiElement createPsiElement(ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(ASTNode node)
 		{
 			return new VtlDefine(node);
 		}
@@ -87,7 +80,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType DIRECTIVE_INCLUDE = new VtlDirectiveType("DirectiveInclude")
 	{
 		@Override
-		public PsiElement createPsiElement(ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(ASTNode node)
 		{
 			return new VtlFileReferenceDirective(node, "include");
 		}
@@ -103,7 +96,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType DIRECTIVE_SET = new VtlDirectiveType("DirectiveSet")
 	{
 		@Override
-		public PsiElement createPsiElement(ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(ASTNode node)
 		{
 			return new VtlSet(node);
 		}
@@ -129,7 +122,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType REFERENCE_EXPRESSION = new VtlCompositeElementType("ReferenceExpression")
 	{
 		@Override
-		public PsiElement createPsiElement(final ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(final ASTNode node)
 		{
 			return new VtlReferenceExpression(node);
 		}
@@ -146,7 +139,7 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType ARGUMENT_LIST = new VtlCompositeElementType("ArgumentList")
 	{
 		@Override
-		public PsiElement createPsiElement(final ASTNode node)
+		public consulo.language.psi.PsiElement createPsiElement(final ASTNode node)
 		{
 			return new VtlArgumentList(node);
 		}
@@ -194,5 +187,5 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType RANGE_EXPRESSION = new VtlCompositeElementType("RangeExpression");
 	VtlCompositeElementType MAP_EXPRESSION = new VtlLiteralExpressionType("MapExpression", JavaClassNames.JAVA_UTIL_MAP);
 
-	TokenSet STRING_LITERALS = TokenSet.create(STRING_LITERAL, DOUBLEQUOTED_TEXT);
+	TokenSet STRING_LITERALS = consulo.language.ast.TokenSet.create(STRING_LITERAL, DOUBLEQUOTED_TEXT);
 }

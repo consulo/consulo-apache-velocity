@@ -16,14 +16,14 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorModificationUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.util.EditorModificationUtil;
+import consulo.document.Document;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
 
 /**
  * Created by IntelliJ IDEA.
@@ -58,7 +58,7 @@ class EditorUtil {
         return node.getElementType();
     }
 
-    static boolean isNotVtlFile(final PsiFile file, final Editor editor) {
+    static boolean isNotVtlFile(final PsiFile file, final consulo.codeEditor.Editor editor) {
         return !(file.getViewProvider() instanceof VtlFileViewProvider)
                 || editor.getCaretModel().getOffset() == 0;
     }

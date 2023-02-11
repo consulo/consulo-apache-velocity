@@ -16,19 +16,19 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.codeInsight.daemon.impl.quickfix.CreateFromUsageUtils;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.search.searches.ReferencesSearch;
-import com.intellij.util.Processor;
-import com.intellij.util.Query;
+import com.intellij.java.impl.codeInsight.daemon.impl.quickfix.CreateFromUsageUtils;
 import com.intellij.velocity.psi.*;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.reference.VelocityNamingUtil;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.application.util.function.Processor;
+import consulo.application.util.query.Query;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.search.ReferencesSearch;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.ref.Ref;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -43,8 +43,8 @@ public class TypeInferenceUtil {
     }
 
     @Nonnull
-    public static Collection<String> inferVariableType(final Query<PsiReference> query) {
-        final Ref<Set<String>> intersection = Ref.create(null);
+    public static Collection<String> inferVariableType(final Query<consulo.language.psi.PsiReference> query) {
+        final Ref<Set<String>> intersection = consulo.util.lang.ref.Ref.create(null);
         query.forEach(new Processor<PsiReference>() {
             private boolean myIterableType = false;
 
@@ -94,7 +94,7 @@ public class TypeInferenceUtil {
         final PsiFile file = reference.getElement().getContainingFile();
         final String referenceName = reference.getReferenceName();
         final Set<String> classes = new HashSet<String>();
-        PsiElement parent = reference.getParent();
+        consulo.language.psi.PsiElement parent = reference.getParent();
         if (parent instanceof VtlMethodCallExpression) {
             CreateFromUsageUtils.addClassesWithMember(referenceName, file, classes, true, false);
             CreateFromUsageUtils.addClassesWithMember(referenceName, file, classes, true, true);
@@ -115,7 +115,7 @@ public class TypeInferenceUtil {
         return classes;
     }
 
-    private static void intersect(final Set<String> classes, final Ref<Set<String>> to) {
+    private static void intersect(final Set<String> classes, final consulo.util.lang.ref.Ref<Set<String>> to) {
         if (to.isNull()) {
             to.set(classes);
         } else {

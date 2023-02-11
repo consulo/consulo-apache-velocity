@@ -16,9 +16,10 @@
 
 package com.intellij.velocity.psi.parsers;
 
-import com.intellij.lang.PsiBuilder;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.parser.PsiBuilder;
+
 import static com.intellij.velocity.psi.VtlElementTypes.*;
 
 
@@ -42,7 +43,7 @@ public class ElseDirectiveBodyParser extends CompositeBodyParser {
         }
 
         @Override
-        public boolean isTokenInvalid(IElementType tokenType) {
+        public boolean isTokenInvalid(consulo.language.ast.IElementType tokenType) {
             return !(tokenType == TEMPLATE_TEXT || tokenType == SHARP_STOP
                     || tokenType instanceof VtlCompositeStarterTokenType);
         }

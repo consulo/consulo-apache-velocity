@@ -16,16 +16,16 @@
 
 package com.intellij.velocity.psi.reference;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiParameter;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.FakePsiElement;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.PsiParameter;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.VtlCallable;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.language.impl.psi.FakePsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.util.lang.StringUtil;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.

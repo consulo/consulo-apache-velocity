@@ -15,73 +15,88 @@
  */
 package com.intellij.velocity;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.PsiParser;
-import com.intellij.lexer.Lexer;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.velocity.lexer.VtlLexer;
 import com.intellij.velocity.psi.VtlCompositeElementType;
 import com.intellij.velocity.psi.VtlElementTypes;
+import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.parsers.VtlParser;
-import consulo.lang.LanguageVersion;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.*;
+import consulo.language.file.FileViewProvider;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.ParserDefinition;
+import consulo.language.parser.PsiParser;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.version.LanguageVersion;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlParserDefinition implements ParserDefinition {
-    @Nonnull
-    public Lexer createLexer(LanguageVersion languageVersion) {
-        return new VtlLexer();
-    }
+@ExtensionImpl
+public class VtlParserDefinition implements ParserDefinition
+{
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 
-    public PsiParser createParser(LanguageVersion languageVersion) {
-        return new VtlParser();
-    }
+	@Nonnull
+	public Lexer createLexer(@Nonnull consulo.language.version.LanguageVersion languageVersion)
+	{
+		return new VtlLexer();
+	}
 
-    public IFileElementType getFileNodeType() {
-        return VtlElementTypes.VTL_FILE;
-    }
+	@Nonnull
+	public PsiParser createParser(@Nonnull consulo.language.version.LanguageVersion languageVersion)
+	{
+		return new VtlParser();
+	}
 
-    @Nonnull
-    public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
-        return TokenSet.create(TokenType.WHITE_SPACE);
-    }
+	@Nonnull
+	public IFileElementType getFileNodeType()
+	{
+		return VtlElementTypes.VTL_FILE;
+	}
 
-    @Nonnull
-    public TokenSet getCommentTokens(LanguageVersion languageVersion) {
-        return VtlElementTypes.COMMENTS;
-    }
+	@Nonnull
+	public consulo.language.ast.TokenSet getWhitespaceTokens(@Nonnull consulo.language.version.LanguageVersion languageVersion)
+	{
+		return consulo.language.ast.TokenSet.create(TokenType.WHITE_SPACE);
+	}
 
-    @Nonnull
-    public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
-        return TokenSet.EMPTY;
-    }
+	@Nonnull
+	public consulo.language.ast.TokenSet getCommentTokens(@Nonnull LanguageVersion languageVersion)
+	{
+		return VtlElementTypes.COMMENTS;
+	}
 
-    @Nonnull
-    public PsiElement createElement(final ASTNode node) {
-        final IElementType type = node.getElementType();
-        if (type instanceof VtlCompositeElementType) {
-            return ((VtlCompositeElementType) type).createPsiElement(node);
-        }
-        throw new AssertionError("Unknown type: " + type);
-    }
+	@Nonnull
+	public TokenSet getStringLiteralElements(@Nonnull consulo.language.version.LanguageVersion languageVersion)
+	{
+		return consulo.language.ast.TokenSet.EMPTY;
+	}
 
-    public PsiFile createFile(final FileViewProvider viewProvider) {
-        return new VtlFile(viewProvider);
-    }
+	@Nonnull
+	public PsiElement createElement(final ASTNode node)
+	{
+		final IElementType type = node.getElementType();
+		if(type instanceof VtlCompositeElementType)
+		{
+			return ((VtlCompositeElementType) type).createPsiElement(node);
+		}
+		throw new AssertionError("Unknown type: " + type);
+	}
 
-    public SpaceRequirements spaceExistanceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
-        return SpaceRequirements.MAY;
-    }
-
+	@Nonnull
+	public PsiFile createFile(@Nonnull final FileViewProvider viewProvider)
+	{
+		return new VtlFile(viewProvider);
+	}
 }

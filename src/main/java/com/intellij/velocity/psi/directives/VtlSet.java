@@ -15,14 +15,14 @@
  */
 package com.intellij.velocity.psi.directives;
 
-import javax.annotation.Nullable;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

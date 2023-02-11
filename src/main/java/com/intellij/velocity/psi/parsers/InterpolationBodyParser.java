@@ -23,7 +23,7 @@ import static com.intellij.velocity.psi.VtlElementTypes.LEFT_PAREN;
 import static com.intellij.velocity.psi.VtlElementTypes.METHOD_CALL_EXPRESSION;
 import static com.intellij.velocity.psi.VtlElementTypes.REFERENCE_EXPRESSION;
 
-import com.intellij.lang.PsiBuilder;
+import consulo.language.parser.PsiBuilder;
 
 /**
  * Created by IntelliJ IDEA.

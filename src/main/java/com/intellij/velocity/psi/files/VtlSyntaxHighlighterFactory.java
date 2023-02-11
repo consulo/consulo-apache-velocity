@@ -16,19 +16,32 @@
 
 package com.intellij.velocity.psi.files;
 
-import javax.annotation.Nonnull;
+import com.intellij.velocity.psi.VtlLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.highlight.SyntaxHighlighter;
+import consulo.language.editor.highlight.SyntaxHighlighterFactory;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
-  @Nonnull
-  public SyntaxHighlighter getSyntaxHighlighter(final Project project, final VirtualFile virtualFile) {
-    return new VtlSyntaxHighlighter();
-  }
+@ExtensionImpl
+public class VtlSyntaxHighlighterFactory extends SyntaxHighlighterFactory
+{
+	@Nonnull
+	public SyntaxHighlighter getSyntaxHighlighter(final Project project, final VirtualFile virtualFile)
+	{
+		return new VtlSyntaxHighlighter();
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 }

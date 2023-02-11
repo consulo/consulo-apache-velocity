@@ -15,24 +15,26 @@
  */
 package com.intellij.velocity.inspections;
 
-import static com.intellij.codeInspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
-import static com.intellij.codeInspection.ProblemHighlightType.LIKE_UNKNOWN_SYMBOL;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.ResolveResult;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.ResolveResult;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+
+import static consulo.language.editor.inspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
+import static consulo.language.editor.inspection.ProblemHighlightType.LIKE_UNKNOWN_SYMBOL;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlReferencesInspection extends VtlInspectionBase {
 
   protected void registerProblems(PsiElement element, ProblemsHolder holder) {

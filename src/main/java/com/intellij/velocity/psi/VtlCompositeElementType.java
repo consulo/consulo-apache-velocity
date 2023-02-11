@@ -17,17 +17,18 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.ICompositeElementType;
+import consulo.language.impl.ast.CompositeElement;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.CompositeElement;
-import com.intellij.psi.tree.ICompositeElementType;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlCompositeElementType extends IElementType implements ICompositeElementType {
+public class VtlCompositeElementType extends IElementType implements ICompositeElementType
+{
 
     public VtlCompositeElementType(@Nonnull @NonNls final String debugName) {
         super(debugName, VtlLanguage.INSTANCE);

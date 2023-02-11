@@ -15,24 +15,24 @@
  */
 package com.intellij.velocity.psi;
 
-import java.util.Map;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.VtlIcons;
+import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.Language;
+import consulo.language.impl.ast.Factory;
+import consulo.language.impl.psi.FakePsiElement;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.Maps;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.lang.Language;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Factory;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.FakePsiElement;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.velocity.VtlIcons;
-import com.intellij.velocity.psi.files.VtlFile;
-import consulo.ui.image.Image;
+import java.util.Map;
 
 /**
  * @author Alexey Chmutov
@@ -43,7 +43,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
     private final String myName;
     private VtlVariable[] myParameters;
 
-    private VtlExternalMacro(@Nonnull final PsiComment comment, @Nonnull final String name) {
+    private VtlExternalMacro(@Nonnull final consulo.language.psi.PsiComment comment, @Nonnull final String name) {
         myComment = comment;
         myName = name;
     }
@@ -68,7 +68,7 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
     }
 
     @Nonnull
-    public PsiElement getNavigationElement() {
+    public consulo.language.psi.PsiElement getNavigationElement() {
         return myComment;
     }
 
@@ -103,20 +103,17 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
         return "ExternalMacro " + myName;
     }
 
-    public static VtlExternalMacro getOrCreate(final Map<String, VtlExternalMacro> mapToAddTo, @Nonnull final PsiComment comment, final String name) {
-        return ContainerUtil.getOrCreate(mapToAddTo, name, new Factory<VtlExternalMacro>() {
-            public VtlExternalMacro create() {
-                return new VtlExternalMacro(comment, name);
-            }
-        });
-    }
+	public static VtlExternalMacro getOrCreate(final Map<String, VtlExternalMacro> mapToAddTo, @Nonnull final consulo.language.psi.PsiComment comment, final String name)
+	{
+		return mapToAddTo.computeIfAbsent(name, s -> new VtlExternalMacro(comment, name));
+	}
 
     public boolean isVisibleIn(VtlFile placeFile) {
         // todo implement
         return true;
     }
     
-    private class Parameter extends FakePsiElement implements VtlVariable {
+    private class Parameter extends consulo.language.impl.psi.FakePsiElement implements VtlVariable {
         private String myName;
 
         public Parameter(@Nonnull String name) {
@@ -130,13 +127,13 @@ public class VtlExternalMacro extends FakePsiElement implements VtlMacro {
         }
 
         @Override
-        public PsiElement setName(@Nonnull String name) throws IncorrectOperationException {
-            final PsiElement res = super.setName(name);
+        public consulo.language.psi.PsiElement setName(@Nonnull String name) throws IncorrectOperationException {
+            final consulo.language.psi.PsiElement res = super.setName(name);
             myName = name;
             return res;
         }
 
-        public PsiElement getParent() {
+        public consulo.language.psi.PsiElement getParent() {
             return myComment;
         }
 

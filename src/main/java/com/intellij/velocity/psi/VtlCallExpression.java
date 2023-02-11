@@ -18,8 +18,9 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.lang.ASTNode;
+
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.language.ast.ASTNode;
 
 /**
  * Created by IntelliJ IDEA.

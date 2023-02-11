@@ -15,20 +15,17 @@
  */
 package com.intellij.velocity.inspections;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInsight.template.Expression;
-import com.intellij.codeInsight.template.Template;
-import com.intellij.codeInsight.template.impl.MacroCallNode;
-import com.intellij.codeInsight.template.macro.CompleteSmartMacro;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.IncorrectOperationException;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.language.editor.template.Expression;
+import consulo.language.editor.template.Template;
+import consulo.language.editor.template.macro.CompleteSmartMacro;
+import consulo.language.editor.template.macro.MacroCallNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -55,35 +52,5 @@ public abstract class DefineImplicitVariableIntention extends DefineInCommentInt
     @Override
     protected boolean isAvailable(@Nonnull VtlReferenceExpression ref) {
         return !(ref.getParent() instanceof VtlMacroCall) && !ref.hasQualifier();
-    }
-
-    public static class Local extends DefineImplicitVariableIntention {
-        public Local() {
-            super(VelocityBundle.message("add.implicit.variable.fix.name.local"));
-        }
-
-        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
-            defineInComment(editor, file, file, false);
-        }
-    }
-
-    public static class LocalExternal extends DefineImplicitVariableIntention {
-        public LocalExternal() {
-            super(VelocityBundle.message("add.implicit.variable.fix.name.external"));
-        }
-
-        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
-            chooseTargetFile(file, editor, true);
-        }
-    }
-
-    public static class ModuleWide extends DefineImplicitVariableIntention {
-        public ModuleWide() {
-            super(VelocityBundle.message("add.implicit.variable.fix.name.module.wide"));
-        }
-
-        public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
-            chooseTargetFile(file, editor, false);
-        }
     }
 }

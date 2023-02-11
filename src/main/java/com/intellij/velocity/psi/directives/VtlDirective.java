@@ -24,9 +24,9 @@ import static com.intellij.velocity.psi.VtlElementTypes.SHARP_IF;
 import static com.intellij.velocity.psi.VtlElementTypes.SHARP_LITERAL;
 import static com.intellij.velocity.psi.VtlElementTypes.SHARP_MACRODECL;
 
-import com.intellij.psi.PsiElement;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author Alexey Chmutov

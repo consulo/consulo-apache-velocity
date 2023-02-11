@@ -16,9 +16,12 @@
 
 package com.intellij.velocity;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
+
 import javax.annotation.Nonnull;
 
 import java.util.Collection;
@@ -26,8 +29,9 @@ import java.util.Collection;
 /**
  * @author Alexey Chmutov
  */
+@ExtensionAPI(ComponentScope.APPLICATION)
 public abstract class VtlGlobalMacroProvider {
-    public static final ExtensionPointName<VtlGlobalMacroProvider> EP_NAME = ExtensionPointName.create("com.intellij.velocity.globalMacroProvider");
+    public static final consulo.component.extension.ExtensionPointName<VtlGlobalMacroProvider> EP_NAME = ExtensionPointName.create(VtlGlobalMacroProvider.class);
 
     @Nonnull
     public abstract Collection<VtlMacro> getGlobalMacros(@Nonnull VtlFile file);

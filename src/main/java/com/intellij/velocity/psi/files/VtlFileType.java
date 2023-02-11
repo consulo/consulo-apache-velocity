@@ -15,8 +15,8 @@
  */
 package com.intellij.velocity.psi.files;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.fileTypes.TemplateLanguageFileType;
+import consulo.language.file.LanguageFileType;
+import consulo.language.template.TemplateLanguageFileType;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.VtlLanguage;
 import consulo.apache.velocity.localize.VelocityLocalize;

@@ -16,13 +16,11 @@
 
 package com.intellij.velocity.psi;
 
-import static com.intellij.psi.util.TypeConversionUtil.isNumericType;
-import static com.intellij.psi.util.TypeConversionUtil.unboxAndBalanceTypes;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.java.language.psi.util.TypeConversionUtil;
+import consulo.java.language.module.util.JavaClassNames;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.psi.PsiType;
-import consulo.java.module.util.JavaClassNames;
 
 /**
  * Created by IntelliJ IDEA.
@@ -57,9 +55,9 @@ public abstract class VtlExpressionTypeCalculator
 
 	private static PsiType checkAndReturnNumeric(PsiType leftType, PsiType rightType)
 	{
-		if(isNumericType(leftType) && isNumericType(rightType))
+		if(TypeConversionUtil.isNumericType(leftType) && TypeConversionUtil.isNumericType(rightType))
 		{
-			return unboxAndBalanceTypes(leftType, rightType);
+			return TypeConversionUtil.unboxAndBalanceTypes(leftType, rightType);
 		}
 		return null;
 	}
@@ -89,7 +87,7 @@ public abstract class VtlExpressionTypeCalculator
 		public PsiType calculateUnary(@Nonnull VtlExpression operand)
 		{
 			PsiType type = operand.getPsiType();
-			return type != null && isNumericType(type) ? type : null;
+			return type != null && TypeConversionUtil.isNumericType(type) ? type : null;
 		}
 	};
 

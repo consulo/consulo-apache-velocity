@@ -15,29 +15,6 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.codeInsight.intention.IntentionAction;
-import com.intellij.codeInsight.template.Template;
-import com.intellij.codeInsight.template.TemplateManager;
-import com.intellij.openapi.application.Result;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.PopupStep;
-import com.intellij.openapi.ui.popup.util.BaseListPopupStep;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.VtlFileIndex;
 import com.intellij.velocity.VtlIcons;
@@ -45,8 +22,32 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.roots.ContentFolderScopes;
+import consulo.application.Result;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.EditorPopupHelper;
+import consulo.document.Document;
+import consulo.fileEditor.FileEditorManager;
+import consulo.language.content.LanguageContentFolderScopes;
+import consulo.language.editor.FileModificationService;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.editor.intention.IntentionAction;
+import consulo.language.editor.template.Template;
+import consulo.language.editor.template.TemplateManager;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.content.ModuleRootManager;
+import consulo.navigation.OpenFileDescriptorFactory;
+import consulo.project.Project;
+import consulo.ui.ex.popup.BaseListPopupStep;
+import consulo.ui.ex.popup.JBPopupFactory;
+import consulo.ui.ex.popup.PopupStep;
 import consulo.ui.image.Image;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,22 +77,15 @@ public abstract class DefineInCommentIntention implements IntentionAction
 	}
 
 	@Override
-	@Nonnull
-	public String getFamilyName()
-	{
-		return myFamilyName;
-	}
-
-	@Override
-	public final boolean isAvailable(@Nonnull final Project project, final Editor editor, final PsiFile file)
+	public final boolean isAvailable(@Nonnull final Project project, final consulo.codeEditor.Editor editor, final PsiFile file)
 	{
 		return file.getViewProvider() instanceof VtlFileViewProvider &&
 				getReferenceElement(editor, file) != null &&
-				ModuleUtil.findModuleForPsiElement(file) != null;
+				ModuleUtilCore.findModuleForPsiElement(file) != null;
 	}
 
 	@Nullable
-	protected PsiElement getReferenceElement(@Nonnull final Editor editor, @Nonnull final PsiFile file)
+	protected PsiElement getReferenceElement(@Nonnull final consulo.codeEditor.Editor editor, @Nonnull final PsiFile file)
 	{
 		final VtlReferenceExpression ref = Util.findReferenceExpression(editor, file);
 		return ref != null && ref.multiResolve(false).length == 0 && isAvailable(ref) ? ref : null;
@@ -103,12 +97,12 @@ public abstract class DefineInCommentIntention implements IntentionAction
 	}
 
 	protected void defineInComment(
-			final Editor editor,
+			final consulo.codeEditor.Editor editor,
 			final PsiFile fileWithVarReference,
 			final PsiFile fileToInsertComment,
 			final boolean addFileReference)
 	{
-		final PsiElement ref = getReferenceElement(editor, fileWithVarReference);
+		final consulo.language.psi.PsiElement ref = getReferenceElement(editor, fileWithVarReference);
 		assert ref != null;
 		final Project project = fileWithVarReference.getProject();
 		if(!FileModificationService.getInstance().prepareFileForWrite(fileToInsertComment))
@@ -116,7 +110,7 @@ public abstract class DefineInCommentIntention implements IntentionAction
 			return;
 		}
 
-		final PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
+		final PsiDocumentManager documentManager = consulo.language.psi.PsiDocumentManager.getInstance(project);
 		final Document documentToInsertComment = documentManager.getDocument(fileToInsertComment);
 		assert documentToInsertComment != null;
 		new WriteCommandAction(project)
@@ -124,8 +118,8 @@ public abstract class DefineInCommentIntention implements IntentionAction
 			@Override
 			protected void run(Result result) throws Throwable
 			{
-				Editor editor = FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project,
-						fileToInsertComment.getViewProvider().getVirtualFile(), 0), true);
+				Editor editor = FileEditorManager.getInstance(project).openTextEditor(OpenFileDescriptorFactory.getInstance(project).builder(fileToInsertComment.getViewProvider().getVirtualFile())
+						.build(), true);
 				assert editor != null;
 				assert documentToInsertComment == editor.getDocument();
 				int insertionIndex = documentToInsertComment.getText().startsWith(VtlFileIndex.IMPLICIT_INCLUDE_MARKER) ? VtlFileIndex
@@ -146,7 +140,7 @@ public abstract class DefineInCommentIntention implements IntentionAction
 			@Nullable String relativePath,
 			@Nonnull PsiFile fileToInsertComment);
 
-	protected void chooseTargetFile(final PsiFile file, final Editor editor, final boolean addFileReference)
+	protected void chooseTargetFile(final PsiFile file, final consulo.codeEditor.Editor editor, final boolean addFileReference)
 	{
 		final Collection<VtlFile> implicitlyIncludedFiles = VtlFileIndex.getImplicitlyIncludedFiles(file);
 		if(implicitlyIncludedFiles.size() == 1)
@@ -162,12 +156,12 @@ public abstract class DefineInCommentIntention implements IntentionAction
 				@Override
 				protected void run(Result<VtlFile> result) throws Throwable
 				{
-					final VirtualFile virtualFile = createVelocityImplicitVmFile();
+					final consulo.virtualFileSystem.VirtualFile virtualFile = createVelocityImplicitVmFile();
 					if(virtualFile == null)
 					{
 						return;
 					}
-					VfsUtil.saveText(virtualFile, VtlFileIndex.IMPLICIT_INCLUDE_MARKER);
+					VirtualFileUtil.saveText(virtualFile, VtlFileIndex.IMPLICIT_INCLUDE_MARKER);
 					final PsiFile psiFile = file.getManager().findFile(virtualFile);
 					if(psiFile instanceof VtlFile)
 					{
@@ -178,8 +172,8 @@ public abstract class DefineInCommentIntention implements IntentionAction
 				@Nullable
 				private VirtualFile createVelocityImplicitVmFile() throws IOException
 				{
-					final Module module = ModuleUtil.findModuleForPsiElement(file);
-					final VirtualFile[] roots = ModuleRootManager.getInstance(module).getContentFolderFiles(ContentFolderScopes.all(false));
+					final Module module = ModuleUtilCore.findModuleForPsiElement(file);
+					final consulo.virtualFileSystem.VirtualFile[] roots = ModuleRootManager.getInstance(module).getContentFolderFiles(LanguageContentFolderScopes.all(false));
 					if(roots.length > 0)
 					{
 						return roots[0].createChildData(this, VELOCITY_IMPLICIT_VM);
@@ -227,7 +221,7 @@ public abstract class DefineInCommentIntention implements IntentionAction
 				return VtlIcons.VTL_ICON;
 			}
 		};
-		JBPopupFactory.getInstance().createListPopup(step).showInBestPositionFor(editor);
+		EditorPopupHelper.getInstance().showPopupInBestPositionFor(editor, JBPopupFactory.getInstance().createListPopup(step));
 	}
 
 	@Override

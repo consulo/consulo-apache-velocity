@@ -16,14 +16,16 @@
 
 package com.intellij.velocity.psi.reference;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReferenceSet;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.path.FileReferenceSet;
+
 import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class SoftFileReferenceSet extends FileReferenceSet {
+public class SoftFileReferenceSet extends FileReferenceSet
+{
     public SoftFileReferenceSet(@Nonnull String text, PsiElement element, int startInElement) {
         super(text, element, startInElement, null, true);
     }

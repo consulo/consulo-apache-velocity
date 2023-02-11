@@ -16,9 +16,10 @@
 
 package com.intellij.velocity.psi.directives;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCompositeElement;
+import consulo.language.ast.ASTNode;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

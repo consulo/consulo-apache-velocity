@@ -20,18 +20,18 @@ import static com.intellij.velocity.psi.VtlElementTypes.TEMPLATE_TEXT;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.editor.ex.util.LayerDescriptor;
-import com.intellij.openapi.editor.ex.util.LayeredLexerEditorHighlighter;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.PlainTextFileType;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.tree.IElementType;
+import consulo.colorScheme.EditorColorsScheme;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.language.editor.highlight.LayeredLexerEditorHighlighter;
+import consulo.language.lexer.Lexer;
+import consulo.language.editor.highlight.LayerDescriptor;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.language.plain.PlainTextFileType;
+import consulo.language.editor.highlight.SyntaxHighlighter;
+import consulo.language.editor.highlight.SyntaxHighlighterFactory;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.ast.IElementType;
 
 /**
  * @author Alexey Chmutov
@@ -66,7 +66,7 @@ public class VtlEditorHighlighter extends LayeredLexerEditorHighlighter
 		final FileType type = project == null || virtualFile == null ? null : VtlFileViewProvider.getTemplateDataLanguage(virtualFile,
 				project).getAssociatedFileType();
 		final FileType fileType = type == null ? PlainTextFileType.INSTANCE : type;
-		final SyntaxHighlighter highlighter = SyntaxHighlighterFactory.getSyntaxHighlighter(fileType, project, virtualFile);
+		final consulo.language.editor.highlight.SyntaxHighlighter highlighter = SyntaxHighlighterFactory.getSyntaxHighlighter(fileType, project, virtualFile);
 		assert highlighter != null;
 		return highlighter;
 	}

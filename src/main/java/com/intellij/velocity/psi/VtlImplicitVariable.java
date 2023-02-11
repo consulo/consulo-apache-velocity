@@ -15,97 +15,109 @@
  */
 package com.intellij.velocity.psi;
 
-import java.util.Map;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.VelocityBundle;
+import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.impl.psi.RenameableFakePsiElement;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.IncorrectOperationException;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.openapi.util.Factory;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.RenameableFakePsiElement;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.velocity.VelocityBundle;
-import com.intellij.velocity.psi.files.VtlFile;
-import consulo.ide.IconDescriptorUpdaters;
-import consulo.ui.image.Image;
+import java.util.Map;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlImplicitVariable extends RenameableFakePsiElement implements VtlVariable {
-    @Nullable
-    private final PsiComment myComment;
-    private final String myName;
-    private String myType;
-    private final VtlFile myScopeFile;
+public class VtlImplicitVariable extends RenameableFakePsiElement implements VtlVariable
+{
+	@Nullable
+	private final consulo.language.psi.PsiComment myComment;
+	private final String myName;
+	private String myType;
+	private final VtlFile myScopeFile;
 
-    private VtlImplicitVariable(@Nonnull final PsiFile containingFile, @Nullable final PsiComment comment, @Nonnull final String name, @Nullable VtlFile scopeFile) {
-        super(containingFile);
-        myComment = comment;
-        myName = name;
-        myScopeFile = scopeFile;
-    }
+	private VtlImplicitVariable(@Nonnull final consulo.language.psi.PsiFile containingFile, @Nullable final PsiComment comment, @Nonnull final String name, @Nullable VtlFile scopeFile)
+	{
+		super(containingFile);
+		myComment = comment;
+		myName = name;
+		myScopeFile = scopeFile;
+	}
 
-    @Nonnull
-    public String getName() {
-        return myName;
-    }
+	@Nonnull
+	public String getName()
+	{
+		return myName;
+	}
 
-    @Nonnull
-    @Override
-    public PsiElement getNavigationElement() {
-        return myComment != null ? myComment : getContainingFile();
-    }
+	@Nonnull
+	@Override
+	public PsiElement getNavigationElement()
+	{
+		return myComment != null ? myComment : getContainingFile();
+	}
 
-    public PsiElement getParent() {
-        return myComment;
-    }
+	public PsiElement getParent()
+	{
+		return myComment;
+	}
 
-    public String getTypeName() {
-        return VelocityBundle.message("type.name.variable");
-    }
+	public String getTypeName()
+	{
+		return VelocityBundle.message("type.name.variable");
+	}
 
-    @Override
-    public String toString() {
-        return "ImplicitVariable " + myName;
-    }
+	@Override
+	public String toString()
+	{
+		return "ImplicitVariable " + myName;
+	}
 
-    public void setType(final String type) {
-        myType = type;
-    }
+	public void setType(final String type)
+	{
+		myType = type;
+	}
 
-    @Nullable
-    public PsiType getPsiType() {
-        if (myType == null) {
-            return null;
-        }
-        try {
-            return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeFromText(myType, myComment);
-        } catch (IncorrectOperationException e) {
-            return null;
-        }
-    }
+	@Nullable
+	public PsiType getPsiType()
+	{
+		if(myType == null)
+		{
+			return null;
+		}
+		try
+		{
+			return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeFromText(myType, myComment);
+		}
+		catch(IncorrectOperationException e)
+		{
+			return null;
+		}
+	}
 
-    public Image getIcon() {
-        return IconDescriptorUpdaters.getIcon(this, 0);
-    }
+	public Image getIcon()
+	{
+		return IconDescriptorUpdaters.getIcon(this, 0);
+	}
 
-    public static VtlImplicitVariable getOrCreate(@Nonnull final Map<String, VtlImplicitVariable> mapToAddTo, @Nonnull final PsiFile containingFile, @Nullable final PsiComment comment, final String name, @Nullable final VtlFile scopeFile) {
-        assert comment == null || comment.getContainingFile() == containingFile;
-        return ContainerUtil.getOrCreate(mapToAddTo, name, new Factory<VtlImplicitVariable>() {
-            public VtlImplicitVariable create() {
-                return new VtlImplicitVariable(containingFile, comment, name, scopeFile);
-            }
-        });
-    }
+	public static VtlImplicitVariable getOrCreate(@Nonnull final Map<String, VtlImplicitVariable> mapToAddTo,
+												  @Nonnull final PsiFile containingFile,
+												  @Nullable final consulo.language.psi.PsiComment comment,
+												  final String name,
+												  @Nullable final VtlFile scopeFile)
+	{
+		assert comment == null || comment.getContainingFile() == containingFile;
+		return mapToAddTo.computeIfAbsent(name, s -> new VtlImplicitVariable(containingFile, comment, name, scopeFile));
+	}
 
-
-    public boolean isVisibleIn(@Nullable VtlFile placeFile) {
-        return placeFile == null || myScopeFile == null || placeFile.isEquivalentTo(myScopeFile);
-    }
+	public boolean isVisibleIn(@Nullable VtlFile placeFile)
+	{
+		return placeFile == null || myScopeFile == null || placeFile.isEquivalentTo(myScopeFile);
+	}
 }

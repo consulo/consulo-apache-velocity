@@ -18,27 +18,28 @@ package com.intellij.velocity.psi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.PsiScopeProcessor;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
 import consulo.ui.image.Image;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlCompositeElement extends ASTWrapperPsiElement {
+public class VtlCompositeElement extends ASTWrapperPsiElement
+{
 
     public VtlCompositeElement(@Nonnull final ASTNode node) {
         super(node);
     }
 
-    public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state,@Nullable final PsiElement lastParent,
-                                       @Nonnull final PsiElement place) {
+    public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, @Nullable final consulo.language.psi.PsiElement lastParent,
+									   @Nonnull final PsiElement place) {
         return PsiUtil.processDeclarations(processor, state, lastParent, null, this);
     }
 

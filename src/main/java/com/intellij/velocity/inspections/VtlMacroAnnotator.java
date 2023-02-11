@@ -16,15 +16,6 @@
 
 package com.intellij.velocity.inspections;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.BaseScopeProcessor;
-import static com.intellij.velocity.VelocityBundle.message;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlMacro;
@@ -32,15 +23,26 @@ import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.directives.VtlMacroImpl;
 import com.intellij.velocity.psi.directives.VtlParse;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.resolve.BaseScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
 import org.jetbrains.annotations.NonNls;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.intellij.velocity.VelocityBundle.message;
+
 /**
  * @author Alexey Chmutov
  */
-public class VtlMacroAnnotator implements Annotator {
+public class VtlMacroAnnotator implements Annotator
+{
     @NonNls
     private static final String V_IDENT = "([a-zA-Z_][a-zA-Z_0-9-]*)";
     @NonNls
@@ -60,7 +62,7 @@ public class VtlMacroAnnotator implements Annotator {
             if (paramName == null) {
                 return;
             }
-            PsiElement sibling = param.getPrevSibling();
+            consulo.language.psi.PsiElement sibling = param.getPrevSibling();
             while (sibling != null) {
                 if (sibling instanceof VtlParameterDeclaration
                         && paramName.equals(((VtlParameterDeclaration) sibling).getName())) {
@@ -101,13 +103,13 @@ public class VtlMacroAnnotator implements Annotator {
             do {
                 int index = matcher.start(2) != -1 ? 2 : 4;
                 final String macroName = matcher.group(index);
-                final BaseScopeProcessor processor = new BaseScopeProcessor() {
+                final consulo.language.psi.resolve.BaseScopeProcessor processor = new BaseScopeProcessor() {
                     public boolean execute(PsiElement element, ResolveState state) {
                         return !(element instanceof VtlMacro && macroName.equals(((VtlMacro) element).getName()));
                     }
                 };
-                if (!vtlFile.processAllMacrosInScope(processor, ResolveState.initial())) {
-                    TextRange range = new TextRange(matcher.start(), matcher.end()).shiftRight(element.getTextOffset());
+                if (!vtlFile.processAllMacrosInScope(processor, consulo.language.psi.resolve.ResolveState.initial())) {
+                    TextRange range = new consulo.document.util.TextRange(matcher.start(), matcher.end()).shiftRight(element.getTextOffset());
                     holder.createErrorAnnotation(range, message("will.be.considered.as.macro.call"));
                 }
             } while (matcher.find());

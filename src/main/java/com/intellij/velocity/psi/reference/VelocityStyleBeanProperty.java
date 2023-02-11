@@ -16,13 +16,13 @@
 
 package com.intellij.velocity.psi.reference;
 
+import com.intellij.java.impl.psi.impl.beanProperties.BeanProperty;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.PsiType;
+import consulo.language.util.IncorrectOperationException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.beanProperties.BeanProperty;
-import com.intellij.util.IncorrectOperationException;
 
 /**
  * @author Alexey Chmutov

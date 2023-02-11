@@ -15,17 +15,17 @@
  */
 package com.intellij.velocity.psi.files;
 
-import com.intellij.psi.templateLanguages.TemplateDataElementType;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlLanguage;
+import consulo.language.impl.psi.template.TemplateDataElementType;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlFileElementTypes {
-    private static final IElementType OUTER_ELEMENT_TYPE = new IElementType("VTL_FRAGMENT", VtlLanguage.INSTANCE);
-    public static final TemplateDataElementType TEMPLATE_DATA =
+    private static final consulo.language.ast.IElementType OUTER_ELEMENT_TYPE = new IElementType("VTL_FRAGMENT", VtlLanguage.INSTANCE);
+    public static final consulo.language.impl.psi.template.TemplateDataElementType TEMPLATE_DATA =
             new TemplateDataElementType("VTL_TEMPLATE_DATA", VtlLanguage.INSTANCE, VtlElementTypes.TEMPLATE_TEXT, OUTER_ELEMENT_TYPE);
 
     private VtlFileElementTypes() {

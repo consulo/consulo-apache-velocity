@@ -16,21 +16,35 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.AbstractElementManipulator;
-import com.intellij.util.IncorrectOperationException;
 import com.intellij.velocity.psi.VtlLiteralExpressionType.VtlStringLiteral;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.util.TextRange;
+import consulo.language.psi.AbstractElementManipulator;
+import consulo.language.util.IncorrectOperationException;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlStringManipulator extends AbstractElementManipulator<VtlStringLiteral> {
-    public VtlStringLiteral handleContentChange(final VtlStringLiteral element, final TextRange range, final String newContent)
-            throws IncorrectOperationException {
-        return element.setStringValue(range, newContent);
-    }
+@ExtensionImpl
+public class VtlStringManipulator extends AbstractElementManipulator<VtlStringLiteral>
+{
+	public VtlStringLiteral handleContentChange(final VtlStringLiteral element, final consulo.document.util.TextRange range, final String newContent)
+			throws IncorrectOperationException
+	{
+		return element.setStringValue(range, newContent);
+	}
 
-    public TextRange getRangeInElement(final VtlStringLiteral element) {
-        return element.getValueRange();
-    }
+	public TextRange getRangeInElement(final VtlStringLiteral element)
+	{
+		return element.getValueRange();
+	}
+
+	@Nonnull
+	@Override
+	public Class<VtlStringLiteral> getElementClass()
+	{
+		return VtlStringLiteral.class;
+	}
 }

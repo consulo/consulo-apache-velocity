@@ -16,20 +16,14 @@
 
 package com.intellij.velocity.psi.reference;
 
-import static com.intellij.openapi.util.text.StringUtil.toLowerCase;
-import static com.intellij.openapi.util.text.StringUtil.toUpperCase;
+import com.intellij.java.language.psi.*;
+import consulo.java.language.module.util.JavaClassNames;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiClassType;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiParameter;
-import com.intellij.psi.PsiParameterList;
-import com.intellij.psi.PsiType;
-import consulo.java.module.util.JavaClassNames;
+
+import static consulo.util.lang.StringUtil.toLowerCase;
+import static consulo.util.lang.StringUtil.toUpperCase;
 
 /**
  * @author Alexey Chmutov

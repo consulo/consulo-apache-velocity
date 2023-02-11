@@ -15,78 +15,106 @@
  */
 package com.intellij.velocity.editorActions;
 
-import static com.intellij.velocity.psi.VtlElementTypes.CHAR_ESCAPE;
-import static com.intellij.velocity.psi.VtlElementTypes.DOUBLE_QUOTE;
-import static com.intellij.velocity.psi.VtlElementTypes.SINGLE_QUOTE;
-import static com.intellij.velocity.psi.VtlElementTypes.STRING_TEXT;
+import com.intellij.velocity.psi.files.VtlFileType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.HighlighterIterator;
+import consulo.document.Document;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.action.FileQuoteHandler;
+import consulo.language.editor.action.SimpleTokenSetQuoteHandler;
+import consulo.virtualFileSystem.fileType.FileType;
 
-import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.highlighter.HighlighterIterator;
-import com.intellij.psi.tree.IElementType;
+import javax.annotation.Nonnull;
+
+import static com.intellij.velocity.psi.VtlElementTypes.*;
 
 
 /**
  * @author Alexey Chmutov
  */
-public class VelocityQuoteHandler extends SimpleTokenSetQuoteHandler {
-    public VelocityQuoteHandler() {
-        super(SINGLE_QUOTE, DOUBLE_QUOTE);
-    }
+@ExtensionImpl
+public class VelocityQuoteHandler extends SimpleTokenSetQuoteHandler implements FileQuoteHandler
+{
+	public VelocityQuoteHandler()
+	{
+		super(SINGLE_QUOTE, DOUBLE_QUOTE);
+	}
 
-    public boolean isClosingQuote(final HighlighterIterator iterator, final int offset) {
-        if (!myLiteralTokenSet.contains(iterator.getTokenType()) || iterator.getEnd() - iterator.getStart() != 1) {
-            return false;
-        }
-        return !isOpeningQuoteInternal(iterator);
-    }
+	public boolean isClosingQuote(final consulo.codeEditor.HighlighterIterator iterator, final int offset)
+	{
+		if(!myLiteralTokenSet.contains((IElementType) iterator.getTokenType()) || iterator.getEnd() - iterator.getStart() != 1)
+		{
+			return false;
+		}
+		return !isOpeningQuoteInternal(iterator);
+	}
 
-    public boolean isOpeningQuote(HighlighterIterator iterator, int offset) {
-        if (!myLiteralTokenSet.contains(iterator.getTokenType()) || offset != iterator.getStart()) {
-            return false;
-        }
-        return isOpeningQuoteInternal(iterator);
-    }
+	public boolean isOpeningQuote(HighlighterIterator iterator, int offset)
+	{
+		if(!myLiteralTokenSet.contains((IElementType) iterator.getTokenType()) || offset != iterator.getStart())
+		{
+			return false;
+		}
+		return isOpeningQuoteInternal(iterator);
+	}
 
-    private boolean isOpeningQuoteInternal(final HighlighterIterator iterator) {
-        iterator.retreat();
-        try {
-            if (iterator.atEnd()) {
-                return true;
-            }
-            final IElementType type = iterator.getTokenType();
-            return !(myLiteralTokenSet.contains(type) || STRING_TEXT.equals(type) || CHAR_ESCAPE.equals(type));
-        } finally {
-            iterator.advance();
-        }
-    }
+	private boolean isOpeningQuoteInternal(final HighlighterIterator iterator)
+	{
+		iterator.retreat();
+		try
+		{
+			if(iterator.atEnd())
+			{
+				return true;
+			}
+			final IElementType type = (IElementType) iterator.getTokenType();
+			return !(myLiteralTokenSet.contains(type) || STRING_TEXT.equals(type) || CHAR_ESCAPE.equals(type));
+		}
+		finally
+		{
+			iterator.advance();
+		}
+	}
 
-    public boolean hasNonClosedLiteral(Editor editor, HighlighterIterator iterator, int offset) {
-        int start = iterator.getStart();
-        try {
-            Document doc = editor.getDocument();
-            CharSequence chars = doc.getCharsSequence();
-            int lineEnd = doc.getLineEndOffset(doc.getLineNumber(offset));
+	public boolean hasNonClosedLiteral(Editor editor, HighlighterIterator iterator, int offset)
+	{
+		int start = iterator.getStart();
+		try
+		{
+			Document doc = editor.getDocument();
+			CharSequence chars = doc.getCharsSequence();
+			int lineEnd = doc.getLineEndOffset(doc.getLineNumber(offset));
 
-            while (!iterator.atEnd() && iterator.getStart() < lineEnd) {
-                IElementType tokenType = iterator.getTokenType();
+			while(!iterator.atEnd() && iterator.getStart() < lineEnd)
+			{
+				IElementType tokenType = (IElementType) iterator.getTokenType();
 
-                if (myLiteralTokenSet.contains(tokenType) &&
-                        (iterator.getStart() >= iterator.getEnd() - 1
-                         || chars.charAt(iterator.getEnd() - 1) != '\"' && chars.charAt(iterator.getEnd() - 1) != '\'')) {
-                    return true;
-                }
+				if(myLiteralTokenSet.contains(tokenType) &&
+						(iterator.getStart() >= iterator.getEnd() - 1
+								|| chars.charAt(iterator.getEnd() - 1) != '\"' && chars.charAt(iterator.getEnd() - 1) != '\''))
+				{
+					return true;
+				}
 
-                iterator.advance();
-            }
-        } finally {
-            while (iterator.atEnd() || iterator.getStart() != start) {
-                iterator.retreat();
-            }
-        }
+				iterator.advance();
+			}
+		}
+		finally
+		{
+			while(iterator.atEnd() || iterator.getStart() != start)
+			{
+				iterator.retreat();
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
+	@Nonnull
+	@Override
+	public FileType getFileType()
+	{
+		return VtlFileType.INSTANCE;
+	}
 }

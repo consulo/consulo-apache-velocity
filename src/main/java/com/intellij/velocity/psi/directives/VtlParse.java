@@ -18,12 +18,13 @@ package com.intellij.velocity.psi.directives;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
+
+import consulo.language.psi.PsiElement;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlLiteralExpressionType;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.ast.ASTNode;
 
 /**
  * @author Alexey Chmutov

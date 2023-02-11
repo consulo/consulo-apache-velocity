@@ -15,33 +15,33 @@
  */
 package com.intellij.velocity.editorActions;
 
-import static com.intellij.velocity.editorActions.EditorUtil.getCharAt;
-import static com.intellij.velocity.editorActions.EditorUtil.getElementType;
-import static com.intellij.velocity.editorActions.EditorUtil.isNotVtlFile;
-import static com.intellij.velocity.editorActions.EditorUtil.typeInStringAndMoveCaret;
-
-import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.intellij.velocity.psi.VtlCompositeElementTypes;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.document.Document;
+import consulo.language.editor.action.TypedHandlerDelegate;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.virtualFileSystem.fileType.FileType;
+
+import static com.intellij.velocity.editorActions.EditorUtil.*;
 
 /**
  * @author Alexey Chmutov
  */
-public class VelocityTypedHandler extends TypedHandlerDelegate {
+@ExtensionImpl
+public class VelocityTypedHandler extends TypedHandlerDelegate
+{
 
-    public Result beforeCharTyped(final char c, final Project project, final Editor editor, final PsiFile file, final FileType fileType) {
+    public Result beforeCharTyped(final char c, final consulo.project.Project project, final Editor editor, final consulo.language.psi.PsiFile file, final FileType fileType) {
         if (isNotVtlFile(file, editor)) {
             return Result.CONTINUE;
         }
 
         final Document document = editor.getDocument();
-        final PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
+        final consulo.language.psi.PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
 
         if (c == '(') {
             final int offset = editor.getCaretModel().getOffset();
@@ -51,7 +51,7 @@ public class VelocityTypedHandler extends TypedHandlerDelegate {
                 typeInStringAndMoveCaret(editor, offset + 1, "(");
                 return Result.STOP;
             }
-            PsiElement token = file.findElementAt(offset - 1);
+            consulo.language.psi.PsiElement token = file.findElementAt(offset - 1);
             if (token == null) {
                 return Result.CONTINUE;
             }
@@ -77,8 +77,8 @@ public class VelocityTypedHandler extends TypedHandlerDelegate {
             return Result.CONTINUE;
         }
 
-        final PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
-        final Document document = editor.getDocument();
+        final consulo.language.psi.PsiDocumentManager documentManager = consulo.language.psi.PsiDocumentManager.getInstance(project);
+        final consulo.document.Document document = editor.getDocument();
 
         if (c == '{') {
             int offset = editor.getCaretModel().getOffset();

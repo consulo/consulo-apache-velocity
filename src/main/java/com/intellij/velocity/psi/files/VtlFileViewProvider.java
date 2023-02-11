@@ -15,24 +15,24 @@
  */
 package com.intellij.velocity.psi.files;
 
-import com.intellij.lang.Language;
-import com.intellij.lang.LanguageParserDefinitions;
-import com.intellij.lang.html.HTMLLanguage;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeManager;
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.fileTypes.PlainTextLanguage;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.LanguageSubstitutors;
-import com.intellij.psi.MultiplePsiFilesPerDocumentFileViewProvider;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.impl.source.PsiFileImpl;
-import com.intellij.psi.templateLanguages.ConfigurableTemplateLanguageFileViewProvider;
-import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
-import com.intellij.psi.templateLanguages.TemplateLanguage;
 import com.intellij.velocity.psi.VtlLanguage;
+import consulo.language.Language;
+import consulo.language.file.FileTypeManager;
+import consulo.language.file.LanguageFileType;
+import consulo.language.impl.file.MultiplePsiFilesPerDocumentFileViewProvider;
+import consulo.language.impl.psi.PsiFileImpl;
+import consulo.language.parser.ParserDefinition;
+import consulo.language.plain.PlainTextLanguage;
+import consulo.language.psi.LanguageSubstitutors;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.template.ConfigurableTemplateLanguageFileViewProvider;
+import consulo.language.template.TemplateDataLanguageMappings;
+import consulo.language.template.TemplateLanguage;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.xml.lang.html.HTMLLanguage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +47,7 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
     public VtlFileViewProvider(final PsiManager manager, final VirtualFile virtualFile, final boolean physical) {
         super(manager, virtualFile, physical);
         final Language language = getTemplateDataLanguage(virtualFile, manager.getProject());
-        myTemplateDataLanguage = language instanceof TemplateLanguage ? PlainTextLanguage.INSTANCE : LanguageSubstitutors.INSTANCE.substituteLanguage(language, virtualFile, manager.getProject());
+        myTemplateDataLanguage = language instanceof TemplateLanguage ? PlainTextLanguage.INSTANCE : LanguageSubstitutors.substituteLanguage(language, virtualFile, manager.getProject());
     }
 
     public VtlFileViewProvider(final PsiManager manager, final VirtualFile virtualFile, final boolean physical,
@@ -72,15 +72,15 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
             return createFileInner(lang);
         }
         if (lang == getTemplateDataLanguage()) {
-            final PsiFileImpl file = (PsiFileImpl) createFileInner(lang);
+            final PsiFileImpl file = (consulo.language.impl.psi.PsiFileImpl) createFileInner(lang);
             file.setContentElementType(VtlFileElementTypes.TEMPLATE_DATA);
             return file;
         }
         return null;
     }
 
-    private PsiFile createFileInner(Language lang) {
-        return LanguageParserDefinitions.INSTANCE.forLanguage(lang).createFile(this);
+    private consulo.language.psi.PsiFile createFileInner(Language lang) {
+        return ParserDefinition.forLanguage(lang).createFile(this);
     }
 
     protected VtlFileViewProvider cloneInner(final VirtualFile copy) {
@@ -93,13 +93,13 @@ public class VtlFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProv
     }
 
     @Nonnull
-    static Language getTemplateDataLanguage(@Nonnull VirtualFile virtualFile, @Nonnull Project project) {
+    static Language getTemplateDataLanguage(@Nonnull consulo.virtualFileSystem.VirtualFile virtualFile, @Nonnull Project project) {
         final Language language = TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
         return language == null ? getTemplateDataLanguageByExtention(virtualFile) : language;
     }
 
     @Nonnull
-    private static Language getTemplateDataLanguageByExtention(VirtualFile virtualFile) {
+    private static Language getTemplateDataLanguageByExtention(consulo.virtualFileSystem.VirtualFile virtualFile) {
         String name = virtualFile.getName();
         int index2 = name.lastIndexOf('.');
         if (index2 < 3) {

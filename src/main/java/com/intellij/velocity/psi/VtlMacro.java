@@ -16,7 +16,7 @@
 
 package com.intellij.velocity.psi;
 
-import com.intellij.psi.PsiNamedElement;
+import consulo.language.psi.PsiNamedElement;
 
 /**
  * @author Alexey Chmutov

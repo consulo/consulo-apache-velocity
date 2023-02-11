@@ -16,31 +16,33 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.refactoring.listeners.RefactoringElementListener;
-import com.intellij.refactoring.rename.RenamePsiElementProcessor;
-import com.intellij.usageView.UsageInfo;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.refactoring.event.RefactoringElementListener;
+import consulo.language.editor.refactoring.rename.RenamePsiElementProcessor;
+import consulo.language.util.IncorrectOperationException;
 import com.intellij.velocity.psi.directives.VtlForeach;
-import com.intellij.openapi.editor.Editor;
+import consulo.codeEditor.Editor;
+import consulo.language.psi.PsiElement;
+import consulo.usage.UsageInfo;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Alexey Chmutov
  * Date: 27.05.2008
  */
+@ExtensionImpl
 public class VtlRenameProcessor extends RenamePsiElementProcessor {
     @Override
-    public void renameElement(PsiElement element, String newName, UsageInfo[] usages, RefactoringElementListener listener) throws IncorrectOperationException {
+    public void renameElement(consulo.language.psi.PsiElement element, String newName, UsageInfo[] usages, RefactoringElementListener listener) throws IncorrectOperationException {
         // fixed name variable cannot be renamed
     }
 
     @Override
-    public PsiElement substituteElementToRename(PsiElement element, Editor editor) {
+    public consulo.language.psi.PsiElement substituteElementToRename(PsiElement element, Editor editor) {
         return null;
     }
 
-    public boolean canProcessElement(final PsiElement element) {
+    public boolean canProcessElement(final consulo.language.psi.PsiElement element) {
         return element instanceof VtlForeach.FixedNameReferenceElement;
     }
 }

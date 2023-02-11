@@ -15,18 +15,19 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLiteralExpressionType;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.directives.VtlParse;
+import consulo.language.psi.EmptyResolveMessageProvider;
+import consulo.language.psi.PsiFile;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
@@ -36,6 +37,7 @@ import java.text.MessageFormat;
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlFileReferencesInspection extends VtlInspectionBase {
 
   protected void registerProblems(PsiElement element, ProblemsHolder holder) {

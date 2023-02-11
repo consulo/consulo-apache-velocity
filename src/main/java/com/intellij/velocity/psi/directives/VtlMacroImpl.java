@@ -18,11 +18,8 @@ package com.intellij.velocity.psi.directives;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.PsiScopeProcessor;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.VtlElementTypes;
@@ -30,6 +27,9 @@ import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.VtlPresentableNamedElement;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
 import consulo.ui.image.Image;
 
 /**
@@ -42,7 +42,7 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
     }
 
     public boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, final PsiElement lastParent,
-                                       @Nonnull final PsiElement place) {
+									   @Nonnull final PsiElement place) {
         if (!super.processDeclarations(processor, state, lastParent, place)) {
             return false;
         }

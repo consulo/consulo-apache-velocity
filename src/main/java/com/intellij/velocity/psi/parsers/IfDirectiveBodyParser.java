@@ -16,8 +16,9 @@
 
 package com.intellij.velocity.psi.parsers;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.parser.PsiBuilder;
+
 import static com.intellij.velocity.psi.VtlElementTypes.*;
 
 /**

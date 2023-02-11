@@ -15,14 +15,14 @@
  */
 package com.intellij.velocity.psi;
 
+import consulo.language.ast.ASTNode;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.psi.meta.PsiMetaData;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.meta.PsiMetaData;
-import com.intellij.psi.meta.PsiMetaOwner;
-import com.intellij.psi.meta.PsiPresentableMetaData;
-import com.intellij.util.ArrayUtil;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.meta.PsiMetaOwner;
+import consulo.language.psi.meta.PsiPresentableMetaData;
+import consulo.util.collection.ArrayUtil;
 import consulo.ui.image.Image;
 
 /**
@@ -56,7 +56,7 @@ public abstract class VtlPresentableNamedElement extends VtlNamedElement impleme
 	}
 
 	@NonNls
-	public String getName(final PsiElement context)
+	public String getName(final consulo.language.psi.PsiElement context)
 	{
 		return getName();
 	}

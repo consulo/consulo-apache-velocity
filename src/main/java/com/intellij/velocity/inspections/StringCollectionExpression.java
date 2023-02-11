@@ -16,47 +16,49 @@
 
 package com.intellij.velocity.inspections;
 
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.codeInsight.template.Expression;
-import com.intellij.codeInsight.template.ExpressionContext;
-import com.intellij.codeInsight.template.TextResult;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.editor.template.Expression;
+import consulo.language.editor.template.ExpressionContext;
+import consulo.language.editor.template.Result;
+import consulo.language.editor.template.TextResult;
+import consulo.util.collection.ContainerUtil;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
  * @author Alexey Chmutov
  */
-class StringCollectionExpression extends Expression {
-    private final Collection<String> myAllOptions;
-    private final Function<String, LookupElement> myMapper;
+class StringCollectionExpression extends Expression
+{
+	private final Collection<String> myAllOptions;
+	private final java.util.function.Function<String, LookupElement> myMapper;
 
-    public StringCollectionExpression(@Nonnull Collection<String> allOptions) {
-        this.myAllOptions = allOptions;
-        this.myMapper = new Function<String, LookupElement>() {
-            public LookupElement fun(final String option) {
-                return LookupElementBuilder.create(option);
-            }
-        };
-    }
+	public StringCollectionExpression(@Nonnull Collection<String> allOptions)
+	{
+		this.myAllOptions = allOptions;
+		this.myMapper = LookupElementBuilder::create;
+	}
 
-    public StringCollectionExpression(@Nonnull Collection<String> allOptions, @Nonnull Function<String, LookupElement> mapper) {
-        this.myAllOptions = allOptions;
-        this.myMapper = mapper;
-    }
+	public StringCollectionExpression(@Nonnull Collection<String> allOptions, @Nonnull java.util.function.Function<String, LookupElement> mapper)
+	{
+		this.myAllOptions = allOptions;
+		this.myMapper = mapper;
+	}
 
-    public com.intellij.codeInsight.template.Result calculateResult(final ExpressionContext context) {
-        return calculateQuickResult(context);
-    }
+	public Result calculateResult(final ExpressionContext context)
+	{
+		return calculateQuickResult(context);
+	}
 
-    public com.intellij.codeInsight.template.Result calculateQuickResult(final ExpressionContext context) {
-        return myAllOptions.size() == 1 ? new TextResult(myAllOptions.iterator().next()) : null;
-    }
+	public Result calculateQuickResult(final ExpressionContext context)
+	{
+		return myAllOptions.size() == 1 ? new TextResult(myAllOptions.iterator().next()) : null;
+	}
 
-    public LookupElement[] calculateLookupItems(final ExpressionContext context) {
-        return ContainerUtil.map2Array(myAllOptions, LookupElement.class, myMapper);
-    }
+	public LookupElement[] calculateLookupItems(final ExpressionContext context)
+	{
+		return ContainerUtil.map2Array(myAllOptions, LookupElement.class, myMapper);
+	}
 }

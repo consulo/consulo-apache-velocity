@@ -16,8 +16,8 @@
 
 package com.intellij.velocity.psi.parsers;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.ast.IElementType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlCompositeElementType;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
@@ -67,7 +67,7 @@ public abstract class CompositeBodyParser {
         }
     }
 
-    protected static boolean consumeTokenIfPresent(PsiBuilder builder, IElementType tokenType) {
+    protected static boolean consumeTokenIfPresent(PsiBuilder builder, consulo.language.ast.IElementType tokenType) {
         if (builder.getTokenType() == tokenType) {
             builder.advanceLexer();
             return true;
@@ -99,7 +99,7 @@ public abstract class CompositeBodyParser {
     }
 
   static void assertVariable(PsiBuilder builder, VtlCompositeElementType elementType, String errorMsg) {
-        final IElementType variableStarter = builder.getTokenType();
+        final consulo.language.ast.IElementType variableStarter = builder.getTokenType();
         builder.advanceLexer();
         PsiBuilder.Marker variable = builder.mark();
         if (variableStarter != START_REFERENCE && variableStarter != START_REF_FORMAL) {
@@ -123,7 +123,7 @@ public abstract class CompositeBodyParser {
             return builder.getTokenType() == SHARP_END;
         }
 
-        public boolean isTokenInvalid(IElementType tokenType) {
+        public boolean isTokenInvalid(consulo.language.ast.IElementType tokenType) {
             if (tokenType == TEMPLATE_TEXT || tokenType == SHARP_STOP) {
                 return false;
             }

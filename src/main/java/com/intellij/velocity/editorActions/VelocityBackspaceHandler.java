@@ -15,26 +15,28 @@
  */
 package com.intellij.velocity.editorActions;
 
-import static com.intellij.velocity.editorActions.EditorUtil.getCharAt;
-import static com.intellij.velocity.editorActions.EditorUtil.getElementType;
-
-import com.intellij.codeInsight.editorActions.BackspaceHandlerDelegate;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.intellij.velocity.psi.VtlCompositeElementTypes;
 import com.intellij.velocity.psi.files.VtlFileViewProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.document.Document;
+import consulo.language.editor.action.BackspaceHandlerDelegate;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+
+import static com.intellij.velocity.editorActions.EditorUtil.getCharAt;
+import static com.intellij.velocity.editorActions.EditorUtil.getElementType;
 
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VelocityBackspaceHandler extends BackspaceHandlerDelegate {
     private int pairedBraceOffset;
 
-    public void beforeCharDeleted(final char c, final PsiFile file, final Editor editor) {
+    public void beforeCharDeleted(final char c, final consulo.language.psi.PsiFile file, final Editor editor) {
         pairedBraceOffset = -1;
         if (c != '{') {
             return;
@@ -45,7 +47,7 @@ public class VelocityBackspaceHandler extends BackspaceHandlerDelegate {
             return;
         }
 
-        final Document document = editor.getDocument();
+        final consulo.document.Document document = editor.getDocument();
         PsiDocumentManager.getInstance(file.getProject()).commitDocument(document);
         final PsiElement element = file.findElementAt(offset);
         if (element == null) {

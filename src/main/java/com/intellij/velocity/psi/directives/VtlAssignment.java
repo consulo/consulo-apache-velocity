@@ -15,146 +15,170 @@
  */
 package com.intellij.velocity.psi.directives;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.NotNullLazyValue;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.RenameableFakePsiElement;
-import com.intellij.psi.util.CachedValue;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.util.IncorrectOperationException;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlVariable;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.application.util.CachedValue;
+import consulo.application.util.CachedValueProvider;
+import consulo.application.util.CachedValuesManager;
+import consulo.application.util.NotNullLazyValue;
+import consulo.language.ast.ASTNode;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.impl.psi.RenameableFakePsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.util.IncorrectOperationException;
 import consulo.ui.image.Image;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
-public abstract class VtlAssignment extends VtlDirectiveImpl {
+public abstract class VtlAssignment extends VtlDirectiveImpl
+{
 
-    private final NotNullLazyValue<CachedValue<AssignedVariable>> myAssignedVariable;
+	private final NotNullLazyValue<CachedValue<AssignedVariable>> myAssignedVariable;
 
-    protected VtlAssignment(final ASTNode node, @Nonnull String presentableName, boolean needsClosing) {
-        super(node, presentableName, needsClosing);
-        myAssignedVariable = new NotNullLazyValue<CachedValue<AssignedVariable>>() {
-            @Nonnull
-            protected CachedValue<AssignedVariable> compute() {
-                return CachedValuesManager.getManager(getProject()).createCachedValue(new CachedValueProvider<AssignedVariable>()
+	protected VtlAssignment(final ASTNode node, @Nonnull String presentableName, boolean needsClosing)
+	{
+		super(node, presentableName, needsClosing);
+		myAssignedVariable = new NotNullLazyValue<consulo.application.util.CachedValue<AssignedVariable>>()
+		{
+			@Nonnull
+			protected CachedValue<AssignedVariable> compute()
+			{
+				return CachedValuesManager.getManager(getProject()).createCachedValue(new CachedValueProvider<AssignedVariable>()
 				{
 					public Result<AssignedVariable> compute()
 					{
 						return Result.create(createAssignedVariable(), PsiModificationTracker.MODIFICATION_COUNT);
 					}
 				}, false);
-            }
-        };
-    }
+			}
+		};
+	}
 
-    @Nullable
-    private AssignedVariable createAssignedVariable() {
-        VtlReferenceExpression varElement = getAssignedVariableElement();
-        if (varElement == null) {
-            return null;
-        }
-        if (getContainingFile().findImplicitVariable(varElement.getReferenceName()) != null) {
-            return null;
-        }
-        return new AssignedVariable();
-    }
+	@Nullable
+	private AssignedVariable createAssignedVariable()
+	{
+		VtlReferenceExpression varElement = getAssignedVariableElement();
+		if(varElement == null)
+		{
+			return null;
+		}
+		if(getContainingFile().findImplicitVariable(varElement.getReferenceName()) != null)
+		{
+			return null;
+		}
+		return new AssignedVariable();
+	}
 
-    @Nullable
-    public VtlReferenceExpression getAssignedVariableElement() {
-        PsiElement element = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
-        if (element == null) {
-            return null;
-        }
-        VtlReferenceExpression expression = (VtlReferenceExpression) element;
-        return expression.hasQualifier() ? null : expression;
-    }
+	@Nullable
+	public VtlReferenceExpression getAssignedVariableElement()
+	{
+		consulo.language.psi.PsiElement element = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
+		if(element == null)
+		{
+			return null;
+		}
+		VtlReferenceExpression expression = (VtlReferenceExpression) element;
+		return expression.hasQualifier() ? null : expression;
+	}
 
-    @Nullable
-    public PsiElement getAssignedMethodCallExpression() {
-        return findChildByType(VtlElementTypes.METHOD_CALL_EXPRESSION);
-    }
+	@Nullable
+	public consulo.language.psi.PsiElement getAssignedMethodCallExpression()
+	{
+		return findChildByType(VtlElementTypes.METHOD_CALL_EXPRESSION);
+	}
 
-    @Nullable
-    public abstract PsiType getAssignedVariableElementType();
+	@Nullable
+	public abstract PsiType getAssignedVariableElementType();
 
-    @Nonnull
-    public String getPresentableName() {
-        String dirName = super.getPresentableName();
-        PsiElement nameElement = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
-        return nameElement == null ? dirName : dirName + " '" + nameElement.getText() + "'";
-    }
+	@Nonnull
+	public String getPresentableName()
+	{
+		String dirName = super.getPresentableName();
+		PsiElement nameElement = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
+		return nameElement == null ? dirName : dirName + " '" + nameElement.getText() + "'";
+	}
 
-    public VtlVariable getAssignedVariable() {
-        return myAssignedVariable.getValue().getValue();
-    }
+	public VtlVariable getAssignedVariable()
+	{
+		return myAssignedVariable.getValue().getValue();
+	}
 
-    private class AssignedVariable extends RenameableFakePsiElement implements VtlVariable {
+	private class AssignedVariable extends RenameableFakePsiElement implements VtlVariable
+	{
 
-        public AssignedVariable() {
-            super(VtlAssignment.this.getContainingFile());
-        }
+		public AssignedVariable()
+		{
+			super(VtlAssignment.this.getContainingFile());
+		}
 
-        @Nonnull
-        public String getName() {
-            final VtlReferenceExpression expression = getAssignedVariableElement();
-            assert expression != null;
-            return expression.getReferenceName();
-        }
+		@Nonnull
+		public String getName()
+		{
+			final VtlReferenceExpression expression = getAssignedVariableElement();
+			assert expression != null;
+			return expression.getReferenceName();
+		}
 
-        public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException {
-            VtlReferenceExpression nameElement = getAssignedVariableElement();
-            assert nameElement != null;
-            nameElement.handleElementRename(name);
-            return this;
-        }
+		public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException
+		{
+			VtlReferenceExpression nameElement = getAssignedVariableElement();
+			assert nameElement != null;
+			nameElement.handleElementRename(name);
+			return this;
+		}
 
-        @Nullable
-        @Override
-        public PsiElement getNavigationElement() {
-            final VtlReferenceExpression expression = getAssignedVariableElement();
-            assert expression != null;
-            return expression.getReferenceNameElement();
-        }
+		@Nullable
+		@Override
+		public PsiElement getNavigationElement()
+		{
+			final VtlReferenceExpression expression = getAssignedVariableElement();
+			assert expression != null;
+			return expression.getReferenceNameElement();
+		}
 
-        public PsiElement getParent() {
-            return getAssignedVariableElement();
-        }
+		public PsiElement getParent()
+		{
+			return getAssignedVariableElement();
+		}
 
-        public String getTypeName() {
-            return VelocityBundle.message("type.name.variable");
-        }
+		public String getTypeName()
+		{
+			return VelocityBundle.message("type.name.variable");
+		}
 
-        public Image getIcon() {
-            return IconDescriptorUpdaters.getIcon(this, 0);
-        }
+		public Image getIcon()
+		{
+			return IconDescriptorUpdaters.getIcon(this, 0);
+		}
 
-        public PsiType getPsiType() {
-            return getAssignedVariableElementType();
-        }
+		public PsiType getPsiType()
+		{
+			return getAssignedVariableElementType();
+		}
 
-        public boolean isEquivalentTo(final PsiElement another) {
-            if (!getClass().isInstance(another)) {
-                return false;
-            }
-            AssignedVariable other = (AssignedVariable) another;
-            return getName().equals(other.getName())
-                    && getContainingFile().equals(other.getContainingFile());
-        }
+		public boolean isEquivalentTo(final consulo.language.psi.PsiElement another)
+		{
+			if(!getClass().isInstance(another))
+			{
+				return false;
+			}
+			AssignedVariable other = (AssignedVariable) another;
+			return getName().equals(other.getName())
+					&& getContainingFile().equals(other.getContainingFile());
+		}
 
-        public String toString() {
-            return "AssignedVariable " + getName();
-        }
-    }
+		public String toString()
+		{
+			return "AssignedVariable " + getName();
+		}
+	}
 }

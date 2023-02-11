@@ -20,17 +20,20 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.formatting.Alignment;
-import com.intellij.formatting.Indent;
-import com.intellij.formatting.Wrap;
-import com.intellij.formatting.templateLanguages.*;
-import com.intellij.formatting.templateLanguages.BlockWithParent;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.tree.IElementType;
+
+import consulo.language.ast.IElementType;
+import consulo.language.codeStyle.Alignment;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.Indent;
+import consulo.language.ast.ASTNode;
 import com.intellij.velocity.psi.VtlCompositeElementTypes;
 import com.intellij.velocity.psi.VtlDirectiveType;
 import com.intellij.velocity.psi.VtlElementTypes;
+import consulo.language.codeStyle.Wrap;
+import consulo.language.codeStyle.template.BlockWithParent;
+import consulo.language.codeStyle.template.DataLanguageBlockWrapper;
+import consulo.language.codeStyle.template.TemplateLanguageBlock;
+import consulo.language.codeStyle.template.TemplateLanguageBlockFactory;
 
 /**
  * @author Alexey Chmutov
@@ -52,7 +55,7 @@ public class VtlBlock extends TemplateLanguageBlock
 			return Indent.getNoneIndent();
 		}
 
-		IElementType type = getNode().getElementType();
+		consulo.language.ast.IElementType type = getNode().getElementType();
 		if((type instanceof VtlDirectiveType && type != VtlCompositeElementTypes.DIRECTIVE_ELSEIF && type != VtlCompositeElementTypes.DIRECTIVE_ELSE) || type == VtlCompositeElementTypes.DIRECTIVE_BREAK || type == VtlCompositeElementTypes.INTERPOLATION)
 		{
 			return Indent.getNormalIndent();

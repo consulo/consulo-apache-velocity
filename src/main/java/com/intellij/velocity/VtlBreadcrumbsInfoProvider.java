@@ -16,21 +16,24 @@
 
 package com.intellij.velocity;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.ide.navigationToolbar.StructureAwareNavBarModelExtension;
+import consulo.language.Language;
+import consulo.language.psi.PsiElement;
 import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.files.VtlFile;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.language.psi.util.PsiTreeUtil;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
+@ExtensionImpl
+public class VtlBreadcrumbsInfoProvider extends StructureAwareNavBarModelExtension
 {
 	@Nonnull
 	@Override
@@ -40,25 +43,27 @@ public class VtlBreadcrumbsInfoProvider implements BreadcrumbsProvider
 	}
 
 	@Override
-	@RequiredReadAction
-	public boolean acceptElement(@Nonnull final PsiElement e)
+	protected boolean acceptParentFromModel(PsiElement psiElement)
 	{
-		return e instanceof VtlDirective;
+		return psiElement instanceof VtlDirective;
+	}
+
+	@Nullable
+	@Override
+	public String getPresentableText(Object o)
+	{
+		if(o instanceof VtlDirective vtlDirective)
+		{
+			return vtlDirective.getPresentableName();
+		}
+		return null;
 	}
 
 	@Override
 	@RequiredReadAction
-	public PsiElement getParent(@Nonnull final PsiElement e)
+	public consulo.language.psi.PsiElement getParent(@Nonnull final consulo.language.psi.PsiElement e)
 	{
 		VtlDirective directive = PsiTreeUtil.getParentOfType(e, VtlDirective.class);
 		return directive instanceof VtlFile ? null : directive;
-	}
-
-	@Override
-	@RequiredReadAction
-	@Nonnull
-	public String getElementInfo(@Nonnull final PsiElement e)
-	{
-		return ((VtlDirective) e).getPresentableName();
 	}
 }

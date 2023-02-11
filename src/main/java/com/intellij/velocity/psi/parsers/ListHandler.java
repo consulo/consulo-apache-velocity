@@ -31,8 +31,8 @@ import static com.intellij.velocity.psi.parsers.CompositeBodyParser.assertToken;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.consumeTokenIfPresent;
 
 import javax.annotation.Nonnull;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.ast.IElementType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.VtlTokenType;

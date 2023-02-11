@@ -16,18 +16,17 @@
 
 package com.intellij.velocity.spring;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaPackage;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiJavaPackage;
 import com.intellij.velocity.VtlGlobalMacroProvider;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiFile;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author Alexey Chmutov

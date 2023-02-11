@@ -16,18 +16,16 @@
 
 package com.intellij.velocity.editorActions;
 
-import com.intellij.codeInsight.completion.*;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.codeInsight.lookup.TailTypeDecorator;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.patterns.ElementPattern;
-import com.intellij.patterns.PsiElementPattern;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.ProcessingContext;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.editor.completion.*;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.application.ApplicationManager;
+import consulo.application.util.function.Computable;
+import consulo.language.pattern.ElementPattern;
+import consulo.language.pattern.PsiElementPattern;
+import consulo.language.util.ProcessingContext;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.VtlReferenceContributor;
 import com.intellij.velocity.psi.PsiUtil;
@@ -38,17 +36,21 @@ import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlSet;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.codeInsight.completion.CompletionProvider;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.editor.completion.lookup.TailTypeDecorator;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import static consulo.language.pattern.PlatformPatterns.psiElement;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlCompletionContributor extends CompletionContributor
 {
 	private static final Key<VtlDirective> DIRECTIVE_KEY = Key.create("VtlDirectiveKey");
@@ -94,16 +96,16 @@ public class VtlCompletionContributor extends CompletionContributor
 
 	private void registerDirectiveNameCompletionProvider()
 	{
-		final PsiElementPattern.Capture<PsiElement> directiveStartingSharp = psiElement().withText("#").withParent(psiElement(VtlDirective.class)
+		final PsiElementPattern.Capture<consulo.language.psi.PsiElement> directiveStartingSharp = psiElement().withText("#").withParent(psiElement(VtlDirective.class)
 				.save(DIRECTIVE_KEY));
-		final ElementPattern<PsiElement> sharpPattern = psiElement().afterLeaf(directiveStartingSharp);
-		final ElementPattern<PsiElement> sharpBracePattern = psiElement().afterLeaf(psiElement().withText("{").afterLeaf(directiveStartingSharp));
+		final ElementPattern<consulo.language.psi.PsiElement> sharpPattern = psiElement().afterLeaf(directiveStartingSharp);
+		final ElementPattern<consulo.language.psi.PsiElement> sharpBracePattern = psiElement().afterLeaf(psiElement().withText("{").afterLeaf(directiveStartingSharp));
 
 		extend(CompletionType.BASIC, sharpPattern, new DirectiveNameCompletionProvider(false));
 		extend(CompletionType.BASIC, sharpBracePattern, new DirectiveNameCompletionProvider(true));
 	}
 
-	private static class DirectiveNameCompletionProvider implements CompletionProvider
+	private static class DirectiveNameCompletionProvider implements consulo.language.editor.completion.CompletionProvider
 	{
 		private final boolean myClosingBraceNeeded;
 
@@ -116,7 +118,7 @@ public class VtlCompletionContributor extends CompletionContributor
 		@Override
 		public void addCompletions(
 				@Nonnull final CompletionParameters parameters,
-				final ProcessingContext context,
+				final consulo.language.util.ProcessingContext context,
 				@Nonnull final CompletionResultSet result)
 		{
 			result.stopHere();
@@ -159,7 +161,7 @@ public class VtlCompletionContributor extends CompletionContributor
 					final ProcessingContext context,
 					@Nonnull final CompletionResultSet _result)
 			{
-				final PsiComment element = (PsiComment) parameters.getPosition();
+				final consulo.language.psi.PsiComment element = (consulo.language.psi.PsiComment) parameters.getPosition();
 				final String text = element.getText();
 				final TextRange typeNameRange = VtlReferenceContributor.findTypeNameRange(text);
 				final int offset = parameters.getOffset() - element.getTextRange().getStartOffset();
@@ -209,16 +211,16 @@ public class VtlCompletionContributor extends CompletionContributor
 
 	private void registerWritablePropertyNameCompletionProvider()
 	{
-		final PsiElementPattern.Capture<PsiElement> propertyToBeSet = psiElement().withParent(psiElement(VtlCompositeElementTypes
+		final consulo.language.pattern.PsiElementPattern.Capture<consulo.language.psi.PsiElement> propertyToBeSet = psiElement().withParent(psiElement(VtlCompositeElementTypes
 				.REFERENCE_EXPRESSION).withParent(VtlSet.class));
 
-		extend(CompletionType.SMART, propertyToBeSet, new CompletionProvider()
+		extend(CompletionType.SMART, propertyToBeSet, new consulo.language.editor.completion.CompletionProvider()
 		{
 			@Override
-			public void addCompletions(@Nonnull CompletionParameters parameters, ProcessingContext context, @Nonnull CompletionResultSet result)
+			public void addCompletions(@Nonnull CompletionParameters parameters, consulo.language.util.ProcessingContext context, @Nonnull CompletionResultSet result)
 			{
 				result.stopHere();
-				PsiElement positionParent = parameters.getPosition().getParent();
+				consulo.language.psi.PsiElement positionParent = parameters.getPosition().getParent();
 				if(positionParent instanceof VtlReferenceExpression)
 				{
 					for(Object variant : ((VtlReferenceExpression) positionParent).getVariants(true))
@@ -232,4 +234,10 @@ public class VtlCompletionContributor extends CompletionContributor
 	}
 
 
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 }

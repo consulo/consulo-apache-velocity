@@ -16,44 +16,44 @@
 
 package com.intellij.velocity.psi.reference;
 
-import static com.intellij.psi.PsiModifier.PACKAGE_LOCAL;
-import static com.intellij.psi.PsiModifier.PRIVATE;
-import static com.intellij.psi.PsiModifier.PROTECTED;
-import static com.intellij.util.containers.ContainerUtil.addIfNotNull;
-import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isWaitOrNotifyOfObject;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.*;
-import com.intellij.psi.impl.beanProperties.BeanProperty;
-import com.intellij.psi.resolve.JavaMethodCandidateInfo;
-import com.intellij.psi.resolve.JavaMethodResolveHelper;
-import com.intellij.psi.scope.BaseScopeProcessor;
+import com.intellij.java.impl.psi.impl.beanProperties.BeanProperty;
+import com.intellij.java.impl.psi.resolve.JavaMethodCandidateInfo;
+import com.intellij.java.impl.psi.resolve.JavaMethodResolveHelper;
+import com.intellij.java.language.psi.*;
 import com.intellij.velocity.psi.VtlMacro;
 import com.intellij.velocity.psi.VtlMethodCallExpression;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
+import consulo.language.psi.PsiNamedElement;
+import consulo.language.psi.resolve.BaseScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.util.lang.StringUtil;
+
+import javax.annotation.Nullable;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import static com.intellij.java.language.psi.PsiModifier.*;
+import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isWaitOrNotifyOfObject;
+import static consulo.util.collection.ContainerUtil.addIfNotNull;
 
 /**
  * @author peter
  * @author Alexey Chmutov
  */
-abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
-
+abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor
+{
     private final Set<T> myResult = new LinkedHashSet<T>();
     private final boolean myForCompletion;
     private final boolean myMethodCall;
     private final boolean myMacroCall;
-    private final PsiElement myParent;
+    private final consulo.language.psi.PsiElement myParent;
     private final String myReferenceName;
     private final VelocityStylePropertyResolveHelper myPropertyMethods;
     private final JavaMethodResolveHelper myMethods;
-	private final PsiFile myPsiFile;
+	private final consulo.language.psi.PsiFile myPsiFile;
 
-	protected VtlVariantsProcessor(final PsiElement parent, PsiFile psiFile, @Nullable String referenceName, boolean propertiesOnly) {
+	protected VtlVariantsProcessor(final consulo.language.psi.PsiElement parent, consulo.language.psi.PsiFile psiFile, @Nullable String referenceName, boolean propertiesOnly) {
 		myPsiFile = psiFile;
 		myForCompletion = referenceName == null;
         myParent = parent;
@@ -76,12 +76,12 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
         }
     }
 
-    public boolean execute(final PsiElement element, final ResolveState state) {
-        if (!(element instanceof PsiNamedElement)) {
+    public boolean execute(final consulo.language.psi.PsiElement element, final ResolveState state) {
+        if (!(element instanceof consulo.language.psi.PsiNamedElement)) {
             return true;
         }
 
-        final PsiNamedElement namedElement = (PsiNamedElement) element;
+        final PsiNamedElement namedElement = (consulo.language.psi.PsiNamedElement) element;
         if (StringUtil.isEmpty(namedElement.getName())) {
             return true;
         }
@@ -143,7 +143,7 @@ abstract class VtlVariantsProcessor<T> extends BaseScopeProcessor {
     }
 
     @Nullable
-    protected abstract T execute(final PsiNamedElement element, final boolean error);
+    protected abstract T execute(final consulo.language.psi.PsiNamedElement element, final boolean error);
 
     public T[] getVariants(T[] array, boolean isFirstCharInLowerCase) {
         if (myPropertyMethods != null) {

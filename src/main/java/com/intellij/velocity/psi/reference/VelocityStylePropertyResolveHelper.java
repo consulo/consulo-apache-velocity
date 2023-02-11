@@ -16,27 +16,20 @@
 
 package com.intellij.velocity.psi.reference;
 
-import static com.intellij.openapi.util.text.StringUtil.toLowerCase;
-import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isPropertyGetter;
-import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isPropertySetter;
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.search.searches.SuperMethodsSearch;
+import com.intellij.java.language.psi.util.MethodSignature;
+import com.intellij.java.language.psi.util.MethodSignatureBackedByPsiMethod;
+import consulo.java.language.module.util.JavaClassNames;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClassType;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiParameter;
-import com.intellij.psi.PsiParameterList;
-import com.intellij.psi.PsiSubstitutor;
-import com.intellij.psi.search.searches.SuperMethodsSearch;
-import com.intellij.psi.util.MethodSignature;
-import com.intellij.psi.util.MethodSignatureBackedByPsiMethod;
-import consulo.java.module.util.JavaClassNames;
+import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isPropertyGetter;
+import static com.intellij.velocity.psi.reference.VelocityNamingUtil.isPropertySetter;
+import static consulo.util.lang.StringUtil.toLowerCase;
 
 /**
  * @author Alexey Chmutov

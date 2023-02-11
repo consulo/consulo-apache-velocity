@@ -16,9 +16,9 @@
 
 package com.intellij.velocity.psi.parsers;
 
-import static com.intellij.velocity.psi.VtlElementTypes.DIRECTIVE_LITERAL;
+import consulo.language.parser.PsiBuilder;
 
-import com.intellij.lang.PsiBuilder;
+import static com.intellij.velocity.psi.VtlElementTypes.DIRECTIVE_LITERAL;
 
 /**
  * Created by IntelliJ IDEA.

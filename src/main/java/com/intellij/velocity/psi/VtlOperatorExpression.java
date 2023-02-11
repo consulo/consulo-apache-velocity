@@ -16,12 +16,13 @@
 
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nonnull;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.

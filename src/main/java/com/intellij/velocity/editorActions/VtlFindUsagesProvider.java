@@ -15,45 +15,53 @@
  */
 package com.intellij.velocity.editorActions;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.cacheBuilder.WordsScanner;
-import com.intellij.lang.findUsages.FindUsagesProvider;
-import com.intellij.psi.PsiElement;
 import com.intellij.velocity.VelocityBundle;
+import com.intellij.velocity.psi.VtlLanguage;
 import com.intellij.velocity.psi.VtlVariable;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.findUsage.FindUsagesProvider;
+import consulo.language.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlFindUsagesProvider implements FindUsagesProvider {
-    public WordsScanner getWordsScanner() {
-        return null;
-    }
+@ExtensionImpl
+public class VtlFindUsagesProvider implements FindUsagesProvider
+{
+	public boolean canFindUsagesFor(@Nonnull final consulo.language.psi.PsiElement psiElement)
+	{
+		return psiElement instanceof VtlVariable;
+	}
 
-    public boolean canFindUsagesFor(@Nonnull final PsiElement psiElement) {
-        return psiElement instanceof VtlVariable;
-    }
+	@Nonnull
+	public String getType(@Nonnull final PsiElement element)
+	{
+		return VelocityBundle.message("type.name.variable");
+	}
 
-    public String getHelpId(@Nonnull final PsiElement psiElement) {
-        return null;
-    }
+	@Nonnull
+	public String getDescriptiveName(@Nonnull final consulo.language.psi.PsiElement element)
+	{
+		return VelocityBundle.message("type.name.variable");
+	}
 
-    @Nonnull
-    public String getType(@Nonnull final PsiElement element) {
-        return VelocityBundle.message("type.name.variable");
-    }
+	@Nonnull
+	public String getNodeText(@Nonnull final PsiElement element, final boolean useFullName)
+	{
+		if(element instanceof VtlVariable)
+		{
+			return ((VtlVariable) element).getName();
+		}
+		return element.getText();
+	}
 
-    @Nonnull
-    public String getDescriptiveName(@Nonnull final PsiElement element) {
-        return VelocityBundle.message("type.name.variable");
-    }
-
-    @Nonnull
-    public String getNodeText(@Nonnull final PsiElement element, final boolean useFullName) {
-        if (element instanceof VtlVariable) {
-            return ((VtlVariable) element).getName();
-        }
-        return element.getText();
-    }
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 }

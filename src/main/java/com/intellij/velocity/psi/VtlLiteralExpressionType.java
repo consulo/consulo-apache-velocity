@@ -16,16 +16,19 @@
 
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiPrimitiveType;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.lang.properties.references.PropertyReference;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlFileReferenceDirective;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiReference;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,7 +53,7 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
     }
 
     @Override
-    public PsiElement createPsiElement(ASTNode node) {
+    public consulo.language.psi.PsiElement createPsiElement(ASTNode node) {
         return VtlCompositeElementTypes.STRING_LITERALS.contains(this)
                 ? new VtlStringLiteral(node)
                 : new VtlLiteralExpression(node);
@@ -76,12 +79,12 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
         }
 
         @Nonnull
-        public PsiReference[] getReferences() {
+        public consulo.language.psi.PsiReference[] getReferences() {
             if (isFileReference()) {
                 return PsiUtil.getFileReferences(getValueText(), this, getFirstChild().getTextLength(), true);
             }
             if (isPropertyReference()) {
-                return new PsiReference[]{new PropertyReference(getValueText(), this, null, true)};
+                return new consulo.language.psi.PsiReference[]{new PropertyReference(getValueText(), this, null, true)};
             }
             return PsiReference.EMPTY_ARRAY;
         }
@@ -106,7 +109,7 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
         }
 
         private boolean isStringLiteralAndArgumentOf(Class<? extends VtlDirective> directiveClass) {
-            final PsiElement parent = getParent();
+            final consulo.language.psi.PsiElement parent = getParent();
             return parent instanceof VtlArgumentList && directiveClass.isInstance(parent.getParent());
         }
 
@@ -117,7 +120,7 @@ public class VtlLiteralExpressionType extends VtlCompositeElementType {
         public VtlStringLiteral setStringValue(final TextRange range, final String newContent) {
           String oldText = getText();
           String newText = oldText.substring(0, range.getStartOffset()) + newContent + oldText.substring(range.getEndOffset());
-          final PsiElement newElement = PsiUtil.createStringLiteral(getProject(), newText);
+          final consulo.language.psi.PsiElement newElement = PsiUtil.createStringLiteral(getProject(), newText);
           final ASTNode newNode = newElement.getNode();
           getParent().getNode().replaceChild(getNode(), newNode);
           return (VtlStringLiteral) newNode.getPsi();

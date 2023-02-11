@@ -26,12 +26,12 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.collection.ContainerUtil;
 import com.intellij.velocity.psi.VtlLanguage;
 
 /**
@@ -55,7 +55,7 @@ public class VelocityPropertiesProvider {
     }
 
     @Nonnull
-    public List<VirtualFile> getResourceLoaderPathListBasedOn(@Nullable VirtualFile baseFile) {
+    public List<consulo.virtualFileSystem.VirtualFile> getResourceLoaderPathListBasedOn(@Nullable VirtualFile baseFile) {
         if(myRuntimeRoot != null) {
             baseFile = myRuntimeRoot;
         }
@@ -86,7 +86,7 @@ public class VelocityPropertiesProvider {
     }
 
     @Nonnull
-    public List<VtlFile> getVelocimacroLibraryListBasedOn(@Nullable VirtualFile baseFile) {
+    public List<VtlFile> getVelocimacroLibraryListBasedOn(@Nullable consulo.virtualFileSystem.VirtualFile baseFile) {
         if(myRuntimeRoot != null) {
           baseFile = myRuntimeRoot;
         }
@@ -97,9 +97,9 @@ public class VelocityPropertiesProvider {
 
         final PsiManager manager = myPropertiesFile.getContainingFile().getManager();
         ArrayList<VtlFile> res = new ArrayList<VtlFile>();
-        for (VirtualFile loaderPathFile : getResourceLoaderPathListBasedOn(baseFile)) {
+        for (consulo.virtualFileSystem.VirtualFile loaderPathFile : getResourceLoaderPathListBasedOn(baseFile)) {
             for (int i = libNames.length - 1; i >= 0; i--) {
-                VirtualFile libFile = loaderPathFile.findFileByRelativePath(libNames[i]);
+                consulo.virtualFileSystem.VirtualFile libFile = loaderPathFile.findFileByRelativePath(libNames[i]);
                 if (libFile == null) {
                     continue;
                 }

@@ -18,7 +18,7 @@ package com.intellij.velocity.psi;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 
 /**
  * @author Alexey Chmutov

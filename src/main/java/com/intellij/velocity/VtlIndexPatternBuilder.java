@@ -15,19 +15,21 @@
  */
 package com.intellij.velocity;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.search.IndexPatternBuilder;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.search.IndexPatternBuilder;
+import consulo.language.ast.TokenSet;
 import com.intellij.velocity.lexer.VtlLexer;
 import com.intellij.velocity.psi.VtlCommentType;
 import com.intellij.velocity.psi.VtlElementTypes;
 import com.intellij.velocity.psi.files.VtlFile;
+import consulo.language.lexer.Lexer;
 
 /**
  * @author Alexey Chmutov
  */
+@ExtensionImpl
 public class VtlIndexPatternBuilder implements IndexPatternBuilder {
     public Lexer getIndexingLexer(final PsiFile file) {
         return (file instanceof VtlFile) ? new VtlLexer() : null;
@@ -37,7 +39,7 @@ public class VtlIndexPatternBuilder implements IndexPatternBuilder {
         return (file instanceof VtlFile) ? VtlElementTypes.COMMENTS : null;
     }
 
-    public int getCommentStartDelta(final IElementType tokenType) {
+    public int getCommentStartDelta(final consulo.language.ast.IElementType tokenType) {
         assert tokenType instanceof VtlCommentType;
         return ((VtlCommentType)tokenType).getStartDelta();
     }

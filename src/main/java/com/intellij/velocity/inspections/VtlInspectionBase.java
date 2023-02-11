@@ -15,45 +15,61 @@
  */
 package com.intellij.velocity.inspections;
 
-import javax.annotation.Nonnull;
-
+import com.intellij.velocity.psi.VtlLanguage;
+import consulo.language.Language;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiElementVisitor;
 import org.jetbrains.annotations.Nls;
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.velocity.VelocityBundle;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
-public abstract class VtlInspectionBase extends LocalInspectionTool {
+public abstract class VtlInspectionBase extends LocalInspectionTool
+{
 
-    @Nonnull
-    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, final boolean isOnTheFly) {
-        return new PsiElementVisitor() {
-            public void visitElement(final PsiElement element) {
-                registerProblems(element, holder);
-            }
-        };
-    }
+	@Nonnull
+	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, final boolean isOnTheFly)
+	{
+		return new consulo.language.psi.PsiElementVisitor()
+		{
+			public void visitElement(final PsiElement element)
+			{
+				registerProblems(element, holder);
+			}
+		};
+	}
 
-    protected abstract void registerProblems(PsiElement element, ProblemsHolder holder);
+	protected abstract void registerProblems(consulo.language.psi.PsiElement element, ProblemsHolder holder);
 
-    @Nls
-    @Nonnull
-    public String getGroupDisplayName() {
-        return VelocityBundle.message("velocity.inspections.group");
-    }
+	@Nls
+	@Nonnull
+	public String getGroupDisplayName()
+	{
+		return "";
+	}
 
-    @Nonnull
-    public HighlightDisplayLevel getDefaultLevel() {
-        return HighlightDisplayLevel.WARNING;
-    }
+	@Nullable
+	@Override
+	public Language getLanguage()
+	{
+		return VtlLanguage.INSTANCE;
+	}
 
-    public boolean isEnabledByDefault() {
-        return true;
-    }
+	@Nonnull
+	public HighlightDisplayLevel getDefaultLevel()
+	{
+		return HighlightDisplayLevel.WARNING;
+	}
+
+	public boolean isEnabledByDefault()
+	{
+		return true;
+	}
 
 }

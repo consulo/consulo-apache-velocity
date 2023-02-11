@@ -16,16 +16,17 @@
 
 package com.intellij.velocity.psi.directives;
 
-import javax.annotation.Nonnull;
+import consulo.language.psi.PsiElement;
 
-import com.intellij.psi.PsiElement;
+import javax.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Alexey Chmutov
  * Date: 29.04.2008
  */
-public interface VtlDirectiveHolder extends PsiElement {
+public interface VtlDirectiveHolder extends PsiElement
+{
     @Nonnull
     VtlDirective[] getDirectiveChildren();
 

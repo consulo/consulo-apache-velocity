@@ -23,18 +23,19 @@ import static com.intellij.velocity.psi.parsers.CompositeBodyParser.noForeachSta
 
 import javax.annotation.Nonnull;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.ast.IElementType;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlCompositeStarterTokenType;
-import consulo.lang.LanguageVersion;
+import consulo.language.ast.ASTNode;
+import consulo.language.parser.PsiParser;
+import consulo.language.version.LanguageVersion;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlParser implements PsiParser {
+public class VtlParser implements PsiParser
+{
 
     private static final CompositeEndDetector EOF_DETECTOR = new CompositeEndDetector() {
         @Override
@@ -60,7 +61,7 @@ public class VtlParser implements PsiParser {
 
     static void parseCompositeElements(PsiBuilder builder, CompositeEndDetector detector) {
         while (!detector.isCompositeFinished(builder) && !builder.eof()) {
-            IElementType currentTokenType = builder.getTokenType();
+            consulo.language.ast.IElementType currentTokenType = builder.getTokenType();
             if (detector.isTokenInvalid(currentTokenType)) {
                 builder.error(VelocityBundle.message("invalid.token", builder.getTokenText()));
             } else if (currentTokenType == SHARP_BREAK && noForeachStarted(builder)) {
@@ -172,7 +173,7 @@ public class VtlParser implements PsiParser {
     }
 
     private static boolean parseUnaryExpression(final PsiBuilder builder) {
-        final IElementType tokenType = builder.getTokenType();
+        final consulo.language.ast.IElementType tokenType = builder.getTokenType();
         if (UNARY_OPERATIONS.contains(tokenType)) {
             final PsiBuilder.Marker expr = builder.mark();
             builder.advanceLexer();
@@ -188,7 +189,7 @@ public class VtlParser implements PsiParser {
 
     static boolean parseOperand(PsiBuilder builder, boolean allowParenthesized) {
         PsiBuilder.Marker expression = builder.mark();
-        final IElementType elementStarter = builder.getTokenType();
+        final consulo.language.ast.IElementType elementStarter = builder.getTokenType();
         builder.advanceLexer();
 
         if (elementStarter == INTEGER) {

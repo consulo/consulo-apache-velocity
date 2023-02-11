@@ -16,22 +16,9 @@
 
 package com.intellij.velocity.psi;
 
-import com.intellij.codeInsight.completion.util.PsiTypeCanonicalLookupElement;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReferenceSet;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.TypeConversionUtil;
-import com.intellij.util.IncorrectOperationException;
+import com.intellij.java.impl.codeInsight.completion.util.PsiTypeCanonicalLookupElement;
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.util.TypeConversionUtil;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import com.intellij.velocity.psi.directives.VtlParse;
 import com.intellij.velocity.psi.files.VtlFile;
@@ -39,6 +26,21 @@ import com.intellij.velocity.psi.files.VtlFileType;
 import com.intellij.velocity.psi.reference.SoftFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlFileReferenceSet;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.application.ApplicationManager;
+import consulo.application.util.function.Computable;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.path.FileReference;
+import consulo.language.psi.path.FileReferenceSet;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.util.io.FileUtil;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -56,47 +58,47 @@ public class PsiUtil {
     private static final String NULL_TYPE_NAME = "???";
     private static final Pattern FULLY_QUALIFIED_NAME_PATTERN = Pattern.compile("(([a-zA-Z_$][a-zA-Z_0-9$]*\\.)*)([a-zA-Z_$][a-zA-Z_0-9$]*)");
 
-    public static VtlReferenceExpression createVtlReferenceExpression(final String text, final Project project) {
+    public static VtlReferenceExpression createVtlReferenceExpression(final String text, final consulo.project.Project project) {
         final VtlFile dummyFile = createDummyFile(project, "$" + text);
-        final PsiElement interpolation = dummyFile.getFirstChild();
-        final PsiElement refStart = interpolation.getFirstChild();
-        PsiElement ref = refStart.getNextSibling();
+        final consulo.language.psi.PsiElement interpolation = dummyFile.getFirstChild();
+        final consulo.language.psi.PsiElement refStart = interpolation.getFirstChild();
+        consulo.language.psi.PsiElement ref = refStart.getNextSibling();
         assert ref instanceof VtlReferenceExpression;
         return (VtlReferenceExpression) ref;
     }
 
-    public static PsiElement createIdentifierElement(Project project, String name) {
+    public static consulo.language.psi.PsiElement createIdentifierElement(consulo.project.Project project, String name) {
         final VtlFile dummyFile = createDummyFile(project, "$" + name);
-        final PsiElement interpolation = dummyFile.getFirstChild();
-        final PsiElement reference = interpolation.getLastChild();
+        final consulo.language.psi.PsiElement interpolation = dummyFile.getFirstChild();
+        final consulo.language.psi.PsiElement reference = interpolation.getLastChild();
         return assertElementType(reference.getFirstChild(), VtlElementTypes.IDENTIFIER);
     }
 
-    private static PsiElement assertElementType(PsiElement element, VtlTokenType type) {
+    private static consulo.language.psi.PsiElement assertElementType(consulo.language.psi.PsiElement element, VtlTokenType type) {
         assert element != null;
         ASTNode node = element.getNode();
         assert node != null && node.getElementType() == type;
         return element;
     }
 
-    public static VtlLiteralExpressionType.VtlStringLiteral createStringLiteral(Project project, String text) {
+    public static VtlLiteralExpressionType.VtlStringLiteral createStringLiteral(consulo.project.Project project, String text) {
         final VtlFile dummyFile = createDummyFile(project, "#m(" + text + ")");
-        final PsiElement macroCall = dummyFile.getFirstChild();
-        final PsiElement rightParen = macroCall.getLastChild();
-        final PsiElement argList = rightParen.getPrevSibling();
-        final PsiElement stringLiteral = argList.getFirstChild();
+        final consulo.language.psi.PsiElement macroCall = dummyFile.getFirstChild();
+        final consulo.language.psi.PsiElement rightParen = macroCall.getLastChild();
+        final consulo.language.psi.PsiElement argList = rightParen.getPrevSibling();
+        final consulo.language.psi.PsiElement stringLiteral = argList.getFirstChild();
         assert stringLiteral instanceof VtlLiteralExpressionType.VtlStringLiteral;
         return (VtlLiteralExpressionType.VtlStringLiteral) stringLiteral;
     }
 
     public static VtlFile createDummyFile(Project project, String text) {
         final String fileName = "dummy." + VtlFileType.INSTANCE.getDefaultExtension();
-        return (VtlFile) PsiFileFactory.getInstance(project).createFileFromText(fileName, VtlLanguage.INSTANCE, text);
+        return (VtlFile) consulo.language.psi.PsiFileFactory.getInstance(project).createFileFromText(fileName, VtlLanguage.INSTANCE, text);
     }
 
-    public static boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, @Nullable final PsiElement lastParent,
-                                              @Nullable Set<PsiFile> filesVisited, @Nonnull final PsiElement elementToProcess) {
-        PsiElement child = lastParent == null ? elementToProcess.getLastChild() : lastParent.getPrevSibling();
+    public static boolean processDeclarations(@Nonnull final PsiScopeProcessor processor, @Nonnull final ResolveState state, @Nullable final consulo.language.psi.PsiElement lastParent,
+											  @Nullable Set<consulo.language.psi.PsiFile> filesVisited, @Nonnull final consulo.language.psi.PsiElement elementToProcess) {
+        consulo.language.psi.PsiElement child = lastParent == null ? elementToProcess.getLastChild() : lastParent.getPrevSibling();
 
         if (child == null || child.getParent() instanceof VtlDirectiveHeader) {
             return true;
@@ -113,12 +115,12 @@ public class PsiUtil {
             }
             if (child instanceof VtlParse) {
                 if (filesVisited == null) {
-                    filesVisited = new HashSet<PsiFile>();
+                    filesVisited = new HashSet<consulo.language.psi.PsiFile>();
                 }
                 VtlFile file = ((VtlParse) child).resolveFile();
                 if (file != null && !filesVisited.contains(file)) {
                     filesVisited.add(file);
-                    if (!processDeclarations(processor, ResolveState.initial(), null, filesVisited, file)) {
+                    if (!processDeclarations(processor, consulo.language.psi.resolve.ResolveState.initial(), null, filesVisited, file)) {
                         return false;
                     }
                 }
@@ -128,7 +130,7 @@ public class PsiUtil {
         return true;
     }
 
-    public static boolean isFormalNotationStart(@Nullable PsiElement element) {
+    public static boolean isFormalNotationStart(@Nullable consulo.language.psi.PsiElement element) {
         if (element == null) {
             return false;
         }
@@ -150,7 +152,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static PsiType getBoxedType(PsiType type, @Nonnull PsiElement context) {
+    public static PsiType getBoxedType(PsiType type, @Nonnull consulo.language.psi.PsiElement context) {
         if (!(type instanceof PsiPrimitiveType) || PsiType.VOID.equals(type)) {
             return type;
         }
@@ -168,7 +170,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static TextRange findRange(@Nonnull String source, @Nonnull String startMarker, @Nonnull String endMarker) {
+    public static consulo.document.util.TextRange findRange(@Nonnull String source, @Nonnull String startMarker, @Nonnull String endMarker) {
         int start = source.indexOf(startMarker);
         if (start < 0) {
             return null;
@@ -181,11 +183,11 @@ public class PsiUtil {
         return new TextRange(start, end);
     }
 
-    public static boolean isTypeOf(final PsiElement element, final VtlTokenType... elementTypes) {
+    public static boolean isTypeOf(final consulo.language.psi.PsiElement element, final VtlTokenType... elementTypes) {
         if (element == null) {
             return false;
         }
-        PsiElement child = element.getFirstChild();
+        consulo.language.psi.PsiElement child = element.getFirstChild();
         if (child == null) {
             return false;
         }
@@ -199,7 +201,7 @@ public class PsiUtil {
     }
 
     @Nonnull
-    public static FileReference[] getFileReferences(@Nonnull String text, @Nonnull PsiElement element, int startOffset, final boolean considerVelocityProperties) {
+    public static FileReference[] getFileReferences(@Nonnull String text, @Nonnull consulo.language.psi.PsiElement element, int startOffset, final boolean considerVelocityProperties) {
         FileReferenceSet set = considerVelocityProperties
                 ? new VtlFileReferenceSet(text, element, startOffset)
                 : new SoftFileReferenceSet(text, element, startOffset);
@@ -207,9 +209,9 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static <T extends PsiFile> T findFile(@Nonnull PsiReference[] references, Class<T> fileClass) {
-        for (final PsiReference reference : references) {
-            final PsiElement target = reference.resolve();
+    public static <T extends consulo.language.psi.PsiFile> T findFile(@Nonnull PsiReference[] references, Class<T> fileClass) {
+        for (final consulo.language.psi.PsiReference reference : references) {
+            final consulo.language.psi.PsiElement target = reference.resolve();
             if (fileClass.isInstance(target)) {
                 return (T) target;
             }
@@ -218,7 +220,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static String getRelativePath(@Nonnull PsiFile base, @Nonnull PsiFile target) {
+    public static String getRelativePath(@Nonnull consulo.language.psi.PsiFile base, @Nonnull consulo.language.psi.PsiFile target) {
         return getRelativePath(getPath(base), getPath(target));
     }
 
@@ -235,7 +237,7 @@ public class PsiUtil {
     }
 
     @Nullable
-    public static String getPath(@Nonnull PsiFile file) {
+    public static String getPath(@Nonnull consulo.language.psi.PsiFile file) {
         final VirtualFile baseFile = file.getVirtualFile();
         if (baseFile == null) {
             return null;
@@ -243,7 +245,7 @@ public class PsiUtil {
         return baseFile.getPath();
     }
 
-    public static LookupElement createPsiTypeLookupElement(final PsiElement element, final String typeName) {
+    public static LookupElement createPsiTypeLookupElement(final consulo.language.psi.PsiElement element, final String typeName) {
         return ApplicationManager.getApplication().runReadAction(new Computable<LookupElement>() {
             public LookupElement compute() {
                 try {

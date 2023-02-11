@@ -16,10 +16,10 @@
 
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nonnull;
+import com.intellij.java.language.psi.PsiType;
+import consulo.language.ast.ASTNode;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiType;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

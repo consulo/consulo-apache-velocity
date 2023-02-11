@@ -15,22 +15,16 @@
  */
 package com.intellij.velocity.psi;
 
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.util.TypeConversionUtil;
+import com.intellij.velocity.VelocityBundle;
+import consulo.java.language.module.util.JavaClassNames;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.scope.GlobalSearchScope;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiArrayType;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiClassType;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiSubstitutor;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.PsiTypeParameter;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.TypeConversionUtil;
-import com.intellij.velocity.VelocityBundle;
-import consulo.java.module.util.JavaClassNames;
 
 /**
  * @author Alexey Chmutov

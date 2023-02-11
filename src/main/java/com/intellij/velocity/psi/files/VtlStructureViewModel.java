@@ -22,10 +22,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.TextEditorBasedStructureViewModel;
-import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
-import com.intellij.psi.PsiFile;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.language.editor.structureView.TextEditorBasedStructureViewModel;
+import consulo.language.editor.structureView.PsiTreeElementBase;
+import consulo.language.psi.PsiFile;
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
 

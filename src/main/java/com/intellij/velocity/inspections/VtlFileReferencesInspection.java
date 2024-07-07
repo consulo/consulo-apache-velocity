@@ -15,24 +15,26 @@
  */
 package com.intellij.velocity.inspections;
 
-import consulo.annotation.component.ExtensionImpl;
-import consulo.language.editor.inspection.ProblemHighlightType;
-import consulo.language.editor.inspection.ProblemsHolder;
-import consulo.language.psi.PsiElement;
-import consulo.language.psi.PsiReference;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLiteralExpressionType;
-import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.directives.VtlParse;
+import com.intellij.velocity.psi.files.VtlFile;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.apache.velocity.localize.VelocityLocalize;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.EmptyResolveMessageProvider;
+import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiReference;
+import consulo.localize.LocalizeValue;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 
-import java.text.MessageFormat;
+import javax.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -40,6 +42,7 @@ import java.text.MessageFormat;
 @ExtensionImpl
 public class VtlFileReferencesInspection extends VtlInspectionBase {
 
+  @RequiredReadAction
   protected void registerProblems(PsiElement element, ProblemsHolder holder) {
     if (element instanceof VtlParse) {
       VtlArgumentList argumentList = ((VtlParse)element).getArgumentList();
@@ -47,7 +50,7 @@ public class VtlFileReferencesInspection extends VtlInspectionBase {
         return;
       }
       VtlExpression[] arguments = argumentList.getArguments();
-      final String message = VelocityBundle.message("vtl.only.first.parse.argument.will.be.parsed");
+      final String message = VelocityLocalize.vtlOnlyFirstParseArgumentWillBeParsed().get();
       for (int i = 1; i < arguments.length; i++) {
         holder.registerProblem(arguments[i], message, ProblemHighlightType.LIKE_UNUSED_SYMBOL);
       }
@@ -62,9 +65,8 @@ public class VtlFileReferencesInspection extends VtlInspectionBase {
           if (reference.resolve() != null) {
             continue;
           }
-          final String message =
-              MessageFormat.format(((EmptyResolveMessageProvider)reference).getUnresolvedMessagePattern(), reference.getCanonicalText());
-          holder.registerProblem(reference, message, ProblemHighlightType.LIKE_UNKNOWN_SYMBOL);
+          final LocalizeValue message = ((EmptyResolveMessageProvider)reference).buildUnresolvedMessaged(reference.getCanonicalText());
+          holder.registerProblem(reference, message.get(), ProblemHighlightType.LIKE_UNKNOWN_SYMBOL);
         }
       }
     }

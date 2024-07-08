@@ -65,7 +65,7 @@ public class VtlFileReferencesInspection extends VtlInspectionBase {
           if (reference.resolve() != null) {
             continue;
           }
-          final LocalizeValue message = ((EmptyResolveMessageProvider)reference).buildUnresolvedMessaged(reference.getCanonicalText());
+          final LocalizeValue message = ((EmptyResolveMessageProvider)reference).buildUnresolvedMessage(reference.getCanonicalText());
           holder.registerProblem(reference, message.get(), ProblemHighlightType.LIKE_UNKNOWN_SYMBOL);
         }
       }

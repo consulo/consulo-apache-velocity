@@ -15,8 +15,8 @@
  */
 package com.intellij.velocity.psi.directives;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import consulo.document.util.TextRange;
 import consulo.language.psi.PsiElement;

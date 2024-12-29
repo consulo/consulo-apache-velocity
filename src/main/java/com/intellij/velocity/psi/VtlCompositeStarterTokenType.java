@@ -16,7 +16,7 @@
 
 package com.intellij.velocity.psi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.velocity.psi.parsers.CompositeBodyParser;
 import org.jetbrains.annotations.NonNls;

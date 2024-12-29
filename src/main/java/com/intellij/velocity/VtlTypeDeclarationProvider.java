@@ -26,8 +26,8 @@ import consulo.codeEditor.Editor;
 import consulo.language.editor.action.TypeDeclarationProvider;
 import consulo.language.psi.PsiElement;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

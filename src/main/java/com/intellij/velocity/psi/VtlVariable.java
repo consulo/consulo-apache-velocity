@@ -19,7 +19,7 @@ package com.intellij.velocity.psi;
 import com.intellij.java.language.psi.PsiType;
 import consulo.language.psi.PsiNamedElement;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

@@ -7,7 +7,7 @@ import consulo.language.psi.PsiFile;
 import consulo.language.util.IncorrectOperationException;
 import consulo.project.Project;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 @IntentionMetaData(ignoreId = "velocity.LocalDefineVelocityPropertiesRefIntention", fileExtensions = "vm", categories = "Apache Velocity")

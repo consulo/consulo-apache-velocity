@@ -23,7 +23,7 @@ import consulo.language.editor.HighlightErrorFilter;
 import consulo.language.psi.PsiErrorElement;
 import consulo.language.psi.PsiFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

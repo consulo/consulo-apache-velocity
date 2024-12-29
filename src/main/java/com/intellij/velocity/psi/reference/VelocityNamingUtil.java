@@ -19,8 +19,8 @@ package com.intellij.velocity.psi.reference;
 import com.intellij.java.language.psi.*;
 import consulo.java.language.module.util.JavaClassNames;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import static consulo.util.lang.StringUtil.toLowerCase;
 import static consulo.util.lang.StringUtil.toUpperCase;

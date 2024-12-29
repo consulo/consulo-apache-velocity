@@ -20,7 +20,7 @@ import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import static com.intellij.velocity.psi.VtlCompositeElementTypes.REFERENCE_EXPRESSION;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.velocity.psi.VtlExpression;
 import consulo.language.ast.ASTNode;

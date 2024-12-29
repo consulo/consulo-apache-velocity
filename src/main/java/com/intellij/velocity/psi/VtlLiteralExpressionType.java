@@ -28,7 +28,7 @@ import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiReference;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Created by IntelliJ IDEA.

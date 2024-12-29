@@ -17,8 +17,8 @@ package com.intellij.velocity.psi.files;
 
 import static com.intellij.velocity.psi.VtlElementTypes.TEMPLATE_TEXT;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import consulo.colorScheme.EditorColorsScheme;
 import consulo.colorScheme.TextAttributesKey;

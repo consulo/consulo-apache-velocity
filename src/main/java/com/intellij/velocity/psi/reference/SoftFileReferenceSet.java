@@ -19,7 +19,7 @@ package com.intellij.velocity.psi.reference;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.path.FileReferenceSet;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

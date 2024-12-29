@@ -6,7 +6,7 @@ import consulo.codeEditor.Editor;
 import consulo.language.editor.intention.IntentionMetaData;
 import consulo.language.psi.PsiFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 @IntentionMetaData(ignoreId = "velocity.LocalDefineMacroLibraryRefIntention", fileExtensions = "vm", categories = "Apache Velocity")

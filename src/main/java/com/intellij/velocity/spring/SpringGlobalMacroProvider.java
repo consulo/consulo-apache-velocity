@@ -24,7 +24,7 @@ import com.intellij.velocity.psi.files.VtlFile;
 import consulo.language.psi.PsiDirectory;
 import consulo.language.psi.PsiFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 

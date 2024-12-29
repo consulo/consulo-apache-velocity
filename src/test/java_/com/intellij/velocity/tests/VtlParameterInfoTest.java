@@ -12,7 +12,7 @@ import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import com.intellij.velocity.psi.VtlCallable;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov

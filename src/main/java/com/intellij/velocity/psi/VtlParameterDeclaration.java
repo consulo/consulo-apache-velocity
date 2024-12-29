@@ -19,7 +19,7 @@ import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
 import consulo.language.ast.ASTNode;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

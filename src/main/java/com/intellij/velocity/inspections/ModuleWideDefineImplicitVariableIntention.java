@@ -7,7 +7,7 @@ import consulo.language.editor.intention.IntentionMetaData;
 import consulo.language.util.IncorrectOperationException;
 import consulo.project.Project;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 @IntentionMetaData(ignoreId = "velocity.ModuleWideDefineImplicitVariableIntention", fileExtensions = "vm", categories = "Apache Velocity")

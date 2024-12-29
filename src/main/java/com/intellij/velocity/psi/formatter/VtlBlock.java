@@ -18,8 +18,8 @@ package com.intellij.velocity.psi.formatter;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import consulo.language.ast.IElementType;
 import consulo.language.codeStyle.Alignment;

@@ -37,8 +37,8 @@ import consulo.fileTemplate.FileTemplateManager;
 import consulo.util.lang.ref.Ref;
 import consulo.virtualFileSystem.util.VirtualFileUtil;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.*;
 
 /**

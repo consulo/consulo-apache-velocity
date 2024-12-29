@@ -22,7 +22,7 @@ import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

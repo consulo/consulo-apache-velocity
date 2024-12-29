@@ -23,8 +23,8 @@ import consulo.language.editor.structureView.PsiStructureViewFactory;
 import consulo.language.editor.structureView.TemplateLanguageStructureViewBuilder;
 import consulo.language.psi.PsiFile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov

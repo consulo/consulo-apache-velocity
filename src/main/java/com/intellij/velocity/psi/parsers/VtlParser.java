@@ -21,7 +21,7 @@ import static com.intellij.velocity.psi.parsers.CompositeBodyParser.assertToken;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.consumeTokenIfPresent;
 import static com.intellij.velocity.psi.parsers.CompositeBodyParser.noForeachStarted;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.language.parser.PsiBuilder;
 import consulo.language.ast.IElementType;

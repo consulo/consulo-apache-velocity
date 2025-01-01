@@ -22,12 +22,12 @@ import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLoopVariable;
 import com.intellij.velocity.psi.VtlOperatorExpression;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.apache.velocity.localize.VelocityLocalize;
 import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.PsiElement;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
+import org.jetbrains.annotations.Nls;
 
 import static com.intellij.velocity.VelocityBundle.message;
 import static consulo.language.editor.inspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
@@ -39,59 +39,53 @@ import static consulo.language.editor.inspection.ProblemHighlightType.WEAK_WARNI
  * Date: 27.06.2008
  */
 @ExtensionImpl
-public class VtlTypesInspection extends VtlInspectionBase
-{
-	@Override
-	protected void registerProblems(PsiElement element, ProblemsHolder holder)
-	{
-		if(element instanceof VtlOperatorExpression)
-		{
-			final VtlOperatorExpression expression = (VtlOperatorExpression) element;
-			if(expression.getPsiType() != null)
-			{
-				return;
-			}
-			String message = expression.getIndefiniteTypeMessage();
-			if(message != null)
-			{
-				holder.registerProblem(expression, message, WEAK_WARNING);
-			}
-		}
-		else if(element instanceof VtlLoopVariable)
-		{
-			final VtlLoopVariable loopVariable = (VtlLoopVariable) element;
-			if(loopVariable.getPsiType() != null)
-			{
-				return;
-			}
-			VtlExpression expression = loopVariable.getIterableExpression();
-			if(expression == null)
-			{
-				return;
-			}
-			final PsiType type = expression.getPsiType();
-			if(type == null)
-			{
-				return;
-			}
-			String typeName = PsiUtil.getPresentableText(type);
-			holder.registerProblem(expression, message("illegal.iterable.expression.type", typeName), GENERIC_ERROR_OR_WARNING);
-		}
-	}
+public class VtlTypesInspection extends VtlInspectionBase {
+    @Override
+    protected void registerProblems(PsiElement element, ProblemsHolder holder) {
+        if (element instanceof VtlOperatorExpression) {
+            final VtlOperatorExpression expression = (VtlOperatorExpression) element;
+            if (expression.getPsiType() != null) {
+                return;
+            }
+            String message = expression.getIndefiniteTypeMessage();
+            if (message != null) {
+                holder.registerProblem(expression, message, WEAK_WARNING);
+            }
+        }
+        else if (element instanceof VtlLoopVariable) {
+            final VtlLoopVariable loopVariable = (VtlLoopVariable) element;
+            if (loopVariable.getPsiType() != null) {
+                return;
+            }
+            VtlExpression expression = loopVariable.getIterableExpression();
+            if (expression == null) {
+                return;
+            }
+            final PsiType type = expression.getPsiType();
+            if (type == null) {
+                return;
+            }
+            String typeName = PsiUtil.getPresentableText(type);
+            holder.registerProblem(expression, message("illegal.iterable.expression.type", typeName), GENERIC_ERROR_OR_WARNING);
+        }
+    }
 
-	@Override
-	@Nls
-	@Nonnull
-	public String getDisplayName()
-	{
-		return message("vtl.types.inspection");
-	}
+    @Override
+    @Nls
+    @Nonnull
+    public String getDisplayName() {
+        return message("vtl.types.inspection");
+    }
 
-	@Override
-	@NonNls
-	@Nonnull
-	public String getShortName()
-	{
-		return "VtlTypesInspection";
-	}
+    @Override
+    @Nonnull
+    public String getShortName() {
+        return "VtlTypesInspection";
+    }
+
+    @Nonnull
+    @Override
+    public LocalizeValue getDescription() {
+        return VelocityLocalize.inspectiondescriptionsVtltypesinspection();
+    }
 }

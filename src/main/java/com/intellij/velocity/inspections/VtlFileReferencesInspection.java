@@ -31,10 +31,9 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiReference;
 import consulo.localize.LocalizeValue;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
@@ -42,45 +41,54 @@ import jakarta.annotation.Nonnull;
 @ExtensionImpl
 public class VtlFileReferencesInspection extends VtlInspectionBase {
 
-  @RequiredReadAction
-  protected void registerProblems(PsiElement element, ProblemsHolder holder) {
-    if (element instanceof VtlParse) {
-      VtlArgumentList argumentList = ((VtlParse)element).getArgumentList();
-      if (argumentList == null) {
-        return;
-      }
-      VtlExpression[] arguments = argumentList.getArguments();
-      final String message = VelocityLocalize.vtlOnlyFirstParseArgumentWillBeParsed().get();
-      for (int i = 1; i < arguments.length; i++) {
-        holder.registerProblem(arguments[i], message, ProblemHighlightType.LIKE_UNUSED_SYMBOL);
-      }
-    }
-    else {
-      if (element instanceof VtlLiteralExpressionType.VtlStringLiteral) {
-        final PsiFile file = element.getContainingFile();
-        if (file instanceof VtlFile && ((VtlFile)file).isIdeTemplateFile()) {
-          return;
+    @Override
+    @RequiredReadAction
+    protected void registerProblems(PsiElement element, ProblemsHolder holder) {
+        if (element instanceof VtlParse) {
+            VtlArgumentList argumentList = ((VtlParse) element).getArgumentList();
+            if (argumentList == null) {
+                return;
+            }
+            VtlExpression[] arguments = argumentList.getArguments();
+            final String message = VelocityLocalize.vtlOnlyFirstParseArgumentWillBeParsed().get();
+            for (int i = 1; i < arguments.length; i++) {
+                holder.registerProblem(arguments[i], message, ProblemHighlightType.LIKE_UNUSED_SYMBOL);
+            }
         }
-        for (final PsiReference reference : element.getReferences()) {
-          if (reference.resolve() != null) {
-            continue;
-          }
-          final LocalizeValue message = ((EmptyResolveMessageProvider)reference).buildUnresolvedMessage(reference.getCanonicalText());
-          holder.registerProblem(reference, message.get(), ProblemHighlightType.LIKE_UNKNOWN_SYMBOL);
+        else {
+            if (element instanceof VtlLiteralExpressionType.VtlStringLiteral) {
+                final PsiFile file = element.getContainingFile();
+                if (file instanceof VtlFile && ((VtlFile) file).isIdeTemplateFile()) {
+                    return;
+                }
+                for (final PsiReference reference : element.getReferences()) {
+                    if (reference.resolve() != null) {
+                        continue;
+                    }
+                    final LocalizeValue message = ((EmptyResolveMessageProvider) reference).buildUnresolvedMessage(reference.getCanonicalText());
+                    holder.registerProblem(reference, message.get(), ProblemHighlightType.LIKE_UNKNOWN_SYMBOL);
+                }
+            }
         }
-      }
     }
-  }
 
-  @Nls
-  @Nonnull
-  public String getDisplayName() {
-    return VelocityBundle.message("vtl.file.references.inspection");
-  }
+    @Override
+    @Nls
+    @Nonnull
+    public String getDisplayName() {
+        return VelocityBundle.message("vtl.file.references.inspection");
+    }
 
-  @NonNls
-  @Nonnull
-  public String getShortName() {
-    return "VtlFileReferencesInspection";
-  }
+    @Override
+    @NonNls
+    @Nonnull
+    public String getShortName() {
+        return "VtlFileReferencesInspection";
+    }
+
+    @Nonnull
+    @Override
+    public LocalizeValue getDescription() {
+        return VelocityLocalize.inspectiondescriptionsVtlfilereferencesinspection();
+    }
 }

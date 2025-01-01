@@ -19,43 +19,50 @@ package com.intellij.velocity.inspections;
 import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.directives.VtlSet;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.apache.velocity.localize.VelocityLocalize;
 import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-
-import jakarta.annotation.Nonnull;
 
 import static com.intellij.velocity.VelocityBundle.message;
 import static consulo.language.editor.inspection.ProblemHighlightType.LIKE_UNUSED_SYMBOL;
 
 @ExtensionImpl
 public class VtlDirectiveArgsInspection extends VtlInspectionBase {
-  protected void registerProblems(PsiElement element, ProblemsHolder holder) {
-    if (element instanceof VtlSet) {
-      VtlSet vtlSet = (VtlSet)element;
-      String msg = null;
-      if (vtlSet.getAssignedMethodCallExpression() != null) {
-        holder.registerProblem(vtlSet.getFirstChild(), message("assignment.to.method.call"), LIKE_UNUSED_SYMBOL);
-      }
-      else {
-        PsiType assignedType = vtlSet.getAssignedVariableElementType();
-        if (PsiType.VOID.equals(assignedType)) {
-          holder.registerProblem(vtlSet.getFirstChild(), message("assignment.of.void"), LIKE_UNUSED_SYMBOL);
+    protected void registerProblems(PsiElement element, ProblemsHolder holder) {
+        if (element instanceof VtlSet) {
+            VtlSet vtlSet = (VtlSet) element;
+            String msg = null;
+            if (vtlSet.getAssignedMethodCallExpression() != null) {
+                holder.registerProblem(vtlSet.getFirstChild(), message("assignment.to.method.call"), LIKE_UNUSED_SYMBOL);
+            }
+            else {
+                PsiType assignedType = vtlSet.getAssignedVariableElementType();
+                if (PsiType.VOID.equals(assignedType)) {
+                    holder.registerProblem(vtlSet.getFirstChild(), message("assignment.of.void"), LIKE_UNUSED_SYMBOL);
+                }
+            }
         }
-      }
     }
-  }
 
-  @Nls
-  @Nonnull
-  public String getDisplayName() {
-    return message("vtl.directive.args.inspection");
-  }
+    @Nls
+    @Nonnull
+    public String getDisplayName() {
+        return message("vtl.directive.args.inspection");
+    }
 
-  @NonNls
-  @Nonnull
-  public String getShortName() {
-    return "VtlDirectiveArgsInspection";
-  }
+    @NonNls
+    @Nonnull
+    public String getShortName() {
+        return "VtlDirectiveArgsInspection";
+    }
+
+    @Nonnull
+    @Override
+    public LocalizeValue getDescription() {
+        return VelocityLocalize.vtlDirectiveArgsInspection();
+    }
 }

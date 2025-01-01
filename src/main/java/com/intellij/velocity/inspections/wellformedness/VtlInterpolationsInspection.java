@@ -21,14 +21,14 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.directives.VtlAssignment;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.apache.velocity.localize.VelocityLocalize;
 import consulo.language.editor.inspection.ProblemHighlightType;
 import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import consulo.language.psi.PsiElement;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
+import org.jetbrains.annotations.Nls;
 
 /**
  * @author Alexey Chmutov
@@ -36,16 +36,18 @@ import jakarta.annotation.Nonnull;
 @ExtensionImpl
 public class VtlInterpolationsInspection extends VtlInspectionBase {
 
+    @Override
     protected void registerProblems(consulo.language.psi.PsiElement element, ProblemsHolder holder) {
         if (element instanceof VtlParameterDeclaration) {
             PsiElement wouldBeFormalNotationStart = element.getFirstChild();
-            if(PsiUtil.isFormalNotationStart(wouldBeFormalNotationStart)) {
+            if (PsiUtil.isFormalNotationStart(wouldBeFormalNotationStart)) {
                 registerFormalNotationProblem(wouldBeFormalNotationStart.getNextSibling(), holder);
             }
-        } else if (element instanceof VtlAssignment) {
+        }
+        else if (element instanceof VtlAssignment) {
             PsiElement wouldBeVariableDeclared = ((VtlAssignment) element).getAssignedVariableElement();
             if (wouldBeVariableDeclared != null
-                    && PsiUtil.isFormalNotationStart(wouldBeVariableDeclared.getPrevSibling())) {
+                && PsiUtil.isFormalNotationStart(wouldBeVariableDeclared.getPrevSibling())) {
                 registerFormalNotationProblem(wouldBeVariableDeclared, holder);
             }
         }
@@ -53,23 +55,31 @@ public class VtlInterpolationsInspection extends VtlInspectionBase {
 
     private static void registerFormalNotationProblem(PsiElement element, ProblemsHolder holder) {
         holder.registerProblem(element, VelocityBundle.message("vtl.formal.notation.is.not.allowed"),
-                ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
+            ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
     }
 
+    @Override
     @Nonnull
     public HighlightDisplayLevel getDefaultLevel() {
         return HighlightDisplayLevel.ERROR;
     }
 
+    @Override
     @Nls
     @Nonnull
     public String getDisplayName() {
         return VelocityBundle.message("vtl.welformedness.inspection");
     }
 
-    @NonNls
+    @Override
     @Nonnull
     public String getShortName() {
         return "VtlInterpolationsInspection";
+    }
+
+    @Nonnull
+    @Override
+    public LocalizeValue getDescription() {
+        return VelocityLocalize.inspectiondescriptionsVtlinterpolationsinspection();
     }
 }

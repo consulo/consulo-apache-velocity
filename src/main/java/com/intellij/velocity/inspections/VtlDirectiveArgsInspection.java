@@ -32,6 +32,7 @@ import static consulo.language.editor.inspection.ProblemHighlightType.LIKE_UNUSE
 
 @ExtensionImpl
 public class VtlDirectiveArgsInspection extends VtlInspectionBase {
+    @Override
     protected void registerProblems(PsiElement element, ProblemsHolder holder) {
         if (element instanceof VtlSet) {
             VtlSet vtlSet = (VtlSet) element;
@@ -48,12 +49,14 @@ public class VtlDirectiveArgsInspection extends VtlInspectionBase {
         }
     }
 
+    @Override
     @Nls
     @Nonnull
     public String getDisplayName() {
         return message("vtl.directive.args.inspection");
     }
 
+    @Override
     @NonNls
     @Nonnull
     public String getShortName() {
@@ -63,6 +66,6 @@ public class VtlDirectiveArgsInspection extends VtlInspectionBase {
     @Nonnull
     @Override
     public LocalizeValue getDescription() {
-        return VelocityLocalize.vtlDirectiveArgsInspection();
+        return VelocityLocalize.inspectiondescriptionsVtldirectiveargsinspection();
     }
 }

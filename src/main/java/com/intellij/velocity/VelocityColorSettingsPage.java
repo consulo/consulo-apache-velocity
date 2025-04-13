@@ -20,12 +20,9 @@ import com.intellij.velocity.psi.files.VtlSyntaxHighlighter;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.colorScheme.TextAttributesKey;
 import consulo.colorScheme.setting.AttributesDescriptor;
-import consulo.colorScheme.setting.ColorDescriptor;
 import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
 import consulo.language.editor.highlight.SyntaxHighlighter;
-
 import jakarta.annotation.Nonnull;
-import java.util.Map;
 
 import static com.intellij.velocity.psi.files.VtlSyntaxHighlighter.*;
 
@@ -35,11 +32,11 @@ import static com.intellij.velocity.psi.files.VtlSyntaxHighlighter.*;
 @ExtensionImpl
 public class VelocityColorSettingsPage implements ColorSettingsPage
 {
-	private static final consulo.colorScheme.setting.AttributesDescriptor[] ATTRS;
+	private static final AttributesDescriptor[] ATTRS;
 
 	static
 	{
-		ATTRS = new consulo.colorScheme.setting.AttributesDescriptor[]{
+		ATTRS = new AttributesDescriptor[]{
 				createAttributesDescriptor("velocity.color.dot", VELOCITY_DOT),
 				createAttributesDescriptor("velocity.color.parenths", VELOCITY_PARENTHS),
 				createAttributesDescriptor("velocity.color.brackets", VELOCITY_BRACKETS),
@@ -59,36 +56,34 @@ public class VelocityColorSettingsPage implements ColorSettingsPage
 		};
 	}
 
-	private static consulo.colorScheme.setting.AttributesDescriptor createAttributesDescriptor(String displayNameKey, TextAttributesKey textAttributesKey)
+	private static AttributesDescriptor createAttributesDescriptor(String displayNameKey, TextAttributesKey textAttributesKey)
 	{
-		return new consulo.colorScheme.setting.AttributesDescriptor(VelocityBundle.message(displayNameKey), textAttributesKey);
+		return new AttributesDescriptor(VelocityBundle.message(displayNameKey), textAttributesKey);
 	}
 
-	@Nonnull
+	@Override
+    @Nonnull
 	public String getDisplayName()
 	{
 		return "Velocity";
 	}
 
-	@Nonnull
+	@Override
+    @Nonnull
 	public AttributesDescriptor[] getAttributeDescriptors()
 	{
 		return ATTRS;
 	}
 
-	@Nonnull
-	public ColorDescriptor[] getColorDescriptors()
-	{
-		return consulo.colorScheme.setting.ColorDescriptor.EMPTY_ARRAY;
-	}
-
-	@Nonnull
+	@Override
+    @Nonnull
 	public SyntaxHighlighter getHighlighter()
 	{
 		return new VtlSyntaxHighlighter();
 	}
 
-	@Nonnull
+	@Override
+    @Nonnull
 	public String getDemoText()
 	{
 		return "#* comment  \n" +
@@ -106,10 +101,5 @@ public class VelocityColorSettingsPage implements ColorSettingsPage
 				"#end\n" +
 				"#m1(4 5 7)\n" +
 				"#{m1}(8, 7, 6)\n";
-	}
-
-	public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap()
-	{
-		return null;
 	}
 }

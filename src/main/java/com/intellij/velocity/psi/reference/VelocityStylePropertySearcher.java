@@ -22,71 +22,54 @@ import com.intellij.java.language.psi.PsiMethod;
 import com.intellij.velocity.psi.files.VtlFileType;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.ApplicationManager;
-import consulo.application.util.function.Processor;
 import consulo.content.scope.SearchScope;
-import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiReference;
 import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.search.PsiSearchHelper;
 import consulo.language.psi.search.UsageSearchContext;
 import consulo.project.Project;
 import consulo.util.lang.StringUtil;
-import consulo.util.lang.ref.Ref;
-
+import consulo.util.lang.ref.SimpleReference;
 import jakarta.annotation.Nonnull;
+
+import java.util.function.Predicate;
 
 /**
  * @author Alexey Chmutov
  */
 @ExtensionImpl
-public class VelocityStylePropertySearcher implements MethodReferencesSearchExecutor
-{
-	@Override
-	public boolean execute(@Nonnull final MethodReferencesSearch.SearchParameters parameters, @Nonnull final Processor<? super PsiReference> consumer)
-	{
-		final PsiMethod method = parameters.getMethod();
-		final Ref<String> name = Ref.create(null);
-		final consulo.util.lang.ref.Ref<Project> project = consulo.util.lang.ref.Ref.create(null);
-		ApplicationManager.getApplication().runReadAction(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if(!method.isValid())
-				{
-					return;
-				}
-				project.set(method.getProject());
-				name.set(VelocityNamingUtil.getPropertyNameFromAccessor(method));
-			}
-		});
-		String nameRefValue = name.get();
-		if(StringUtil.isEmpty(nameRefValue))
-		{
-			return true;
-		}
-		SearchScope searchScope = parameters.getScope();
-		if(searchScope instanceof consulo.language.psi.scope.GlobalSearchScope)
-		{
-			searchScope = GlobalSearchScope.getScopeRestrictedByFileTypes((consulo.language.psi.scope.GlobalSearchScope) searchScope, VtlFileType.INSTANCE);
-		}
+public class VelocityStylePropertySearcher implements MethodReferencesSearchExecutor {
+    @Override
+    public boolean execute(@Nonnull final MethodReferencesSearch.SearchParameters parameters, @Nonnull final Predicate<? super PsiReference> consumer) {
+        final PsiMethod method = parameters.getMethod();
+        final SimpleReference<String> name = SimpleReference.create(null);
+        final SimpleReference<Project> project = SimpleReference.create(null);
+        ApplicationManager.getApplication().runReadAction(() -> {
+            if (!method.isValid()) {
+                return;
+            }
+            project.set(method.getProject());
+            name.set(VelocityNamingUtil.getPropertyNameFromAccessor(method));
+        });
+        String nameRefValue = name.get();
+        if (StringUtil.isEmpty(nameRefValue)) {
+            return true;
+        }
+        SearchScope searchScope = parameters.getScope();
+        if (searchScope instanceof consulo.language.psi.scope.GlobalSearchScope) {
+            searchScope = GlobalSearchScope.getScopeRestrictedByFileTypes((GlobalSearchScope) searchScope, VtlFileType.INSTANCE);
+        }
 
-		final consulo.language.psi.search.TextOccurenceProcessor processor = new consulo.language.psi.search.TextOccurenceProcessor()
-		{
-			@Override
-			public boolean execute(PsiElement element, int offsetInElement)
-			{
-				final consulo.language.psi.PsiReference[] refs = element.getReferences();
-				for(consulo.language.psi.PsiReference ref : refs)
-				{
-					if(ref.getRangeInElement().contains(offsetInElement) && ref.isReferenceTo(method))
-					{
-						return consumer.process(ref);
-					}
-				}
-				return true;
-			}
-		};
-		final consulo.language.psi.search.PsiSearchHelper helper = consulo.language.psi.search.PsiSearchHelper.SERVICE.getInstance(project.get());
-		return helper.processElementsWithWord(processor, searchScope, nameRefValue, UsageSearchContext.IN_FOREIGN_LANGUAGES, false);
-	}
+        final consulo.language.psi.search.TextOccurenceProcessor processor = (element, offsetInElement) -> {
+            final PsiReference[] refs = element.getReferences();
+            for (PsiReference ref : refs) {
+                if (ref.getRangeInElement().contains(offsetInElement) && ref.isReferenceTo(method)) {
+                    return consumer.test(ref);
+                }
+            }
+            return true;
+        };
+        final PsiSearchHelper helper = PsiSearchHelper.getInstance(project.get());
+        return helper.processElementsWithWord(processor, searchScope, nameRefValue, UsageSearchContext.IN_FOREIGN_LANGUAGES, false);
+    }
 }

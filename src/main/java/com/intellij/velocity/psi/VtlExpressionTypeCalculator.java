@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi;
 
+import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.java.language.psi.PsiType;
 import com.intellij.java.language.psi.util.TypeConversionUtil;
-import consulo.java.language.module.util.JavaClassNames;
-
 import jakarta.annotation.Nonnull;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Alexey Chmutov
- * Date: 27.06.2008
+ * @author Alexey Chmutov
+ * @since 2008-06-27
  */
 public abstract class VtlExpressionTypeCalculator
 {
@@ -68,12 +65,12 @@ public abstract class VtlExpressionTypeCalculator
 		public PsiType calculateBinary(@Nonnull VtlExpression leftOperand, @Nonnull VtlExpression rightOperand)
 		{
 			PsiType rightType = rightOperand.getPsiType();
-			if(rightType == null || rightType.equalsToText(JavaClassNames.JAVA_LANG_STRING))
+			if(rightType == null || rightType.equalsToText(CommonClassNames.JAVA_LANG_STRING))
 			{
 				return rightType;
 			}
 			PsiType leftType = leftOperand.getPsiType();
-			if(leftType == null || leftType.equalsToText(JavaClassNames.JAVA_LANG_STRING))
+			if(leftType == null || leftType.equalsToText(CommonClassNames.JAVA_LANG_STRING))
 			{
 				return leftType;
 			}

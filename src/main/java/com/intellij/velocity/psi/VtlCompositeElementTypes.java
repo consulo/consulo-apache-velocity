@@ -15,10 +15,10 @@
  */
 package com.intellij.velocity.psi;
 
+import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.directives.*;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
-import consulo.java.language.module.util.JavaClassNames;
 import consulo.language.ast.ASTNode;
 import consulo.language.ast.IFileElementType;
 import consulo.language.ast.TokenSet;
@@ -181,11 +181,11 @@ public interface VtlCompositeElementTypes
 	VtlCompositeElementType INTEGER_LITERAL = new VtlLiteralExpressionType("IntegerLiteral", PsiType.INT);
 	VtlCompositeElementType DOUBLE_LITERAL = new VtlLiteralExpressionType("DoubleLiteral", PsiType.DOUBLE);
 	VtlCompositeElementType BOOLEAN_LITERAL = new VtlLiteralExpressionType("BooleanLiteral", PsiType.BOOLEAN);
-	VtlCompositeElementType DOUBLEQUOTED_TEXT = new VtlLiteralExpressionType("DoubleQuotedText", JavaClassNames.JAVA_LANG_STRING);
-	VtlCompositeElementType STRING_LITERAL = new VtlLiteralExpressionType("StringLiteral", JavaClassNames.JAVA_LANG_STRING);
-	VtlCompositeElementType LIST_EXPRESSION = new VtlLiteralExpressionType("ListExpression", JavaClassNames.JAVA_UTIL_LIST);
+	VtlCompositeElementType DOUBLEQUOTED_TEXT = new VtlLiteralExpressionType("DoubleQuotedText", CommonClassNames.JAVA_LANG_STRING);
+	VtlCompositeElementType STRING_LITERAL = new VtlLiteralExpressionType("StringLiteral", CommonClassNames.JAVA_LANG_STRING);
+	VtlCompositeElementType LIST_EXPRESSION = new VtlLiteralExpressionType("ListExpression", CommonClassNames.JAVA_UTIL_LIST);
 	VtlCompositeElementType RANGE_EXPRESSION = new VtlCompositeElementType("RangeExpression");
-	VtlCompositeElementType MAP_EXPRESSION = new VtlLiteralExpressionType("MapExpression", JavaClassNames.JAVA_UTIL_MAP);
+	VtlCompositeElementType MAP_EXPRESSION = new VtlLiteralExpressionType("MapExpression", CommonClassNames.JAVA_UTIL_MAP);
 
 	TokenSet STRING_LITERALS = consulo.language.ast.TokenSet.create(STRING_LITERAL, DOUBLEQUOTED_TEXT);
 }

@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.reference;
 
 import com.intellij.java.language.psi.*;
 import com.intellij.java.language.psi.search.searches.SuperMethodsSearch;
 import com.intellij.java.language.psi.util.MethodSignature;
 import com.intellij.java.language.psi.util.MethodSignatureBackedByPsiMethod;
-import consulo.java.language.module.util.JavaClassNames;
-
 import jakarta.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -124,12 +122,12 @@ public class VelocityStylePropertyResolveHelper
 				}
 				PsiParameter parameter = parameterList.getParameters()[0];
 				final PsiElementFactory factory = JavaPsiFacade.getInstance(method.getProject()).getElementFactory();
-				PsiClassType javaLangObject = factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_OBJECT, method.getResolveScope());
+				PsiClassType javaLangObject = factory.createTypeByFQClassName(CommonClassNames.JAVA_LANG_OBJECT, method.getResolveScope());
 				if(parameter.getType().isAssignableFrom(javaLangObject))
 				{
 					return PropertyAccessorMatchLevel.GetByObjectMethod;
 				}
-				PsiClassType javaLangString = factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_STRING, method.getResolveScope());
+				PsiClassType javaLangString = factory.createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING, method.getResolveScope());
 				if(parameter.getType().isAssignableFrom(javaLangString))
 				{
 					return PropertyAccessorMatchLevel.GetByStringMethod;

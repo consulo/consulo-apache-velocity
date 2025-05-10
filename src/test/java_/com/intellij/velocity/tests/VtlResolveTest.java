@@ -1,23 +1,22 @@
 package com.intellij.velocity.tests;
 
+import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.lang.properties.references.PropertyReference;
 import com.intellij.testFramework.builders.JavaModuleFixtureBuilder;
 import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
-import java.util.function.Function;
-
 import com.intellij.velocity.VelocityBundle;
+import com.intellij.velocity.psi.VtlImplicitVariable;
 import com.intellij.velocity.psi.VtlLoopVariable;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
 import com.intellij.velocity.psi.VtlVariable;
-import com.intellij.velocity.psi.VtlImplicitVariable;
 import com.intellij.velocity.psi.directives.VtlForeach;
 import com.intellij.velocity.psi.files.VtlFile;
-import consulo.java.module.util.JavaClassNames;
 import consulo.language.psi.ResolveResult;
 import consulo.language.psi.meta.PsiPresentableMetaData;
 import consulo.util.collection.ContainerUtil;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author Alexey Chmutov
@@ -181,7 +180,7 @@ public abstract class VtlResolveTest extends JavaCodeInsightFixtureTestCase {
                 "  public Object get(Object o) { return o;}" +
                 "  public Object get(String s) { return s;}" +
                 "}");
-        doTestGetMethod(JavaClassNames.JAVA_LANG_STRING);
+        doTestGetMethod(CommonClassNames.JAVA_LANG_STRING);
     }
 
     public void testGetByObject() throws Throwable {
@@ -189,7 +188,7 @@ public abstract class VtlResolveTest extends JavaCodeInsightFixtureTestCase {
                 "public class GetterOwner {" +
                 "  public Object get(Object o) { return o;}" +
                 "}");
-        doTestGetMethod(JavaClassNames.JAVA_LANG_OBJECT);
+        doTestGetMethod(CommonClassNames.JAVA_LANG_OBJECT);
     }
 
     private void doTestGetMethod(String className) throws Throwable {

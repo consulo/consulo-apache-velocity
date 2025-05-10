@@ -18,11 +18,9 @@ package com.intellij.velocity.psi;
 import com.intellij.java.language.psi.*;
 import com.intellij.java.language.psi.util.TypeConversionUtil;
 import com.intellij.velocity.VelocityBundle;
-import consulo.java.language.module.util.JavaClassNames;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.scope.GlobalSearchScope;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -101,24 +99,15 @@ public class VtlLoopVariable extends VtlPresentableNamedElement implements VtlVa
 			PsiTypeParameter[] paremeters = iterableClass.getTypeParameters();
 			int paramIndex = ((Integer) iterable[1]).intValue();
 			PsiType result = paramIndex < paremeters.length ? substitutor.substitute(paremeters[paramIndex]) : null;
-			return result != null ? result : factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_OBJECT, scope);
+			return result != null ? result : factory.createTypeByFQClassName(CommonClassNames.JAVA_LANG_OBJECT, scope);
 		}
 		return null;
 	}
 
 	private static final Object[][] VELOCITY_ITERABLES = {
-			{
-					JavaClassNames.JAVA_UTIL_ITERATOR,
-					0
-			},
-			{
-					JavaClassNames.JAVA_UTIL_COLLECTION,
-					0
-			},
-			{
-					JavaClassNames.JAVA_UTIL_MAP,
-					1
-			}
+			{CommonClassNames.JAVA_UTIL_ITERATOR, 0},
+			{CommonClassNames.JAVA_UTIL_COLLECTION, 0},
+			{CommonClassNames.JAVA_UTIL_MAP, 1}
 	};
 
 	public static String[] getVelocityIterables(@Nonnull String className)

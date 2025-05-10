@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.reference;
 
 import com.intellij.java.language.psi.*;
-import consulo.java.language.module.util.JavaClassNames;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -38,7 +35,7 @@ public class VelocityNamingUtil
 	public static boolean isWaitOrNotifyOfObject(@Nonnull PsiMethod method)
 	{
 		PsiClass psiClass = method.getContainingClass();
-		if(psiClass == null || !JavaClassNames.JAVA_LANG_OBJECT.equals(psiClass.getQualifiedName()))
+		if(psiClass == null || !CommonClassNames.JAVA_LANG_OBJECT.equals(psiClass.getQualifiedName()))
 		{
 			return false;
 		}
@@ -91,12 +88,12 @@ public class VelocityNamingUtil
 		}
 		PsiParameter parameter = parameterList.getParameters()[0];
 		final PsiElementFactory factory = JavaPsiFacade.getInstance(method.getProject()).getElementFactory();
-		PsiClassType javaLangString = factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_STRING, method.getResolveScope());
+		PsiClassType javaLangString = factory.createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING, method.getResolveScope());
 		if(parameter.getType().isAssignableFrom(javaLangString))
 		{
 			return true;
 		}
-		PsiClassType javaLangObject = factory.createTypeByFQClassName(JavaClassNames.JAVA_LANG_OBJECT, method.getResolveScope());
+		PsiClassType javaLangObject = factory.createTypeByFQClassName(CommonClassNames.JAVA_LANG_OBJECT, method.getResolveScope());
 		return parameter.getType().isAssignableFrom(javaLangObject);
 	}
 

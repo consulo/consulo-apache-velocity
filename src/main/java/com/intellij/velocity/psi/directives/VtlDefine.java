@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.directives;
 
+import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.java.language.psi.JavaPsiFacade;
 import com.intellij.java.language.psi.PsiType;
-import consulo.java.language.module.util.JavaClassNames;
 import consulo.language.ast.ASTNode;
 
 /**
@@ -34,7 +33,7 @@ public class VtlDefine extends VtlAssignment
 	@Override
 	public PsiType getAssignedVariableElementType()
 	{
-		return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(JavaClassNames.JAVA_LANG_STRING,
+		return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING,
 				getResolveScope());
 	}
 }

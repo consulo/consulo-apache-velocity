@@ -1,12 +1,10 @@
 package com.intellij.velocity.tests;
 
-import com.intellij.psi.PsiType;
-import consulo.language.psi.util.PsiTreeUtil;
+import com.intellij.java.language.psi.CommonClassNames;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.testFramework.fixtures.JavaCodeInsightFixtureTestCase;
 import com.intellij.velocity.psi.VtlExpression;
-
-import static consulo.java.module.util.JavaClassNames.JAVA_LANG_STRING;
-import static com.intellij.psi.PsiType.*;
+import consulo.language.psi.util.PsiTreeUtil;
 
 /**
  * @author : Alexey Chmutov
@@ -14,23 +12,23 @@ import static com.intellij.psi.PsiType.*;
 public abstract class VtlExpressionTypeTest extends JavaCodeInsightFixtureTestCase {
 
     public void testLeftString() throws Throwable {
-        assertExpressionType(JAVA_LANG_STRING);
+        assertExpressionType(CommonClassNames.JAVA_LANG_STRING);
     }
 
     public void testRightString() throws Throwable {
-        assertExpressionType(JAVA_LANG_STRING);
+        assertExpressionType(CommonClassNames.JAVA_LANG_STRING);
     }
 
     public void testIntPlusDouble() throws Throwable {
-        assertExpressionType(DOUBLE);
+        assertExpressionType(PsiType.DOUBLE);
     }
 
     public void testIntGtDouble() throws Throwable {
-        assertExpressionType(BOOLEAN);
+        assertExpressionType(PsiType.BOOLEAN);
     }
 
     public void testBooleanOrInt() throws Throwable {
-        assertExpressionType(BOOLEAN);
+        assertExpressionType(PsiType.BOOLEAN);
     }
 
     public void testStringMinusInt() throws Throwable {
@@ -42,11 +40,11 @@ public abstract class VtlExpressionTypeTest extends JavaCodeInsightFixtureTestCa
     }
 
     public void testNotString() throws Throwable {
-        assertExpressionType(BOOLEAN);
+        assertExpressionType(PsiType.BOOLEAN);
     }
 
     public void testNotDouble() throws Throwable {
-        assertExpressionType(BOOLEAN);
+        assertExpressionType(PsiType.BOOLEAN);
     }
 
     public void testMinusString() throws Throwable {
@@ -54,7 +52,7 @@ public abstract class VtlExpressionTypeTest extends JavaCodeInsightFixtureTestCa
     }
 
     public void testMinusInt() throws Throwable {
-        assertExpressionType(INT);
+        assertExpressionType(PsiType.INT);
     }
 
     protected void assertExpressionType(PsiType type) throws Throwable {

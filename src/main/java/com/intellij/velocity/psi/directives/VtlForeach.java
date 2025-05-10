@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.directives;
 
+import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.java.language.psi.JavaPsiFacade;
 import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.VelocityBundle;
@@ -23,7 +23,6 @@ import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlCompositeElementTypes;
 import com.intellij.velocity.psi.VtlDirectiveHeader;
 import com.intellij.velocity.psi.VtlVariable;
-import consulo.java.language.module.util.JavaClassNames;
 import consulo.language.ast.ASTNode;
 import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.impl.psi.RenameableFakePsiElement;
@@ -34,10 +33,10 @@ import consulo.language.psi.resolve.ResolveState;
 import consulo.language.psi.search.ReferencesSearch;
 import consulo.language.util.IncorrectOperationException;
 import consulo.ui.image.Image;
-import org.jetbrains.annotations.NonNls;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import org.jetbrains.annotations.NonNls;
+
 import java.util.Collection;
 
 
@@ -91,7 +90,7 @@ public class VtlForeach extends VtlDirectiveImpl
 	{
 		if(velocityCountElement == null)
 		{
-			velocityCountElement = new FixedNameReferenceElement("velocityCount", JavaClassNames.JAVA_LANG_INTEGER);
+			velocityCountElement = new FixedNameReferenceElement("velocityCount", CommonClassNames.JAVA_LANG_INTEGER);
 		}
 		return velocityCountElement;
 	}
@@ -100,7 +99,7 @@ public class VtlForeach extends VtlDirectiveImpl
 	{
 		if(velocityHasNextElement == null)
 		{
-			velocityHasNextElement = new FixedNameReferenceElement("velocityHasNext", JavaClassNames.JAVA_LANG_BOOLEAN);
+			velocityHasNextElement = new FixedNameReferenceElement("velocityHasNext", CommonClassNames.JAVA_LANG_BOOLEAN);
 		}
 		return velocityHasNextElement;
 	}

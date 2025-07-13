@@ -1,148 +1,152 @@
-number:
-  text: number
-identifier:
-  text: identifier
-file.type.description:
-  text: Velocity template files
-expression.expected:
-  text: Expression expected
-variable.name.expected:
-  text: Variable name expected
-tab.structureview.vtl.view:
-  text: Velocity view
-velocity.inspections.group:
-  text: Velocity inspections
-vtl.welformedness.inspection:
-  text: Welformedness inspection
-vtl.references.inspection:
-  text: References inspection
-vtl.types.inspection:
-  text: Types inspection
-vtl.directive.args.inspection:
-  text: 'Directive arguments inspection '
-vtl.file.references.inspection:
-  text: File references inspection
-error.cannot.resolve.variable:
-  text: Cannot resolve variable ''{0}''
-error.cannot.resolve.property:
-  text: Cannot resolve property ''{0}'' of class ''{1}''
-error.cannot.resolve.method:
-  text: Cannot resolve method ''{0}'' of class ''{1}''
-error.no.applicable.method:
-  text: There is no method ''{0}'' in ''{1}'' applicable to {2}
-error.cannot.resolve.macro:
-  text: Cannot resolve macro ''{0}''
-error.wrong.number.of.arguments.for.macro:
-  text: Call of ''{0}'' with wrong number of arguments
-unclosed.directive:
-  text: Unclosed directive
 add.implicit.variable.fix.name:
-  text: Define implicit variable in comment
-add.implicit.variable.fix.name.local:
-  text: Define implicit variable (in comment in current file)
+    text: Define implicit variable in comment
 add.implicit.variable.fix.name.external:
-  text: Define implicit variable externally (for this file only)
+    text: Define implicit variable externally (for this file only)
+add.implicit.variable.fix.name.local:
+    text: Define implicit variable (in comment in current file)
 add.implicit.variable.fix.name.module.wide:
-  text: Define implicit variable externally (module-wide)
+    text: Define implicit variable externally (module-wide)
 add.macro.library.ref.fix.name:
-  text: Define macro library reference in comment
-add.macro.library.ref.fix.name.local:
-  text: Define macro library reference (in comment in current file)
+    text: Define macro library reference in comment
 add.macro.library.ref.fix.name.external:
-  text: Define macro library reference externally (for this file only)
+    text: Define macro library reference externally (for this file only)
+add.macro.library.ref.fix.name.local:
+    text: Define macro library reference (in comment in current file)
 add.macro.library.ref.fix.name.module.wide:
-  text: Define macro library reference externally (module-wide)
+    text: Define macro library reference externally (module-wide)
 add.velocity.properties.ref.fix.name:
-  text: Define velocity.properties file reference in comment
-add.velocity.properties.ref.fix.name.local:
-  text: Define velocity.properties file reference (in comment in current file)
+    text: Define velocity.properties file reference in comment
 add.velocity.properties.ref.fix.name.external:
-  text: Define velocity.properties file reference externally (for this file only)
+    text: Define velocity.properties file reference externally (for this file only)
+add.velocity.properties.ref.fix.name.local:
+    text: Define velocity.properties file reference (in comment in current file)
 add.velocity.properties.ref.fix.name.module.wide:
-  text: Define velocity.properties file reference externally (module-wide)
-invalid.token:
-  text: Invalid token ''{0}''
-token.expected:
-  text: '''''{0}'''' expected'
-parameter.expected:
-  text: Parameter declaration expected
-operand.expected:
-  text: Operand expected
-loop.variable.expected:
-  text: Loop variable expected
-defined.variable.expected:
-  text: Defined variable expected
-type.name.variable:
-  text: variable
-type.name.loop.variable:
-  text: loop variable
-type.name.macro.parameter:
-  text: macro parameter
-type.name.macro:
-  text: macro
+    text: Define velocity.properties file reference externally (module-wide)
 argument.list.expected:
-  text: Argument list expected
-macro.declaration.expected:
-  text: Macro name and parameter list expected
-operation.not.allowed:
-  text: Operation is not allowed
-vtl.formal.notation.is.not.allowed:
-  text: Formal notation is not allowed here
-vtl.break.should.be.within.foreach:
-  text: '#BREAK directive should be within #FOREACH directive'
-vtl.only.first.parse.argument.will.be.parsed:
-  text: 'Only first file will be parsed within #parse'
-invalid.operand.type:
-  text: 'Invalid type of the operand: ''''{0}'''''
-invalid.operands.type:
-  text: 'Invalid types of the operands: ''''{0}'''' and ''''{1}'''''
-invalid.java.type:
-  text: Invalid Java type
-illegal.iterable.expression.type:
-  text: 'Iillegal iterable expression type: ''''{0}'''''
-macro.is.already.defined:
-  text: Macro ''{0}'' is already defined in ''{1}''
-duplicated.parameter.name:
-  text: Duplicated parameter name ''{0}''
-macro.declaration.will.be.ignored:
-  text: Macro ''{0}'' is already defined in ''{1}'' and will be ignored in ''{2}''
-choose.external.definitions.file:
-  text: Choose external implicit variable definitions file
-will.be.considered.as.macro.call:
-  text: Will be considered as macro call, '(' expected
-assignment.to.method.call:
-  text: Assignment to method call has no effect
+    text: Argument list expected
 assignment.of.void:
-  text: Assignment of void has no effect
-velocity.color.dot:
-  text: Dot
-velocity.color.parenths:
-  text: Parentheses
-velocity.color.brackets:
-  text: Brackets
-velocity.color.braces:
-  text: Braces
-velocity.color.operation.sign:
-  text: Operation sign
-velocity.color.string:
-  text: String literal
-velocity.color.escape:
-  text: Escape character
-velocity.color.number:
-  text: Number literal
-velocity.color.keyword:
-  text: Keyword
-velocity.color.comma:
-  text: Comma
-velocity.color.semicolon:
-  text: Semicolon
-velocity.color.directive:
-  text: Built-in directive
-velocity.color.reference:
-  text: Reference and macro call
-velocity.color.comment:
-  text: Comment
+    text: Assignment of void has no effect
+assignment.to.method.call:
+    text: Assignment to method call has no effect
+choose.external.definitions.file:
+    text: Choose external implicit variable definitions file
+defined.variable.expected:
+    text: Defined variable expected
+duplicated.parameter.name:
+    text: Duplicated parameter name ''{0}''
+error.cannot.resolve.macro:
+    text: Cannot resolve macro ''{0}''
+error.cannot.resolve.method:
+    text: Cannot resolve method ''{0}'' of class ''{1}''
+error.cannot.resolve.property:
+    text: Cannot resolve property ''{0}'' of class ''{1}''
+error.cannot.resolve.variable:
+    text: Cannot resolve variable ''{0}''
+error.no.applicable.method:
+    text: There is no method ''{0}'' in ''{1}'' applicable to {2}
+error.wrong.number.of.arguments.for.macro:
+    text: Call of ''{0}'' with wrong number of arguments
+expression.expected:
+    text: Expression expected
+file.type.description:
+    text: Velocity template files
+identifier:
+    text: identifier
+illegal.iterable.expression.type:
+    text: 'Iillegal iterable expression type: ''''{0}'''''
+invalid.java.type:
+    text: Invalid Java type
+invalid.operand.type:
+    text: 'Invalid type of the operand: ''''{0}'''''
+invalid.operands.type:
+    text: 'Invalid types of the operands: ''''{0}'''' and ''''{1}'''''
+invalid.token:
+    text: Invalid token ''{0}''
+loop.variable.expected:
+    text: Loop variable expected
+macro.declaration.expected:
+    text: Macro name and parameter list expected
+macro.declaration.will.be.ignored:
+    text: Macro ''{0}'' is already defined in ''{1}'' and will be ignored in ''{2}''
+macro.is.already.defined:
+    text: Macro ''{0}'' is already defined in ''{1}''
+number:
+    text: number
+operand.expected:
+    text: Operand expected
+operation.not.allowed:
+    text: Operation is not allowed
+parameter.expected:
+    text: Parameter declaration expected
+tab.structureview.vtl.view:
+    text: Velocity view
+token.expected:
+    text: '''''{0}'''' expected'
+type.name.loop.variable:
+    text: loop variable
+type.name.macro:
+    text: macro
+type.name.macro.parameter:
+    text: macro parameter
+type.name.variable:
+    text: variable
+unclosed.directive:
+    text: Unclosed directive
+variable.name.expected:
+    text: Variable name expected
 velocity.color.bad.character:
-  text: Bad character
+    text: Bad character
+velocity.color.braces:
+    text: Braces
+velocity.color.brackets:
+    text: Brackets
+velocity.color.comma:
+    text: Comma
+velocity.color.comment:
+    text: Comment
+velocity.color.directive:
+    text: Built-in directive
+velocity.color.dot:
+    text: Dot
+velocity.color.escape:
+    text: Escape character
+velocity.color.keyword:
+    text: Keyword
+velocity.color.number:
+    text: Number literal
+velocity.color.operation.sign:
+    text: Operation sign
+velocity.color.parenths:
+    text: Parentheses
+velocity.color.reference:
+    text: Reference and macro call
 velocity.color.scripting.background:
-  text: Scripting background
+    text: Scripting background
+velocity.color.semicolon:
+    text: Semicolon
+velocity.color.string:
+    text: String literal
+velocity.inspections.group:
+    text: Velocity inspections
+vtl.break.should.be.within.foreach:
+    text: '#BREAK directive should be within #FOREACH directive'
+vtl.directive.args.inspection:
+    text: 'Directive arguments inspection '
+vtl.file.references.inspection:
+    text: File references inspection
+vtl.file.type.display.name:
+    text: Apache Velocity
+vtl.formal.notation.is.not.allowed:
+    text: Formal notation is not allowed here
+vtl.language.display.name:
+    text: Apache Velocity
+vtl.only.first.parse.argument.will.be.parsed:
+    text: 'Only first file will be parsed within #parse'
+vtl.references.inspection:
+    text: References inspection
+vtl.types.inspection:
+    text: Types inspection
+vtl.welformedness.inspection:
+    text: Welformedness inspection
+will.be.considered.as.macro.call:
+    text: Will be considered as macro call, '(' expected

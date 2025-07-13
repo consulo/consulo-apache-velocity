@@ -27,9 +27,8 @@ import consulo.ui.image.Image;
  */
 @Deprecated
 @DeprecationInfo("Use VelocityIconGroup")
-public interface VtlIcons
-{
-	Image SHARP_ICON = VelocityIconGroup.sharp();
+public interface VtlIcons {
+    Image SHARP_ICON = VelocityIconGroup.sharp();
 
-	Image VTL_ICON = VelocityIconGroup.velocity();
+    Image VTL_ICON = VelocityIconGroup.velocity();
 }

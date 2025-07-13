@@ -15,64 +15,61 @@
  */
 package com.intellij.velocity.psi.files;
 
-import consulo.language.file.LanguageFileType;
-import consulo.language.template.TemplateLanguageFileType;
 import com.intellij.velocity.VtlIcons;
 import com.intellij.velocity.psi.VtlLanguage;
 import consulo.apache.velocity.localize.VelocityLocalize;
+import consulo.language.file.LanguageFileType;
+import consulo.language.template.TemplateLanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
-
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlFileType extends LanguageFileType implements TemplateLanguageFileType
-{
-	public static final VtlFileType INSTANCE = new VtlFileType();
+public class VtlFileType extends LanguageFileType implements TemplateLanguageFileType {
+    public static final VtlFileType INSTANCE = new VtlFileType();
 
-	private VtlFileType()
-	{
-		super(VtlLanguage.INSTANCE);
-	}
+    private VtlFileType() {
+        super(VtlLanguage.INSTANCE);
+    }
 
-	@Override
-	@Nonnull
-	public String getId()
-	{
-		return "VTL";
-	}
+    @Override
+    @Nonnull
+    public String getId() {
+        return "VTL";
+    }
 
-	@Override
-	@Nonnull
-	public LocalizeValue getDescription()
-	{
-		return VelocityLocalize.fileTypeDescription();
-	}
+    @Nonnull
+    @Override
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlFileTypeDisplayName();
+    }
 
-	@Override
-	@Nonnull
-	public String getDefaultExtension()
-	{
-		return "vm";
-	}
+    @Override
+    @Nonnull
+    public LocalizeValue getDescription() {
+        return VelocityLocalize.fileTypeDescription();
+    }
 
-	@Override
-	@Nullable
-	public Image getIcon()
-	{
-		return VtlIcons.VTL_ICON;
-	}
+    @Override
+    @Nonnull
+    public String getDefaultExtension() {
+        return "vm";
+    }
 
-	@Nonnull
-	public String[] getExtensions()
-	{
-		return new String[]{
-				getDefaultExtension(),
-				"ft",
-				"vsl"
-		};
-	}
+    @Override
+    @Nonnull
+    public Image getIcon() {
+        return VtlIcons.VTL_ICON;
+    }
+
+    @Nonnull
+    public String[] getExtensions() {
+        return new String[]{
+            getDefaultExtension(),
+            "ft",
+            "vsl"
+        };
+    }
 }

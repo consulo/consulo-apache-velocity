@@ -57,7 +57,7 @@ import static com.intellij.velocity.psi.VtlElementTypes.*;
     zzBuffer = "";
     zzCurrentPos = 0;
     zzEndRead = 0;
-    zzFin = new boolean [ZZ_BUFFERSIZE+1];
+    zzFin = null;
     zzLexicalState = 0;
     zzMarkedPos = 0;
     zzStartRead = 0;

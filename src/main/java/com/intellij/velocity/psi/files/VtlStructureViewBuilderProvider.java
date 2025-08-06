@@ -22,7 +22,6 @@ import consulo.language.Language;
 import consulo.language.editor.structureView.PsiStructureViewFactory;
 import consulo.language.editor.structureView.TemplateLanguageStructureViewBuilder;
 import consulo.language.psi.PsiFile;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -30,19 +29,16 @@ import jakarta.annotation.Nullable;
  * @author Alexey Chmutov
  */
 @ExtensionImpl
-public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory
-{
-	@Override
-	@Nullable
-	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
-	{
-		return TemplateLanguageStructureViewBuilder.create(psiFile, (psiFile1, editor) -> new VtlStructureViewModel((VtlFile) psiFile));
-	}
+public class VtlStructureViewBuilderProvider implements PsiStructureViewFactory {
+    @Override
+    @Nullable
+    public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
+        return TemplateLanguageStructureViewBuilder.create(psiFile, (it, editor) -> new VtlStructureViewModel(editor, (VtlFile) psiFile));
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return VtlLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return VtlLanguage.INSTANCE;
+    }
 }

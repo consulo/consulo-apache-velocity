@@ -16,18 +16,18 @@
 
 package com.intellij.velocity.psi.files;
 
+import com.intellij.velocity.psi.directives.VtlDirective;
+import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
+import consulo.codeEditor.Editor;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.language.editor.structureView.PsiTreeElementBase;
+import consulo.language.editor.structureView.TextEditorBasedStructureViewModel;
+import jakarta.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import jakarta.annotation.Nonnull;
-import consulo.fileEditor.structureView.StructureViewTreeElement;
-import consulo.language.editor.structureView.TextEditorBasedStructureViewModel;
-import consulo.language.editor.structureView.PsiTreeElementBase;
-import consulo.language.psi.PsiFile;
-import com.intellij.velocity.psi.directives.VtlDirective;
-import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
 
 /**
  * @author Alexey Chmutov
@@ -35,15 +35,12 @@ import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
 public class VtlStructureViewModel extends TextEditorBasedStructureViewModel {
     private final VtlFile myFile;
 
-    public VtlStructureViewModel(final VtlFile file) {
-        super(file);
+    public VtlStructureViewModel(Editor editor, final VtlFile file) {
+        super(editor, file);
         myFile = file;
     }
 
-    protected PsiFile getPsiFile() {
-        return myFile;
-    }
-
+    @Override
     @Nonnull
     public StructureViewTreeElement getRoot() {
         return new VtlTreeElementWrapper(myFile);

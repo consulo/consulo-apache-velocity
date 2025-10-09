@@ -17,6 +17,7 @@
 package com.intellij.velocity.inspections;
 
 import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.directives.VtlSet;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.apache.velocity.localize.VelocityLocalize;
@@ -50,10 +51,9 @@ public class VtlDirectiveArgsInspection extends VtlInspectionBase {
     }
 
     @Override
-    @Nls
     @Nonnull
-    public String getDisplayName() {
-        return message("vtl.directive.args.inspection");
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlDirectiveArgsInspection();
     }
 
     @Override

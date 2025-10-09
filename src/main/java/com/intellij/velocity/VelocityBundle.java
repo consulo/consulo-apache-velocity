@@ -15,6 +15,8 @@
  */
 package com.intellij.velocity;
 
+import consulo.annotation.internal.MigratedExtensionsTo;
+import consulo.apache.velocity.localize.VelocityLocalize;
 import consulo.application.CommonBundle;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.PropertyKey;
@@ -26,6 +28,7 @@ import java.util.ResourceBundle;
 /**
  * @author Alexey Chmutov
  */
+@MigratedExtensionsTo(VelocityLocalize.class)
 public class VelocityBundle {
     private static Reference<ResourceBundle> ourBundle;
 

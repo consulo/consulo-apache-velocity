@@ -15,7 +15,6 @@
  */
 package com.intellij.velocity.inspections.wellformedness;
 
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.inspections.VtlInspectionBase;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlParameterDeclaration;
@@ -28,7 +27,6 @@ import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import consulo.language.psi.PsiElement;
 import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.Nls;
 
 /**
  * @author Alexey Chmutov
@@ -54,7 +52,7 @@ public class VtlInterpolationsInspection extends VtlInspectionBase {
     }
 
     private static void registerFormalNotationProblem(PsiElement element, ProblemsHolder holder) {
-        holder.registerProblem(element, VelocityBundle.message("vtl.formal.notation.is.not.allowed"),
+        holder.registerProblem(element, VelocityLocalize.vtlFormalNotationIsNotAllowed().get(),
             ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
     }
 
@@ -65,10 +63,9 @@ public class VtlInterpolationsInspection extends VtlInspectionBase {
     }
 
     @Override
-    @Nls
     @Nonnull
-    public String getDisplayName() {
-        return VelocityBundle.message("vtl.welformedness.inspection");
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlWelformednessInspection();
     }
 
     @Override

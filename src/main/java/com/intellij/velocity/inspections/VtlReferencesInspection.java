@@ -15,7 +15,6 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.files.VtlFile;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
 import consulo.annotation.component.ExtensionImpl;
@@ -26,7 +25,6 @@ import consulo.language.psi.PsiFile;
 import consulo.language.psi.ResolveResult;
 import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.Nls;
 
 import static consulo.language.editor.inspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
 import static consulo.language.editor.inspection.ProblemHighlightType.LIKE_UNKNOWN_SYMBOL;
@@ -60,10 +58,9 @@ public class VtlReferencesInspection extends VtlInspectionBase {
     }
 
     @Override
-    @Nls
     @Nonnull
-    public String getDisplayName() {
-        return VelocityBundle.message("vtl.references.inspection");
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlReferencesInspection();
     }
 
     @Override

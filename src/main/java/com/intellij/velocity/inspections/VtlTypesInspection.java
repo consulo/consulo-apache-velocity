@@ -17,6 +17,7 @@
 package com.intellij.velocity.inspections;
 
 import com.intellij.java.language.psi.PsiType;
+import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLoopVariable;
@@ -27,7 +28,6 @@ import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.PsiElement;
 import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.Nls;
 
 import static com.intellij.velocity.VelocityBundle.message;
 import static consulo.language.editor.inspection.ProblemHighlightType.GENERIC_ERROR_OR_WARNING;
@@ -71,10 +71,9 @@ public class VtlTypesInspection extends VtlInspectionBase {
     }
 
     @Override
-    @Nls
     @Nonnull
-    public String getDisplayName() {
-        return message("vtl.types.inspection");
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlTypesInspection();
     }
 
     @Override

@@ -22,54 +22,48 @@ import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
-import org.jetbrains.annotations.Nls;
-
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
-public abstract class VtlInspectionBase extends LocalInspectionTool
-{
+public abstract class VtlInspectionBase extends LocalInspectionTool {
 
-	@Nonnull
-	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, final boolean isOnTheFly)
-	{
-		return new consulo.language.psi.PsiElementVisitor()
-		{
-			public void visitElement(final PsiElement element)
-			{
-				registerProblems(element, holder);
-			}
-		};
-	}
+    @Override
+    @Nonnull
+    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, final boolean isOnTheFly) {
+        return new consulo.language.psi.PsiElementVisitor() {
+            @Override
+            public void visitElement(final PsiElement element) {
+                registerProblems(element, holder);
+            }
+        };
+    }
 
-	protected abstract void registerProblems(consulo.language.psi.PsiElement element, ProblemsHolder holder);
+    protected abstract void registerProblems(consulo.language.psi.PsiElement element, ProblemsHolder holder);
 
-	@Nls
-	@Nonnull
-	public String getGroupDisplayName()
-	{
-		return "";
-	}
+    @Override
+    @Nonnull
+    public LocalizeValue getGroupDisplayName() {
+        return LocalizeValue.of();
+    }
 
-	@Nullable
-	@Override
-	public Language getLanguage()
-	{
-		return VtlLanguage.INSTANCE;
-	}
+    @Nullable
+    @Override
+    public Language getLanguage() {
+        return VtlLanguage.INSTANCE;
+    }
 
-	@Nonnull
-	public HighlightDisplayLevel getDefaultLevel()
-	{
-		return HighlightDisplayLevel.WARNING;
-	}
+    @Override
+    @Nonnull
+    public HighlightDisplayLevel getDefaultLevel() {
+        return HighlightDisplayLevel.WARNING;
+    }
 
-	public boolean isEnabledByDefault()
-	{
-		return true;
-	}
-
+    @Override
+    public boolean isEnabledByDefault() {
+        return true;
+    }
 }

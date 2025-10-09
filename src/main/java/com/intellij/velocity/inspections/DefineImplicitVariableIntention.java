@@ -15,24 +15,24 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.directives.VtlMacroCall;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.apache.velocity.localize.VelocityLocalize;
 import consulo.language.editor.template.Expression;
 import consulo.language.editor.template.Template;
 import consulo.language.editor.template.macro.CompleteSmartMacro;
 import consulo.language.editor.template.macro.MacroCallNode;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
-
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
 public abstract class DefineImplicitVariableIntention extends DefineInCommentIntention {
-    public DefineImplicitVariableIntention(@Nonnull String text) {
-        super(text, VelocityBundle.message("add.implicit.variable.fix.name"));
+    public DefineImplicitVariableIntention(@Nonnull LocalizeValue text) {
+        super(text, VelocityLocalize.addImplicitVariableFixName());
     }
 
     protected void prepareTemplate(@Nonnull Template template, @Nonnull final PsiElement element, String relativePath, @Nonnull PsiFile fileToInsertComment) {

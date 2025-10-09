@@ -15,7 +15,6 @@
  */
 package com.intellij.velocity.inspections;
 
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.VtlLiteralExpressionType;
@@ -73,10 +72,9 @@ public class VtlFileReferencesInspection extends VtlInspectionBase {
     }
 
     @Override
-    @Nls
     @Nonnull
-    public String getDisplayName() {
-        return VelocityBundle.message("vtl.file.references.inspection");
+    public LocalizeValue getDisplayName() {
+        return VelocityLocalize.vtlFileReferencesInspection();
     }
 
     @Override

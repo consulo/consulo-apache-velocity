@@ -47,7 +47,7 @@ public abstract class VtlInspectionBase extends LocalInspectionTool {
     @Override
     @Nonnull
     public LocalizeValue getGroupDisplayName() {
-        return LocalizeValue.of();
+        return LocalizeValue.empty();
     }
 
     @Nullable

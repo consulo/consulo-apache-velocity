@@ -15,24 +15,19 @@
  */
 package com.intellij.velocity.psi;
 
-import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.BOOLEAN_CALCULATOR;
-import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.MINUS_CALCULATOR;
-import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.MULTIPLICATIVE_CALCULATOR;
-import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.PLUS_CALCULATOR;
-
-import consulo.language.ast.StandardTokenTypes;
-import consulo.language.ast.TokenType;
-import consulo.language.parser.PsiBuilder;
-import consulo.language.ast.IElementType;
-import consulo.language.ast.TokenSet;
 import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.parsers.*;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.StandardTokenTypes;
+import consulo.language.ast.TokenSet;
+import consulo.language.parser.PsiBuilder;
+
+import static com.intellij.velocity.psi.VtlExpressionTypeCalculator.*;
 
 /**
  * @author Alexey Chmutov
  */
 public interface VtlElementTypes extends StandardTokenTypes, VtlCompositeElementTypes {
-
     consulo.language.ast.IElementType DOLLAR = new IElementType("DOLLAR", VtlLanguage.INSTANCE);
     consulo.language.ast.IElementType SHARP = new IElementType("SHARP", VtlLanguage.INSTANCE);
 
@@ -43,6 +38,7 @@ public interface VtlElementTypes extends StandardTokenTypes, VtlCompositeElement
     VtlTokenType SHARP_END = new VtlTokenType("#END");
     VtlTokenType SHARP_FOREACH = new VtlCompositeStarterTokenType("#FOREACH", ForeachDirectiveBodyParser.INSTANCE);
     VtlTokenType SHARP_BREAK = new VtlCompositeStarterTokenType("#BREAK", new CompositeBodyParser() {
+        @Override
         public void parseBody(PsiBuilder builder, PsiBuilder.Marker bodyMarker) {
             bodyMarker.done(DIRECTIVE_BREAK);
         }
@@ -134,9 +130,27 @@ public interface VtlElementTypes extends StandardTokenTypes, VtlCompositeElement
 
     consulo.language.ast.TokenSet UNARY_OPERATIONS = consulo.language.ast.TokenSet.create(EXCLAIM, MINUS);
 
-    consulo.language.ast.TokenSet OPERATIONS = TokenSet.orSet(LOGICAL_OPERATIONS, RELATIONAL_OPERATIONS, ADDITIVE_OPERATIONS, LOGICAL_OPERATIONS, MULTIPLICATIVE_OPERATIONS, UNARY_OPERATIONS);
+    consulo.language.ast.TokenSet OPERATIONS = TokenSet.orSet(
+        LOGICAL_OPERATIONS,
+        RELATIONAL_OPERATIONS,
+        ADDITIVE_OPERATIONS,
+        LOGICAL_OPERATIONS,
+        MULTIPLICATIVE_OPERATIONS,
+        UNARY_OPERATIONS
+    );
 
-    consulo.language.ast.TokenSet DIR_STARTERS = TokenSet.create(SHARP_SET, SHARP_IF, SHARP_FOREACH, SHARP_ELSEIF, SHARP_INCLUDE, SHARP_MACRODECL, SHARP_PARSE, SHARP_LITERAL, SHARP_EVALUATE, SHARP_DEFINE);
+    consulo.language.ast.TokenSet DIR_STARTERS = TokenSet.create(
+        SHARP_SET,
+        SHARP_IF,
+        SHARP_FOREACH,
+        SHARP_ELSEIF,
+        SHARP_INCLUDE,
+        SHARP_MACRODECL,
+        SHARP_PARSE,
+        SHARP_LITERAL,
+        SHARP_EVALUATE,
+        SHARP_DEFINE
+    );
 
     consulo.language.ast.TokenSet COMMENTS = TokenSet.create(MULTILINE_COMMENT, ONELINE_COMMENT, DOCUMENTING_COMMENT);
 }

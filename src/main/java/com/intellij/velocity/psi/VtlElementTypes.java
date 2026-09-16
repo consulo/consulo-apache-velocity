@@ -15,7 +15,6 @@
  */
 package com.intellij.velocity.psi;
 
-import com.intellij.velocity.VelocityBundle;
 import com.intellij.velocity.psi.parsers.*;
 import consulo.language.ast.IElementType;
 import consulo.language.ast.StandardTokenTypes;
@@ -106,13 +105,13 @@ public interface VtlElementTypes extends StandardTokenTypes, VtlCompositeElement
 
     VtlTokenType BOOLEAN = new VtlTokenType("BOOLEAN");
 
-    VtlTokenType INTEGER = new VtlTokenType(VelocityBundle.message("number"));
+    VtlTokenType INTEGER = new VtlTokenType("INTEGER");
 
-    VtlTokenType DOUBLE = new VtlTokenType(VelocityBundle.message("number"));
+    VtlTokenType DOUBLE = new VtlTokenType("DOUBLE");
 
     VtlTokenType V_IDENT = new VtlTokenType("V_IDENT");
 
-    VtlTokenType IDENTIFIER = new VtlTokenType(VelocityBundle.message("identifier"));
+    VtlTokenType IDENTIFIER = new VtlTokenType("IDENTIFIER");
 
     VtlTokenType JAVA_DOT = new VtlTokenType("JAVA_DOT");
 

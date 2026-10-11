@@ -20,6 +20,8 @@ import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCallExpression;
 import static com.intellij.velocity.psi.VtlCompositeElementTypes.REFERENCE_EXPRESSION;
 
+import consulo.annotation.access.RequiredReadAction;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 import com.intellij.velocity.psi.VtlExpression;
@@ -35,24 +37,31 @@ public class VtlMacroCall extends VtlCallExpression implements VtlDirective {
     }
 
     @Nonnull
-    public String getPresentableName() {
+    @RequiredReadAction
+    public LocalizeValue getPresentableName() {
         PsiElement child = findChildByType(REFERENCE_EXPRESSION);
-        return child != null ? child.getText() : "";
+        return child != null ? LocalizeValue.of(child.getText()) : LocalizeValue.empty();
     }
 
+    @Override
+    @RequiredReadAction
     public int getFoldingStartOffset() {
-        return getNode().getTextRange().getStartOffset() + getPresentableName().length() + 1;
+        return getNode().getTextRange().getStartOffset() + getPresentableName().get().length() + 1;
     }
 
+    @Override
+    @RequiredReadAction
     public int getFoldingEndOffset() {
         return getNode().getTextRange().getEndOffset();
     }
 
+    @Override
     public boolean needsClosing() {
         return false;
     }
 
     @Nonnull
+    @RequiredReadAction
     public VtlExpression[] getArguments() {
         VtlArgumentList argList = findChildByClass(VtlArgumentList.class);
         if (argList == null) {

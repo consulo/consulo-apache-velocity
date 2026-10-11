@@ -16,6 +16,8 @@
 
 package com.intellij.velocity.psi.directives;
 
+import consulo.annotation.access.RequiredReadAction;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -30,17 +32,18 @@ import consulo.language.ast.ASTNode;
  * @author Alexey Chmutov
  */
 public class VtlParse extends VtlFileReferenceDirective {
-    public VtlParse(@Nonnull final ASTNode node) {
-        super(node, "parse");
+    public VtlParse(@Nonnull ASTNode node) {
+        super(node, LocalizeValue.localizeTODO("parse"));
     }
 
     @Nullable
+    @RequiredReadAction
     public VtlFile resolveFile() {
         VtlArgumentList argumentList = getArgumentList();
         if (argumentList == null) {
             return null;
         }
-        final PsiElement literal = argumentList.getFirstChild();
+        PsiElement literal = argumentList.getFirstChild();
         if (literal == null) {
             return null;
         }

@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.directives;
 
 import com.intellij.velocity.psi.VtlArgumentList;
 import com.intellij.velocity.psi.VtlCompositeElement;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
 
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -27,36 +28,41 @@ import jakarta.annotation.Nullable;
  * @author Alexey Chmutov
  */
 public class VtlDirectiveImpl extends VtlCompositeElement implements VtlDirective {
-
     @Nonnull
-    private final String myPresentableName;
+    private final LocalizeValue myPresentableName;
 
     private final boolean myNeedsClosing;
 
-    public VtlDirectiveImpl(@Nonnull final ASTNode node, @Nonnull String presentableName, boolean needsClosing) {
+    public VtlDirectiveImpl(@Nonnull ASTNode node, @Nonnull LocalizeValue presentableName, boolean needsClosing) {
         super(node);
         myPresentableName = presentableName;
         myNeedsClosing = needsClosing;
     }
 
     @Nonnull
-    public String getPresentableName() {
+    public LocalizeValue getPresentableName() {
         return myPresentableName;
     }
 
+    @Override
+    @RequiredReadAction
     public int getFoldingStartOffset() {
-        return getNode().getTextRange().getStartOffset() + myPresentableName.length() + 1;
+        return getNode().getTextRange().getStartOffset() + myPresentableName.get().length() + 1;
     }
 
+    @Override
+    @RequiredReadAction
     public int getFoldingEndOffset() {
         return getNode().getTextRange().getEndOffset() - (needsClosing() ? "#end".length() : 0);
     }
 
+    @Override
     public boolean needsClosing() {
         return myNeedsClosing;
     }
 
     @Nullable
+    @RequiredReadAction
     public VtlArgumentList getArgumentList() {
         return findChildByClass(VtlArgumentList.class);
     }

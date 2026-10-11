@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity;
 
 import consulo.annotation.component.ExtensionImpl;
@@ -33,37 +32,31 @@ import jakarta.annotation.Nullable;
  * @author Alexey Chmutov
  */
 @ExtensionImpl
-public class VtlBreadcrumbsInfoProvider extends StructureAwareNavBarModelExtension
-{
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return VtlLanguage.INSTANCE;
-	}
+public class VtlBreadcrumbsInfoProvider extends StructureAwareNavBarModelExtension {
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return VtlLanguage.INSTANCE;
+    }
 
-	@Override
-	protected boolean acceptParentFromModel(PsiElement psiElement)
-	{
-		return psiElement instanceof VtlDirective;
-	}
+    @Override
+    protected boolean acceptParentFromModel(PsiElement psiElement) {
+        return psiElement instanceof VtlDirective;
+    }
 
-	@Nullable
-	@Override
-	public String getPresentableText(Object o)
-	{
-		if(o instanceof VtlDirective vtlDirective)
-		{
-			return vtlDirective.getPresentableName();
-		}
-		return null;
-	}
+    @Nullable
+    @Override
+    public String getPresentableText(Object o) {
+        if (o instanceof VtlDirective vtlDirective) {
+            return vtlDirective.getPresentableName().getNullIfEmpty();
+        }
+        return null;
+    }
 
-	@Override
-	@RequiredReadAction
-	public consulo.language.psi.PsiElement getParent(@Nonnull final consulo.language.psi.PsiElement e)
-	{
-		VtlDirective directive = PsiTreeUtil.getParentOfType(e, VtlDirective.class);
-		return directive instanceof VtlFile ? null : directive;
-	}
+    @Override
+    @RequiredReadAction
+    public PsiElement getParent(@Nonnull PsiElement e) {
+        VtlDirective directive = PsiTreeUtil.getParentOfType(e, VtlDirective.class);
+        return directive instanceof VtlFile ? null : directive;
+    }
 }

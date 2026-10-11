@@ -32,6 +32,7 @@ import consulo.language.impl.psi.RenameableFakePsiElement;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiModificationTracker;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -44,7 +45,7 @@ import java.util.Objects;
 public abstract class VtlAssignment extends VtlDirectiveImpl {
     private final NotNullLazyValue<CachedValue<AssignedVariable>> myAssignedVariable;
 
-    protected VtlAssignment(ASTNode node, @Nonnull String presentableName, boolean needsClosing) {
+    protected VtlAssignment(ASTNode node, @Nonnull LocalizeValue presentableName, boolean needsClosing) {
         super(node, presentableName, needsClosing);
         myAssignedVariable = new NotNullLazyValue<>() {
             @Nonnull
@@ -94,10 +95,10 @@ public abstract class VtlAssignment extends VtlDirectiveImpl {
     @Nonnull
     @Override
     @RequiredReadAction
-    public String getPresentableName() {
-        String dirName = super.getPresentableName();
+    public LocalizeValue getPresentableName() {
+        LocalizeValue dirName = super.getPresentableName();
         PsiElement nameElement = findChildByType(VtlElementTypes.REFERENCE_EXPRESSION);
-        return nameElement == null ? dirName : dirName + " '" + nameElement.getText() + "'";
+        return nameElement == null ? dirName : LocalizeValue.of(dirName + " '" + nameElement.getText() + "'");
     }
 
     public VtlVariable getAssignedVariable() {

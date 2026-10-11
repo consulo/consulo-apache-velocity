@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.directives;
 
 import consulo.language.ast.ASTNode;
 
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlFileReferenceDirective extends VtlDirectiveImpl {
-
-    public VtlFileReferenceDirective(@Nonnull final ASTNode node, @Nonnull String presentableName) {
+    public VtlFileReferenceDirective(@Nonnull ASTNode node, @Nonnull LocalizeValue presentableName) {
         super(node, presentableName, false);
     }
 }

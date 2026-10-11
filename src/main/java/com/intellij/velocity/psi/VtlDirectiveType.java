@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi;
 
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 import consulo.language.ast.ASTNode;
@@ -23,24 +23,23 @@ import consulo.language.psi.PsiElement;
 import com.intellij.velocity.psi.directives.VtlDirectiveImpl;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Alexey Chmutov
- * Date: 29.04.2008
+ * @author Alexey Chmutov
+ * @since 2008-04-29
  */
 public class VtlDirectiveType extends VtlCompositeElementType {
-    private final String myPresentableName;
+    private final LocalizeValue myPresentableName;
 
     private final boolean myNeedsClosing;
 
-    public VtlDirectiveType(@Nonnull final String debugName, @Nonnull final String presentableName, boolean needsClosing) {
+    public VtlDirectiveType(@Nonnull String debugName, @Nonnull LocalizeValue presentableName, boolean needsClosing) {
         super(debugName);
         myPresentableName = presentableName;
         myNeedsClosing = needsClosing;
     }
 
-    public VtlDirectiveType(@Nonnull final String debugName) {
+    public VtlDirectiveType(@Nonnull String debugName) {
         super(debugName);
-        myPresentableName = null;
+        myPresentableName = LocalizeValue.empty();
         myNeedsClosing = false;
     }
 
@@ -48,5 +47,4 @@ public class VtlDirectiveType extends VtlCompositeElementType {
     public PsiElement createPsiElement(ASTNode node) {
         return new VtlDirectiveImpl(node, myPresentableName, myNeedsClosing);
     }
-
 }

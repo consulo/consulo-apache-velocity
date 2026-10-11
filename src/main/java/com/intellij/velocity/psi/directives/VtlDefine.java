@@ -19,21 +19,19 @@ import com.intellij.java.language.psi.CommonClassNames;
 import com.intellij.java.language.psi.JavaPsiFacade;
 import com.intellij.java.language.psi.PsiType;
 import consulo.language.ast.ASTNode;
+import consulo.localize.LocalizeValue;
 
 /**
  * @author Alexey Chmutov
  */
-public class VtlDefine extends VtlAssignment
-{
-	public VtlDefine(final ASTNode node)
-	{
-		super(node, "define", true);
-	}
+public class VtlDefine extends VtlAssignment {
+    public VtlDefine(ASTNode node) {
+        super(node, LocalizeValue.localizeTODO("define"), true);
+    }
 
-	@Override
-	public PsiType getAssignedVariableElementType()
-	{
-		return JavaPsiFacade.getInstance(getProject()).getElementFactory().createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING,
-				getResolveScope());
-	}
+    @Override
+    public PsiType getAssignedVariableElementType() {
+        return JavaPsiFacade.getInstance(getProject()).getElementFactory()
+            .createTypeByFQClassName(CommonClassNames.JAVA_LANG_STRING, getResolveScope());
+    }
 }

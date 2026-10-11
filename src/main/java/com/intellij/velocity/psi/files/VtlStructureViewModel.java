@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.files;
 
 import com.intellij.velocity.psi.directives.VtlDirective;
 import com.intellij.velocity.psi.directives.VtlDirectiveHolder;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.codeEditor.Editor;
 import consulo.fileEditor.structureView.StructureViewTreeElement;
 import consulo.language.editor.structureView.PsiTreeElementBase;
 import consulo.language.editor.structureView.TextEditorBasedStructureViewModel;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.List;
 public class VtlStructureViewModel extends TextEditorBasedStructureViewModel {
     private final VtlFile myFile;
 
-    public VtlStructureViewModel(Editor editor, final VtlFile file) {
+    public VtlStructureViewModel(Editor editor, VtlFile file) {
         super(editor, file);
         myFile = file;
     }
@@ -47,29 +48,31 @@ public class VtlStructureViewModel extends TextEditorBasedStructureViewModel {
     }
 
     private static class VtlTreeElementWrapper extends PsiTreeElementBase<VtlDirectiveHolder> {
-
-        public VtlTreeElementWrapper(final VtlDirectiveHolder element) {
+        public VtlTreeElementWrapper(VtlDirectiveHolder element) {
             super(element);
         }
 
         @Nonnull
+        @Override
+        @RequiredReadAction
         public Collection<StructureViewTreeElement> getChildrenBase() {
-            final VtlDirectiveHolder element = getElement();
+            VtlDirectiveHolder element = getElement();
             if (element == null) {
                 return Collections.emptyList();
             }
 
-            List<StructureViewTreeElement> result = new ArrayList<StructureViewTreeElement>();
-            for (final VtlDirective child : element.getDirectiveChildren()) {
+            List<StructureViewTreeElement> result = new ArrayList<>();
+            for (VtlDirective child : element.getDirectiveChildren()) {
                 result.add(new VtlTreeElementWrapper(child));
             }
             return result;
         }
 
-        public String getPresentableText() {
-            final VtlDirectiveHolder element = getElement();
-            return element == null ? "" : element.getPresentableName();
+        @Override
+        @RequiredReadAction
+        public LocalizeValue getPresentableText() {
+            VtlDirectiveHolder element = getElement();
+            return element == null ? LocalizeValue.empty() : element.getPresentableName();
         }
-
     }
 }

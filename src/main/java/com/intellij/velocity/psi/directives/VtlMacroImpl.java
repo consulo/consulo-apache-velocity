@@ -18,6 +18,7 @@ package com.intellij.velocity.psi.directives;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.apache.velocity.icon.VelocityIconGroup;
 import consulo.apache.velocity.localize.VelocityLocalize;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -74,8 +75,8 @@ public class VtlMacroImpl extends VtlPresentableNamedElement implements VtlDirec
 
     @Nonnull
     @Override
-    public String getPresentableName() {
-        return "macro '" + getName() + "'";
+    public LocalizeValue getPresentableName() {
+        return LocalizeValue.localizeTODO("macro '" + getName() + "'");
     }
 
     @Nonnull

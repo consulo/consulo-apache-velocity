@@ -19,31 +19,32 @@ import com.intellij.java.language.psi.PsiType;
 import com.intellij.velocity.psi.PsiUtil;
 import com.intellij.velocity.psi.VtlExpression;
 import com.intellij.velocity.psi.reference.VtlReferenceExpression;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
 
-import jakarta.annotation.Nullable;
+import consulo.localize.LocalizeValue;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author Alexey Chmutov
  */
 public class VtlSet extends VtlAssignment {
-
-    public VtlSet(final ASTNode node) {
-        super(node, "set", false);
+    public VtlSet(ASTNode node) {
+        super(node, LocalizeValue.localizeTODO("set"), false);
     }
 
     @Override
-    @Nullable
-    public PsiType getAssignedVariableElementType() {
-        final VtlReferenceExpression element = getAssignedVariableElement();
+    @RequiredReadAction
+    public @Nullable PsiType getAssignedVariableElementType() {
+        VtlReferenceExpression element = getAssignedVariableElement();
         if(element == null) {
             return null;
         }
         PsiElement wouldBeRhsExpression = element.getNextSibling();
         while (wouldBeRhsExpression != null) {
-            if (wouldBeRhsExpression instanceof VtlExpression) {
-                return PsiUtil.getBoxedType(((VtlExpression) wouldBeRhsExpression).getPsiType(), this);
+            if (wouldBeRhsExpression instanceof VtlExpression expr) {
+                return PsiUtil.getBoxedType(expr.getPsiType(), this);
             }
             wouldBeRhsExpression = wouldBeRhsExpression.getNextSibling();
         }

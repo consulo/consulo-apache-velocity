@@ -33,6 +33,7 @@ import consulo.language.psi.resolve.PsiScopeProcessor;
 import consulo.language.psi.resolve.ResolveState;
 import consulo.language.psi.search.ReferencesSearch;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -47,7 +48,7 @@ public class VtlForeach extends VtlDirectiveImpl {
     private FixedNameReferenceElement velocityHasNextElement = null;
 
     public VtlForeach(ASTNode node) {
-        super(node, "foreach", true);
+        super(node, LocalizeValue.localizeTODO("foreach"), true);
     }
 
     @Override

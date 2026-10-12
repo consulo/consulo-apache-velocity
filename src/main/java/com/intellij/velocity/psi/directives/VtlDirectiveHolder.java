@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.intellij.velocity.psi.directives;
 
 import consulo.language.psi.PsiElement;
 
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Alexey Chmutov
- * Date: 29.04.2008
+ * @author Alexey Chmutov
+ * @since 2008-04-29
  */
-public interface VtlDirectiveHolder extends PsiElement
-{
+public interface VtlDirectiveHolder extends PsiElement {
     @Nonnull
     VtlDirective[] getDirectiveChildren();
 
     @Nonnull
-    String getPresentableName();
+    LocalizeValue getPresentableName();
 }
